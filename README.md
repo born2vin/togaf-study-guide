@@ -32,6 +32,14 @@ A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation an
 | 24 | Practitioner Scenarios II (Phases E–H) | Coming soon |
 | 25 | Final Mock Exam | Coming soon |
 
+## Part 1 (Foundation) mock exams
+
+Three full-length mock exams in the real exam format: 40 questions, 60 minutes, 60% to pass.
+
+- [Part 1 Mock Exam 1: Warm-up](TOGAF_Part1_Mock_Exam_1_Warmup.html) (Level 1 · Warm-up)
+- [Part 1 Mock Exam 2: Exam Standard](TOGAF_Part1_Mock_Exam_2_Standard.html) (Level 2 · Exam standard)
+- [Part 1 Mock Exam 3: Challenging](TOGAF_Part1_Mock_Exam_3_Challenging.html) (Level 3 · Challenging)
+
 ## How the site is built
 
 Every page shares one template, so the design stays identical across all days.

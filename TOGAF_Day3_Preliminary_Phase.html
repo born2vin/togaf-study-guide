@@ -184,6 +184,22 @@ label.is-wrong { background: var(--bad-soft) !important; border: 2px solid var(-
 .verdict { font: 800 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; display: block; margin-bottom: 6px; }
 .q.correct .verdict { color: var(--ok); } .q.wrong .verdict { color: var(--bad); }
 
+#answered { font: 600 14px/1 var(--sans); color: var(--muted); }
+#breakdown { margin: 8px 0 24px; }
+#breakdown h3 { margin-top: 12px; }
+#breakdown .bar { display: block; height: 8px; background: var(--rule); min-width: 80px; }
+#breakdown .bar i { display: block; height: 100%; background: var(--ink); }
+#breakdown td.ok { color: var(--ok); font-weight: 700; }
+#breakdown td.weak { color: var(--bad); font-weight: 700; }
+
+/* ---------- Exam facts strip ---------- */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 2px; background: var(--ink); border: 2px solid var(--ink); margin: 22px 0; font-family: var(--sans); }
+.facts div { background: var(--paper); padding: 14px; }
+.facts b { display: block; font: 900 28px/1 var(--sans); color: var(--red); letter-spacing: -.02em; }
+.facts span { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.level { display: inline-block; font: 800 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 6px 10px; background: var(--ink); color: var(--paper); margin-top: 10px; }
+.tile .lvl { font: 800 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+
 /* ---------- Prev / next ---------- */
 .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; font-family: var(--sans); }
 .pager a { display: block; border-top: 4px solid var(--ink); padding: 12px 0; text-decoration: none; }
@@ -460,8 +476,11 @@ const QUESTIONS = [
     r: "Principles are <b>established in the Preliminary Phase</b>, then <b>confirmed and elaborated in Phase A</b> for the specific architecture project, including any business principles. The other pairings do not match the ADM." }
 ];
 // Shared quiz engine. Expects a global QUESTIONS array:
-// { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML }
+// { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML, t: optional topic }
+// Optional globals: QUIZ_MINUTES (default 20). If questions carry a topic (t),
+// a per-topic score breakdown is shown after grading.
 (function () {
+  const MINUTES = window.QUIZ_MINUTES || 20;
   const container = document.getElementById("questions");
   const letters = "ABCDEF";
   const lettered = item => item.o.length > 2;
@@ -480,7 +499,14 @@ const QUESTIONS = [
     container.appendChild(div);
   });
 
-  let seconds = 1200, timerId = null;
+  const answeredEl = document.getElementById("answered");
+  function countAnswered() {
+    if (answeredEl) answeredEl.textContent = `${document.querySelectorAll(".q input:checked").length} / ${QUESTIONS.length} answered`;
+  }
+  container.addEventListener("change", countAnswered);
+  countAnswered();
+
+  let seconds = MINUTES * 60, timerId = null;
   const timerEl = document.getElementById("timer");
   const startBtn = document.getElementById("startBtn");
   function renderTime() {
@@ -489,7 +515,7 @@ const QUESTIONS = [
     timerEl.textContent = `${m}:${s}`;
     timerEl.classList.toggle("low", seconds <= 120);
   }
-  function stop() { if (timerId) { clearInterval(timerId); timerId = null; } startBtn.textContent = "Start 20-min timer"; }
+  function stop() { if (timerId) { clearInterval(timerId); timerId = null; } startBtn.textContent = `Start ${MINUTES}-min timer`; }
   startBtn.onclick = () => {
     if (timerId) return;
     startBtn.textContent = "Timer running…";
@@ -522,17 +548,34 @@ const QUESTIONS = [
     const pct = Math.round(score / QUESTIONS.length * 100);
     const el = document.getElementById("score");
     el.textContent = `You scored ${score} / ${QUESTIONS.length} (${pct}%) — ${pct >= 60 ? "Pass" : "Below the 60% pass mark"}`;
+    const bd = document.getElementById("breakdown");
+    if (bd && QUESTIONS.some(q => q.t)) {
+      const topics = {};
+      QUESTIONS.forEach((item, i) => {
+        const t = item.t || "Other"; topics[t] = topics[t] || [0, 0]; topics[t][1]++;
+        if (document.getElementById("q" + i).classList.contains("correct")) topics[t][0]++;
+      });
+      let rows = "";
+      Object.entries(topics).forEach(([t, [c, n]]) => {
+        const p = Math.round(c / n * 100);
+        rows += `<tr><td>${t}</td><td>${c} / ${n}</td><td><span class="bar"><i style="width:${p}%"></i></span></td><td class="${p >= 60 ? "ok" : "weak"}">${p >= 60 ? "OK" : "Revise"}</td></tr>`;
+      });
+      bd.innerHTML = `<h3>Your score by topic</h3><div class="table-wrap"><table><tr><th>Topic</th><th>Score</th><th></th><th></th></tr>${rows}</table></div>`;
+      bd.hidden = false;
+    }
     el.scrollIntoView({ behavior: "smooth", block: "center" });
   }
   document.getElementById("submitBtn").onclick = grade;
   document.getElementById("resetBtn").onclick = () => {
-    stop(); seconds = 1200; renderTime();
+    stop(); seconds = MINUTES * 60; renderTime();
     document.querySelectorAll(".q input[type=radio]").forEach(r => r.checked = false);
     document.querySelectorAll(".q").forEach(d => {
       d.classList.remove("show", "correct", "wrong");
       d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong"));
     });
     document.getElementById("score").textContent = "";
+    const bd = document.getElementById("breakdown"); if (bd) { bd.hidden = true; bd.innerHTML = ""; }
+    countAnswered();
     document.getElementById("quiz").scrollIntoView({ behavior: "smooth" });
   };
 })();

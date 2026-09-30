@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Part 1 Mock Exam 1: Warm-up · TOGAF Explained</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   TOGAF Explained — shared template
+   Vox-style explainer layout · Société Générale-inspired palette (red/black)
+   Edit this file to change the look of every day at once, then run build.py.
+   ========================================================================== */
+:root {
+  --red: #e60028;          /* primary accent */
+  --red-dark: #b8001f;
+  --ink: #111111;          /* headlines, masthead */
+  --text: #222222;
+  --muted: #666666;
+  --rule: #e3e3e3;
+  --paper: #ffffff;
+  --wash: #f6f6f4;         /* soft panels */
+  --mark: rgba(230, 0, 40, 0.16);   /* highlighter */
+  --ok: #1f7a4a; --ok-soft: #e8f4ed;
+  --bad: #c4001f; --bad-soft: #fde9ec;
+  --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --red: #ff4d5e; --red-dark: #ff7a86;
+    --ink: #f3f3f3; --text: #e2e2e2; --muted: #a3a3a3;
+    --rule: #333333; --paper: #141414; --wash: #1d1d1d;
+    --mark: rgba(255, 77, 94, 0.26);
+    --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+  }
+}
+:root[data-theme="dark"] {
+  --red: #ff4d5e; --red-dark: #ff7a86;
+  --ink: #f3f3f3; --text: #e2e2e2; --muted: #a3a3a3;
+  --rule: #333333; --paper: #141414; --wash: #1d1d1d;
+  --mark: rgba(255, 77, 94, 0.26);
+  --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--text);
+  font: 19px/1.65 var(--serif); }
+a { color: inherit; }
+
+/* ---------- Masthead ---------- */
+.masthead { background: #000; color: #fff; border-top: 6px solid var(--red); }
+.masthead .in { max-width: 1080px; margin: 0 auto; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font: 900 20px/1 var(--sans); letter-spacing: -.02em; text-decoration: none; color: #fff; }
+.brand span { color: var(--red); }
+.masthead .sect { font: 700 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #bbb; text-decoration: none; }
+.masthead .sect:hover { color: #fff; }
+
+/* ---------- Article header ---------- */
+.hero { max-width: 1080px; margin: 0 auto; padding: 40px 16px 8px; }
+.kicker { font: 800 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.hero h1 { font: 900 clamp(34px, 6vw, 60px)/1.02 var(--sans); letter-spacing: -.035em;
+  color: var(--ink); margin: 14px 0 16px; max-width: 900px; }
+.dek { font: 400 clamp(19px, 2.4vw, 23px)/1.45 var(--serif); color: var(--muted); max-width: 760px; margin: 0; }
+.byline { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--rule);
+  font: 500 13px/1.4 var(--sans); color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.byline b { color: var(--ink); }
+.progress { height: 4px; background: var(--rule); margin-top: 14px; max-width: 760px; }
+.progress i { display: block; height: 100%; background: var(--red); }
+
+/* ---------- Layout ---------- */
+.layout { max-width: 1080px; margin: 0 auto; padding: 24px 16px 64px;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+@media (min-width: 980px) { .layout { grid-template-columns: 240px minmax(0, 680px); } }
+article { min-width: 0; }
+
+/* Table of contents — "In this explainer" */
+.toc { font-family: var(--sans); }
+.toc h4 { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  margin: 0 0 12px; color: var(--ink); border-top: 4px solid var(--ink); padding-top: 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+.toc li { counter-increment: t; border-bottom: 1px solid var(--rule); }
+.toc a { display: flex; gap: 10px; padding: 9px 0; text-decoration: none; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--text); }
+.toc a::before { content: counter(t, decimal-leading-zero); color: var(--red); font-weight: 800; }
+.toc a:hover { color: var(--red); }
+@media (min-width: 980px) { .toc { position: sticky; top: 16px; align-self: start; } }
+@media (max-width: 979px) {
+  .toc details { border-top: 4px solid var(--ink); border-bottom: 1px solid var(--rule); }
+  .toc h4 { border: 0; padding: 12px 0; margin: 0; cursor: pointer; }
+}
+
+/* ---------- Body typography ---------- */
+article > p, article li { color: var(--text); }
+article p { margin: 0 0 1.1em; }
+article b, article strong { font-weight: 700; color: var(--ink); }
+ul, ol { padding-left: 1.3em; }
+li { margin: .3em 0; }
+li::marker { color: var(--red); font-weight: 700; }
+
+article h2 { font: 900 clamp(26px, 3.6vw, 34px)/1.12 var(--sans); letter-spacing: -.025em;
+  color: var(--ink); margin: 56px 0 18px; scroll-margin-top: 16px; }
+article h2 .num { display: block; font: 800 14px/1 var(--sans); letter-spacing: .14em; color: var(--red); margin-bottom: 10px; }
+article h3 { font: 800 21px/1.25 var(--sans); letter-spacing: -.01em; color: var(--ink); margin: 34px 0 12px; }
+
+/* Highlighter: key phrases in definitions */
+.def b, mark { background: linear-gradient(transparent 58%, var(--mark) 58%); padding: 0 .08em; color: var(--ink); }
+
+/* ---------- Explainer cards ---------- */
+.card { background: var(--wash); padding: 20px 22px; margin: 22px 0; border-radius: 0; }
+.card > :last-child { margin-bottom: 0; }
+.card.def { background: transparent; border-left: 6px solid var(--red); padding: 4px 0 4px 20px;
+  font: 400 21px/1.55 var(--serif); color: var(--ink); }
+.card.tip { background: var(--paper); border: 2px solid var(--ink); position: relative; padding-top: 30px; font-size: 17px; }
+.card.tip::before { content: "Tip"; position: absolute; top: -12px; left: 16px; background: var(--ink); color: var(--paper);
+  font: 800 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 6px 10px; }
+.card.tip.trap { border-color: var(--red); }
+.card.tip.trap::before { content: "Exam trap"; background: var(--red); color: #fff; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; margin: 22px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font: 15px/1.5 var(--sans); }
+th { background: var(--ink); color: var(--paper); text-align: left; font-weight: 700; padding: 10px 12px; font-size: 13px; letter-spacing: .03em; }
+td { border-bottom: 1px solid var(--rule); padding: 11px 12px; vertical-align: top; }
+td b { color: var(--ink); }
+tr:nth-child(even) td { background: var(--wash); }
+td ul { margin: 0; padding-left: 1.1em; }
+
+/* ---------- Flow chains (vertical explainer flow) ---------- */
+.chain { display: flex; flex-direction: column; align-items: stretch; gap: 0; margin: 26px 0; font-family: var(--sans); max-width: 460px; }
+.chain .box { background: var(--paper); border: 2px solid var(--ink); padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.chain .box b { font-size: 16px; line-height: 1.25; color: var(--ink); }
+.chain .box small { color: var(--muted); font-size: 14px; }
+.chain .arrow { align-self: flex-start; margin-left: 22px; padding: 6px 0 6px 14px; border-left: 2px solid var(--red);
+  font: 800 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+
+/* ---------- ADM grid (Day 1) ---------- */
+.adm { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 2px; background: var(--rule);
+  border: 2px solid var(--ink); margin: 22px 0; font: 14px/1.45 var(--sans); }
+.adm div { background: var(--paper); padding: 12px; }
+.adm b { display: block; color: var(--ink); font-size: 15px; margin-bottom: 4px; }
+.adm .center { background: var(--red); color: #fff; }
+.adm .center b { color: #fff; }
+
+/* ---------- Takeaway ---------- */
+#summary { border-top: 6px solid var(--red); padding-top: 18px; }
+#summary + .card { background: var(--ink); color: var(--paper); padding: 24px 26px; }
+#summary + .card b, #summary + .card li, #summary + .card p { color: var(--paper); }
+#summary + .card li::marker { color: var(--red); }
+
+/* ---------- Quiz ---------- */
+.quiz-head { margin-top: 64px; background: var(--red); color: #fff; padding: 26px 24px; font-family: var(--sans); }
+.quiz-head .kicker { color: #fff; opacity: .85; }
+.quiz-head h2 { color: #fff; margin: 10px 0 6px; }
+.quiz-head p { margin: 0; font: 400 17px/1.5 var(--serif); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0; font-family: var(--sans); }
+.controls.sticky { position: sticky; top: 0; z-index: 5; background: var(--paper); padding: 10px 0; border-bottom: 1px solid var(--rule); margin: 0 0 8px; }
+button { font: 700 15px/1 var(--sans); padding: 13px 20px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; border-radius: 0; }
+button:hover { background: var(--red); border-color: var(--red); color: #fff; }
+button.secondary { background: transparent; color: var(--ink); }
+#timer { font: 800 22px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--ink); margin-left: auto; }
+#timer.low { color: var(--red); }
+#score { font: 800 20px/1.3 var(--sans); color: var(--ink); width: 100%; }
+
+.q { border-top: 2px solid var(--ink); padding: 18px 0 8px; margin: 26px 0 0; }
+.q .qn { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.q p.stem { font: 700 19px/1.4 var(--sans); color: var(--ink); margin: 8px 0 14px; }
+.q p.stem i { font-weight: 700; }
+.q label { display: flex; gap: 12px; align-items: flex-start; padding: 11px 14px; margin: 6px 0; border: 1px solid var(--rule);
+  cursor: pointer; font: 400 16px/1.45 var(--sans); background: var(--paper); }
+.q label:hover { border-color: var(--ink); }
+.q label .lt { font-weight: 800; color: var(--muted); min-width: 1.2em; }
+.q input { position: absolute; opacity: 0; pointer-events: none; }
+.q label:has(input:checked) { border: 2px solid var(--ink); padding: 10px 13px; }
+.q label:has(input:checked) .lt { color: var(--red); }
+.q input:focus-visible + .lt { outline: 2px solid var(--red); outline-offset: 2px; }
+label.is-answer { background: var(--ok-soft) !important; border: 2px solid var(--ok) !important; padding: 10px 13px !important; }
+label.is-wrong { background: var(--bad-soft) !important; border: 2px solid var(--bad) !important; padding: 10px 13px !important; }
+.reason { display: none; margin: 14px 0 6px; padding: 14px 16px; background: var(--wash); border-left: 4px solid var(--ink); font-size: 16px; line-height: 1.55; }
+.show .reason { display: block; }
+.q.correct .reason { border-left-color: var(--ok); }
+.q.wrong .reason { border-left-color: var(--bad); }
+.verdict { font: 800 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+.q.correct .verdict { color: var(--ok); } .q.wrong .verdict { color: var(--bad); }
+
+#answered { font: 600 14px/1 var(--sans); color: var(--muted); }
+#breakdown { margin: 8px 0 24px; }
+#breakdown h3 { margin-top: 12px; }
+#breakdown .bar { display: block; height: 8px; background: var(--rule); min-width: 80px; }
+#breakdown .bar i { display: block; height: 100%; background: var(--ink); }
+#breakdown td.ok { color: var(--ok); font-weight: 700; }
+#breakdown td.weak { color: var(--bad); font-weight: 700; }
+
+/* ---------- Exam facts strip ---------- */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 2px; background: var(--ink); border: 2px solid var(--ink); margin: 22px 0; font-family: var(--sans); }
+.facts div { background: var(--paper); padding: 14px; }
+.facts b { display: block; font: 900 28px/1 var(--sans); color: var(--red); letter-spacing: -.02em; }
+.facts span { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.level { display: inline-block; font: 800 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 6px 10px; background: var(--ink); color: var(--paper); margin-top: 10px; }
+.tile .lvl { font: 800 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+
+/* ---------- Prev / next ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; font-family: var(--sans); }
+.pager a { display: block; border-top: 4px solid var(--ink); padding: 12px 0; text-decoration: none; }
+.pager a:hover { border-color: var(--red); }
+.pager small { display: block; font: 800 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+.pager span { font-weight: 800; color: var(--ink); line-height: 1.25; }
+.pager .next { text-align: right; grid-column: 2; }
+
+footer.site { background: #000; color: #aaa; font: 13px/1.5 var(--sans); }
+footer.site .in { max-width: 1080px; margin: 0 auto; padding: 22px 16px; }
+
+/* ---------- Index page ---------- */
+.series { max-width: 1080px; margin: 0 auto; padding: 8px 16px 64px; }
+.series h2 { font: 900 24px/1.1 var(--sans); letter-spacing: -.02em; color: var(--ink); border-top: 4px solid var(--ink); padding-top: 12px; margin: 40px 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px 24px; }
+.tile { display: block; text-decoration: none; border-top: 2px solid var(--rule); padding-top: 12px; font-family: var(--sans); }
+a.tile { border-top-color: var(--ink); }
+a.tile:hover { border-top-color: var(--red); }
+a.tile:hover .t { color: var(--red); }
+.tile .n { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.tile .t { font: 800 19px/1.2 var(--sans); color: var(--ink); margin-top: 8px; letter-spacing: -.01em; }
+.tile .d { font: 400 15px/1.45 var(--serif); color: var(--muted); margin-top: 6px; }
+.tile.soon .n { color: var(--muted); }
+.tile.soon .t { color: var(--muted); }
+.tile.soon .n::after { content: " · Coming soon"; font-weight: 600; }
+
+@media print {
+  .masthead, .toc, .controls, .pager, footer.site { display: none; }
+  .reason { display: block; }
+  .layout { display: block; }
+  body { font-size: 12pt; }
+}
+
+</style>
+</head>
+<body>
+<div class="masthead"><div class="in">
+  <a class="brand" href="index.html">TOGAF<span>.</span>Explained</a>
+  <a class="sect" href="index.html">All 25 days</a>
+</div></div>
+
+<header class="hero">
+  <div class="kicker">Mock Exam 1 of 3 · TOGAF EA Foundation (Part 1)</div>
+  <h1>Part 1 Mock Exam 1: Warm-up</h1>
+  <p class="dek">40 direct questions on the core definitions and facts. Build confidence and find the gaps before the harder papers.</p>
+  <span class="level">Level 1 · Warm-up</span>
+  <div class="byline"><span><b>TOGAF Explained</b></span><span>40 questions</span><span>60 minutes</span><span>Pass mark 60%</span><span>TOGAF Standard, 10th Edition</span></div>
+</header>
+<div class="layout">
+  <aside class="toc">
+    <details open><summary style="list-style:none"><h4>In this exam</h4></summary>
+    <ol><li><a href="#about">About This Paper</a></li><li><a href="#coverage">What It Covers</a></li><li><a href="#technique">Exam Technique</a></li><li><a href="#quiz">Start the exam</a></li></ol></details>
+  </aside>
+  <article>
+    <div class="facts">
+      <div><b>40</b><span>questions</span></div>
+      <div><b>60</b><span>minutes</span></div>
+      <div><b>24</b><span>correct to pass (60%)</span></div>
+      <div><b>1</b><span>correct answer each</span></div>
+    </div>
+<h2 id="about"><span class="num">01</span>About This Paper</h2>
+<p>This paper tests <b>direct recall</b>: definitions, the purpose of each phase, and the core facts every candidate must know. Most questions have one clearly correct answer. Use it to build confidence and find the topics you have not yet memorized.</p>
+<div class="card tip">Aim for <b>80% or more</b>. Anything lower means the foundations need another pass before you try Exam 2.</div>
+<p>All three mock exams follow the real <b>TOGAF Enterprise Architecture Foundation (Part 1)</b> format: 40 simple multiple-choice questions, 60 minutes, closed book, and a pass mark of 60% (24 correct). Each paper uses different questions, so you can take <a href="TOGAF_Part1_Mock_Exam_2_Standard.html">Mock Exam 2</a> and <a href="TOGAF_Part1_Mock_Exam_3_Challenging.html">Mock Exam 3</a> as well without repeating yourself.</p>
+
+<h2 id="coverage"><span class="num">02</span>What It Covers</h2>
+<p>Every Part 1 syllabus area is covered, weighted roughly as the real exam weights them. After you submit, you'll see your score for each topic, so you know exactly what to revise.</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Topic</th><th>Qs</th><th>What is tested</th><th>Revise</th></tr>
+  <tr><td><b>Concepts &amp; Terminology</b></td><td>8</td><td>Enterprise, architecture, framework, stakeholders and concerns, views and viewpoints, deliverables, artifacts, building blocks, TOGAF 10 structure, benefits</td><td>Days 1–2</td></tr><tr><td><b>ADM Phases</b></td><td>12</td><td>Objectives, key steps, inputs and outputs of the Preliminary Phase, Phases A–H and Requirements Management</td><td>Days 3–13</td></tr><tr><td><b>ADM Techniques</b></td><td>7</td><td>Architecture Principles, stakeholder management, Business Scenarios, gap analysis, interoperability, risk, readiness, business value, capability-based planning</td><td>Days 3–5, 9–10</td></tr><tr><td><b>Applying the ADM</b></td><td>4</td><td>Iteration cycles, Baseline-first vs Target-first, architecture landscape levels, partitioning, security, agile</td><td>Days 5, 13</td></tr><tr><td><b>Architecture Content</b></td><td>4</td><td>Content framework and metamodel, ABBs and SBBs, deliverables vs artifacts, ADD vs ARS</td><td>Day 2</td></tr><tr><td><b>Enterprise Continuum &amp; Repository</b></td><td>3</td><td>Architecture and Solutions Continuum, repository components</td><td>Days 1, 8</td></tr><tr><td><b>Governance &amp; Capability</b></td><td>2</td><td>Architecture Board, governance characteristics, contracts, compliance, dispensations</td><td>Day 11</td></tr>
+</table>
+</div>
+<div class="card tip trap">Together, the three papers cover the topics and question styles that appear most often in Part 1. No mock can guarantee the exact questions you'll see, but if you understand <i>why</i> every answer here is right or wrong, you'll be well prepared for the ones you haven't seen.</div>
+
+<h2 id="technique"><span class="num">03</span>Exam Technique</h2>
+<ul>
+  <li><b>Pace yourself:</b> 60 minutes for 40 questions is 90 seconds each. Flag hard ones mentally and come back to them.</li>
+  <li><b>Read the stem twice.</b> Watch for <b>NOT</b>, <b>first</b>, <b>best</b> and <b>primarily</b>.</li>
+  <li><b>Eliminate first.</b> Distractors are often true statements about the <i>wrong phase</i>.</li>
+  <li><b>Be wary of absolutes</b> such as "always", "never", "must" and "guarantees". TOGAF rarely speaks in absolutes.</li>
+  <li><b>Answer everything.</b> There is no penalty for a wrong answer.</li>
+</ul>
+
+    <section class="quiz-head" id="quiz">
+      <div class="kicker">Exam conditions</div>
+      <h2>Start Mock Exam 1</h2>
+      <p>Closed book, 40 questions, 60 minutes. Start the timer, answer every question, then submit to see your score, a breakdown by topic, and the reasoning for every option.</p>
+    </section>
+    <div class="controls sticky">
+      <button id="startBtn">Start 60-min timer</button>
+      <span id="answered"></span>
+      <span id="timer">60:00</span>
+    </div>
+    <div id="questions"></div>
+    <div class="controls">
+      <button id="submitBtn">Submit exam</button>
+      <button class="secondary" id="resetBtn">Reset</button>
+      <span id="score"></span>
+    </div>
+    <div id="breakdown" hidden></div>
+    <nav class="pager"><a class="next" href="TOGAF_Part1_Mock_Exam_2_Standard.html"><small>Mock Exam 2 →</small><span>Level 2 · Exam standard</span></a></nav>
+  </article>
+</div>
+<script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
+<script>
+window.QUIZ_MINUTES = 60;
+const QUESTIONS = [
+  { t: "Architecture Content", q: "Which statement best describes an Architecture Building Block (ABB)?",
+    o: ["A specific vendor product","A list of applications","A signed-off deliverable","A description of required capability that is product- and vendor-neutral and guides the development of Solution Building Blocks"],
+    a: 3,
+    r: "ABBs capture <b>requirements</b> in a <b>vendor-neutral</b> way and guide SBB development. SBBs are the product-aware implementations." },
+  { t: "Concepts & Terminology", q: "\"An individual, team, organization, or class thereof, having an interest in a system.\" What is this TOGAF definition?",
+    o: ["Concern","Stakeholder","Actor","Viewpoint"],
+    a: 1,
+    r: "This is the definition of a <b>stakeholder</b>. A concern is the interest itself. An actor performs behaviour. A viewpoint is a set of conventions for a view." },
+  { t: "ADM Techniques", q: "In TOGAF, what is a \"gap\"?",
+    o: ["A missing stakeholder","A statement of difference between two states","An unapproved deliverable","A risk without mitigation"],
+    a: 1,
+    r: "A <b>gap</b> is a statement of difference between two states, usually Baseline and Target. Gap analysis is used mainly in Phases B, C and D." },
+  { t: "ADM Phases", q: "Which two architectures are developed in Phase C (Information Systems Architectures)?",
+    o: ["Data and Application","Business and Data","Application and Technology","Business and Technology"],
+    a: 0,
+    r: "Phase C covers the <b>Data</b> and <b>Application</b> Architectures, in either order or in parallel." },
+  { t: "ADM Techniques", q: "In Business Scenarios, good requirements are SMART. What does the \"M\" stand for?",
+    o: ["Manageable","Modular","Measurable","Mandatory"],
+    a: 2,
+    r: "SMART stands for <b>Specific, Measurable, Actionable, Realistic, Time-bound</b>." },
+  { t: "ADM Techniques", q: "What is the Business Transformation Readiness Assessment used for?",
+    o: ["Measuring server capacity","Evaluating and quantifying the organization's readiness to undergo change","Scoring vendor proposals","Calculating project costs"],
+    a: 1,
+    r: "It evaluates the organization's <b>readiness to change</b>, using factors such as vision, desire, need, funding, sponsorship and ability to implement. It is carried out mainly in Phase A." },
+  { t: "Applying the ADM", q: "Which ADM phases make up the Architecture Development iteration cycle?",
+    o: ["Phases B, C and D","Preliminary and Phase A","Phases E and F","Phases G and H"],
+    a: 0,
+    r: "The <b>Architecture Development</b> iteration covers <b>B, C and D</b>. Preliminary and A = Architecture Capability iteration; E and F = Transition Planning iteration; G and H = Architecture Governance iteration." },
+  { t: "ADM Phases", q: "What is the main purpose of Phase G?",
+    o: ["To provide architectural oversight of the implementation and ensure conformance with the Target Architecture","To identify stakeholders","To create the Architecture Vision","To develop the Baseline Business Architecture"],
+    a: 0,
+    r: "Phase G, <b>Implementation Governance</b>, makes sure implementation projects conform to the architecture. The other activities belong to Phases A and B." },
+  { t: "Architecture Content", q: "What is the purpose of the Architecture Content Framework?",
+    o: ["To manage project budgets","To provide a structural model for architectural content, so work products can be consistently defined, structured and presented","To list approved vendors","To replace the ADM"],
+    a: 1,
+    r: "The Architecture Content Framework provides a <b>structural model for architectural content</b>, supporting consistency across work products. It works alongside the ADM; it does not replace it." },
+  { t: "Concepts & Terminology", q: "What are the three types of artifact in TOGAF?",
+    o: ["Documents, models and plans","Baseline, target and transition","Principles, standards and guidelines","Catalogs, matrices and diagrams"],
+    a: 3,
+    r: "TOGAF artifacts are <b>catalogs</b> (lists), <b>matrices</b> (relationships) and <b>diagrams</b> (pictures). B lists architecture states, and C lists kinds of guidance." },
+  { t: "ADM Phases", q: "Which ADM phase is the first to be directly concerned with implementation?",
+    o: ["Phase C","Phase D","Phase E","Phase G"],
+    a: 2,
+    r: "<b>Phase E</b> is the first phase directly concerned with implementation: it identifies the delivery vehicles, work packages and Transition Architectures." },
+  { t: "Architecture Content", q: "Which of the following is a TOGAF deliverable (rather than an artifact)?",
+    o: ["Application Portfolio catalog","Actor/Role matrix","Architecture Definition Document","Business Footprint diagram"],
+    a: 2,
+    r: "The <b>Architecture Definition Document</b> is a deliverable. The other three are artifacts: a catalog, a matrix and a diagram." },
+  { t: "ADM Phases", q: "Which deliverable must be approved at the end of Phase A for the architecture work to proceed?",
+    o: ["Architecture Requirements Specification","Statement of Architecture Work","Implementation and Migration Plan","Architecture Contract"],
+    a: 1,
+    r: "The <b>Statement of Architecture Work</b> defines the scope and approach and is approved at the end of Phase A. The others are produced later in the ADM." },
+  { t: "Enterprise Continuum & Repository", q: "What is the Enterprise Continuum?",
+    o: ["The sequence of ADM phases","The governance board for architecture","The migration plan","A view of the Architecture Repository that provides methods for classifying architecture and solution artifacts"],
+    a: 3,
+    r: "The <b>Enterprise Continuum</b> is a view of the Architecture Repository for classifying assets, from generic to organization-specific." },
+  { t: "ADM Phases", q: "What does Phase D develop?",
+    o: ["The Architecture Vision","The Technology Architecture","The Implementation and Migration Plan","The Business Architecture"],
+    a: 1,
+    r: "Phase D develops the <b>Technology Architecture</b>: the software and hardware capabilities that host business, data and application services." },
+  { t: "Concepts & Terminology", q: "How is the TOGAF Standard, 10th Edition structured?",
+    o: ["Seven Parts, including a Technical Reference Model Part","The ADM and the Architecture Maturity Model only","Core Standard and Vendor Extensions","TOGAF Fundamental Content and the TOGAF Series Guides"],
+    a: 3,
+    r: "TOGAF 10 has two parts: <b>Fundamental Content</b> (the stable core) and <b>Series Guides</b> (context-specific guidance that can change faster). The seven-Part structure (A) belonged to TOGAF 9.x." },
+  { t: "ADM Phases", q: "What is the main purpose of the Preliminary Phase?",
+    o: ["To prepare the organization for successful EA, including defining the framework, principles and Architecture Capability","To develop the Target Business Architecture","To finalize the Implementation and Migration Plan","To govern implementation projects"],
+    a: 0,
+    r: "The Preliminary Phase <b>prepares the organization</b>: the where, what, why, who and how of architecture. B is Phase B, C is Phase F, and D is Phase G." },
+  { t: "Governance & Capability", q: "What is a key responsibility of the Architecture Board?",
+    o: ["Writing application code","Approving individual expense claims","Overseeing architecture governance, including consistency, compliance and dispensations","Running the IT service desk"],
+    a: 2,
+    r: "The <b>Architecture Board</b> oversees the implementation of architecture governance: it ensures consistency, reviews compliance and grants dispensations." },
+  { t: "Governance & Capability", q: "How does TOGAF define an Architecture Contract?",
+    o: ["A software licence agreement","An employment contract for architects","A list of projects","A joint agreement between development partners and sponsors on the deliverables, quality and fitness-for-purpose of an architecture"],
+    a: 3,
+    r: "An <b>Architecture Contract</b> is a joint agreement on <b>deliverables, quality and fitness-for-purpose</b>. It is signed in Phase G and is a key governance tool." },
+  { t: "ADM Phases", q: "What is a key objective of Phase E?",
+    o: ["Establish the Architecture Capability","Sign Architecture Contracts","Develop the Target Data Architecture","Generate the initial complete version of the Architecture Roadmap"],
+    a: 3,
+    r: "Phase E creates the <b>initial complete Architecture Roadmap</b> and identifies Transition Architectures. A is Preliminary, B is Phase G, and C is Phase C." },
+  { t: "ADM Phases", q: "What is Phase H concerned with?",
+    o: ["Selecting technology products","Managing changes to the architecture after implementation","Developing the Architecture Vision","Tailoring the TOGAF framework"],
+    a: 1,
+    r: "Phase H, <b>Architecture Change Management</b>, manages change to the architecture and decides whether a new ADM cycle is needed." },
+  { t: "Enterprise Continuum & Repository", q: "Which of the following is a component of the Architecture Repository?",
+    o: ["Service Desk","Reference Library","Project Plan","Stakeholder Map"],
+    a: 1,
+    r: "The <b>Reference Library</b> is part of the Architecture Repository, alongside the Architecture Metamodel, Architecture Capability, Architecture Landscape, standards, governance records, the Requirements Repository and the Solutions Landscape." },
+  { t: "ADM Phases", q: "Which phase finalizes the Architecture Roadmap and the Implementation and Migration Plan?",
+    o: ["Phase D","Phase E","Phase F","Phase H"],
+    a: 2,
+    r: "<b>Phase F</b> finalizes them. Phase E creates the initial versions." },
+  { t: "ADM Techniques", q: "What does Capability-Based Planning focus on?",
+    o: ["Buying the cheapest technology","Reducing headcount","The planning, engineering and delivery of strategic business capabilities","Documenting only the Baseline Architecture"],
+    a: 2,
+    r: "<b>Capability-Based Planning</b> is a business-planning technique focused on delivering <b>strategic business capabilities</b>, which usually cut across organizational boundaries." },
+  { t: "Concepts & Terminology", q: "What does TOGAF stand for?",
+    o: ["The Organizational Governance Architecture Framework","The Open Group Architecture Framework","The Open Government Architecture Foundation","Technical Open Group Architecture Format"],
+    a: 1,
+    r: "TOGAF is <b>The Open Group Architecture Framework</b>, maintained by The Open Group, a vendor-neutral consortium. The other options are invented expansions." },
+  { t: "ADM Phases", q: "What triggers the start of Phase A?",
+    o: ["An Architecture Contract","A Change Request","A Compliance Assessment","A Request for Architecture Work"],
+    a: 3,
+    r: "Phase A is started by a <b>Request for Architecture Work</b> from the sponsoring organization. The other items are governance outputs of later phases." },
+  { t: "Concepts & Terminology", q: "How does TOGAF define an \"enterprise\"?",
+    o: ["A single registered legal entity","The IT department and the systems it runs","The highest level of description of an organization, typically covering all missions and functions, and possibly spanning multiple organizations","A portfolio of related projects"],
+    a: 2,
+    r: "An enterprise is the <b>highest level of description</b> of an organization and can span several organizations. It is not limited to one legal entity (A) or to IT (B), and a project portfolio (D) is something different." },
+  { t: "Applying the ADM", q: "Which are the three levels TOGAF uses to organize the Architecture Landscape?",
+    o: ["Baseline, Transition, Target","Business, Data, Technology","Foundation, Industry, Organization","Strategic, Segment, Capability"],
+    a: 3,
+    r: "The Architecture Landscape is organized into <b>Strategic</b>, <b>Segment</b> and <b>Capability</b> Architectures, from the broadest to the most detailed." },
+  { t: "Concepts & Terminology", q: "What is a viewpoint in TOGAF?",
+    o: ["A specification of the conventions for constructing and using a view","The representation of a system from the perspective of a set of concerns","A signed-off work product","A list of stakeholders"],
+    a: 0,
+    r: "A <b>viewpoint</b> specifies the conventions (stakeholders, concerns, models, notation) for building a view. B is the definition of a <b>view</b>, C is a deliverable, and D is part of stakeholder mapping." },
+  { t: "Concepts & Terminology", q: "Which TOGAF term describes a work product that is contractually specified, then formally reviewed, agreed and signed off by stakeholders?",
+    o: ["Artifact","Building block","Deliverable","Viewpoint"],
+    a: 2,
+    r: "This is a <b>deliverable</b>. Artifacts are more granular and describe one aspect of the architecture. Building blocks are components of capability. Viewpoints are conventions for views." },
+  { t: "Architecture Content", q: "What is the correct relationship between deliverables, artifacts and building blocks?",
+    o: ["Deliverables contain artifacts, and artifacts describe building blocks","Building blocks contain deliverables","Artifacts contain deliverables","They are three names for the same thing"],
+    a: 0,
+    r: "<b>Deliverables contain artifacts, and artifacts describe building blocks.</b> This is the core rule of the Architecture Content Framework." },
+  { t: "Concepts & Terminology", q: "Which are the four architecture domains commonly accepted by TOGAF?",
+    o: ["Business, Data, Application, Technology","Business, Security, Network, Application","Strategy, Process, Data, Infrastructure","Business, Information, Integration, Operations"],
+    a: 0,
+    r: "The four domains are <b>Business, Data, Application and Technology</b>. Security is a cross-cutting concern, not a separate domain." },
+  { t: "Applying the ADM", q: "How does TOGAF treat security architecture?",
+    o: ["As a fifth architecture domain developed in a separate phase","As a concern only for Phase D","As a cross-cutting concern addressed throughout the ADM","As optional and outside the scope of TOGAF"],
+    a: 2,
+    r: "Security is a <b>cross-cutting concern</b> addressed in every ADM phase. It is not a separate domain or phase, and it is not limited to technology." },
+  { t: "Applying the ADM", q: "Which two approaches does TOGAF describe for sequencing Baseline and Target development in Phases B to D?",
+    o: ["Top-down and bottom-up","Baseline First and Target First","Waterfall and Agile","Build and buy"],
+    a: 1,
+    r: "TOGAF describes <b>Baseline First</b> and <b>Target First</b>. Target First is often better when the target differs greatly from today." },
+  { t: "ADM Phases", q: "Where does Requirements Management sit in the ADM?",
+    o: ["Before the Preliminary Phase","Between Phases D and E only","After Phase H","At the centre of the ADM, operating throughout all phases"],
+    a: 3,
+    r: "Requirements Management sits at the <b>centre</b> of the ADM and continuously feeds and is fed by every phase." },
+  { t: "ADM Techniques", q: "What is \"residual risk\" in TOGAF?",
+    o: ["The risk remaining after mitigation actions have been applied","The risk before any mitigation","Risk transferred to a supplier","Risk that only affects technology"],
+    a: 0,
+    r: "TOGAF classifies risk as <b>initial</b> (before mitigation) and <b>residual</b> (after mitigation)." },
+  { t: "Enterprise Continuum & Repository", q: "What is the most generic level of the Architecture Continuum?",
+    o: ["Foundation Architecture","Common Systems Architecture","Industry Architecture","Organization-Specific Architecture"],
+    a: 0,
+    r: "The Architecture Continuum runs from <b>Foundation</b> (most generic) through Common Systems and Industry to <b>Organization-Specific</b> (most specific)." },
+  { t: "ADM Techniques", q: "What are the four components TOGAF recommends for documenting an Architecture Principle?",
+    o: ["Name, Statement, Rationale, Implications","Name, Owner, Priority, Scope","Title, Definition, Example, Exception","Statement, Risk, Cost, Benefit"],
+    a: 0,
+    r: "TOGAF's template is <b>Name, Statement, Rationale, Implications</b>." },
+  { t: "ADM Phases", q: "Which architecture is developed in Phase B?",
+    o: ["Technology Architecture","Data Architecture","Business Architecture","Application Architecture"],
+    a: 2,
+    r: "Phase B develops the <b>Business Architecture</b>. Data and Application are Phase C, and Technology is Phase D." },
+  { t: "ADM Techniques", q: "In stakeholder management, how are stakeholders with high power and high interest classified?",
+    o: ["Keep Informed","Minimal Effort","Keep Satisfied","Key Players"],
+    a: 3,
+    r: "High power and high interest = <b>Key Players</b>, who need to be fully engaged. High power and low interest = Keep Satisfied. Low power and high interest = Keep Informed. Low power and low interest = Minimal Effort." }
+];
+// Shared quiz engine. Expects a global QUESTIONS array:
+// { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML, t: optional topic }
+// Optional globals: QUIZ_MINUTES (default 20). If questions carry a topic (t),
+// a per-topic score breakdown is shown after grading.
+(function () {
+  const MINUTES = window.QUIZ_MINUTES || 20;
+  const container = document.getElementById("questions");
+  const letters = "ABCDEF";
+  const lettered = item => item.o.length > 2;
+
+  QUESTIONS.forEach((item, i) => {
+    const div = document.createElement("div");
+    div.className = "q"; div.id = "q" + i;
+    let html = `<div class="qn">Question ${i + 1} of ${QUESTIONS.length}</div><p class="stem">${item.q}</p>`;
+    item.o.forEach((opt, j) => {
+      const lt = lettered(item) ? letters[j] : (j === 0 ? "T" : "F");
+      html += `<label><input type="radio" name="q${i}" value="${j}"><span class="lt">${lt}</span><span>${opt}</span></label>`;
+    });
+    const ans = lettered(item) ? `${letters[item.a]}. ${item.o[item.a]}` : item.o[item.a];
+    html += `<div class="reason"><span class="verdict"></span>Correct answer: <b>${ans}</b><br>${item.r}</div>`;
+    div.innerHTML = html;
+    container.appendChild(div);
+  });
+
+  const answeredEl = document.getElementById("answered");
+  function countAnswered() {
+    if (answeredEl) answeredEl.textContent = `${document.querySelectorAll(".q input:checked").length} / ${QUESTIONS.length} answered`;
+  }
+  container.addEventListener("change", countAnswered);
+  countAnswered();
+
+  let seconds = MINUTES * 60, timerId = null;
+  const timerEl = document.getElementById("timer");
+  const startBtn = document.getElementById("startBtn");
+  function renderTime() {
+    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    timerEl.textContent = `${m}:${s}`;
+    timerEl.classList.toggle("low", seconds <= 120);
+  }
+  function stop() { if (timerId) { clearInterval(timerId); timerId = null; } startBtn.textContent = `Start ${MINUTES}-min timer`; }
+  startBtn.onclick = () => {
+    if (timerId) return;
+    startBtn.textContent = "Timer running…";
+    timerId = setInterval(() => {
+      seconds--; renderTime();
+      if (seconds <= 0) { stop(); timerEl.textContent = "Time's up"; grade(); }
+    }, 1000);
+  };
+
+  function grade() {
+    stop();
+    let score = 0;
+    QUESTIONS.forEach((item, i) => {
+      const div = document.getElementById("q" + i);
+      const chosen = div.querySelector("input:checked");
+      const labels = div.querySelectorAll("label");
+      labels.forEach(l => l.classList.remove("is-answer", "is-wrong"));
+      labels[item.a].classList.add("is-answer");
+      const verdict = div.querySelector(".verdict");
+      div.classList.remove("correct", "wrong");
+      if (chosen && Number(chosen.value) === item.a) {
+        score++; div.classList.add("correct"); verdict.textContent = "Correct";
+      } else {
+        div.classList.add("wrong");
+        if (chosen) labels[Number(chosen.value)].classList.add("is-wrong");
+        verdict.textContent = chosen ? "Not quite" : "Not answered";
+      }
+      div.classList.add("show");
+    });
+    const pct = Math.round(score / QUESTIONS.length * 100);
+    const el = document.getElementById("score");
+    el.textContent = `You scored ${score} / ${QUESTIONS.length} (${pct}%) — ${pct >= 60 ? "Pass" : "Below the 60% pass mark"}`;
+    const bd = document.getElementById("breakdown");
+    if (bd && QUESTIONS.some(q => q.t)) {
+      const topics = {};
+      QUESTIONS.forEach((item, i) => {
+        const t = item.t || "Other"; topics[t] = topics[t] || [0, 0]; topics[t][1]++;
+        if (document.getElementById("q" + i).classList.contains("correct")) topics[t][0]++;
+      });
+      let rows = "";
+      Object.entries(topics).forEach(([t, [c, n]]) => {
+        const p = Math.round(c / n * 100);
+        rows += `<tr><td>${t}</td><td>${c} / ${n}</td><td><span class="bar"><i style="width:${p}%"></i></span></td><td class="${p >= 60 ? "ok" : "weak"}">${p >= 60 ? "OK" : "Revise"}</td></tr>`;
+      });
+      bd.innerHTML = `<h3>Your score by topic</h3><div class="table-wrap"><table><tr><th>Topic</th><th>Score</th><th></th><th></th></tr>${rows}</table></div>`;
+      bd.hidden = false;
+    }
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  document.getElementById("submitBtn").onclick = grade;
+  document.getElementById("resetBtn").onclick = () => {
+    stop(); seconds = MINUTES * 60; renderTime();
+    document.querySelectorAll(".q input[type=radio]").forEach(r => r.checked = false);
+    document.querySelectorAll(".q").forEach(d => {
+      d.classList.remove("show", "correct", "wrong");
+      d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong"));
+    });
+    document.getElementById("score").textContent = "";
+    const bd = document.getElementById("breakdown"); if (bd) { bd.hidden = true; bd.innerHTML = ""; }
+    countAnswered();
+    document.getElementById("quiz").scrollIntoView({ behavior: "smooth" });
+  };
+})();
+
+</script>
+<footer class="site"><div class="in">Unofficial study material for the TOGAF Standard, 10th Edition. TOGAF is a registered trademark of The Open Group.</div></footer>
+</body>
+</html>

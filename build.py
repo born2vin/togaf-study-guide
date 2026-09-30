@@ -54,9 +54,21 @@ DAYS = [
     (20, "Foundation", "Architecture Governance and Compliance", None, None),
     (21, "Foundation", "Architecture Capability Framework", None, None),
     (22, "Foundation", "Series Guides and Reference Models", None, None),
-    (23, "Practitioner & Final Exam", "Practitioner Scenarios I (Phases A–D)", None, None),
-    (24, "Practitioner & Final Exam", "Practitioner Scenarios II (Phases E–H)", None, None),
-    (25, "Practitioner & Final Exam", "Final Mock Exam", None, None),
+    (23, "Practitioner & Mock Exams", "Practitioner Scenarios I (Phases A–D)", None, None),
+    (24, "Practitioner & Mock Exams", "Practitioner Scenarios II (Phases E–H)", None, None),
+    (25, "Practitioner & Mock Exams", "Final Mock Exam", None, None),
+]
+
+PRACTICE = "Practitioner & Mock Exams"   # index section the mock exams appear in
+
+EXAMS = [
+    # (number, level label, title, file, dek)
+    (1, "Level 1 · Warm-up", "Part 1 Mock Exam 1: Warm-up", "TOGAF_Part1_Mock_Exam_1_Warmup.html",
+     "40 direct questions on the core definitions and facts. Build confidence and find the gaps before the harder papers."),
+    (2, "Level 2 · Exam standard", "Part 1 Mock Exam 2: Exam Standard", "TOGAF_Part1_Mock_Exam_2_Standard.html",
+     "40 questions pitched at the real Foundation exam, with the same close distractors and topic mix."),
+    (3, "Level 3 · Challenging", "Part 1 Mock Exam 3: Challenging", "TOGAF_Part1_Mock_Exam_3_Challenging.html",
+     "40 harder questions: \"which is NOT\", near-identical options and applied scenarios. Pass this and you are ready."),
 ]
 
 CSS = (ROOT / "template/style.css").read_text()
@@ -167,6 +179,72 @@ const QUESTIONS = {questions};
     return file
 
 
+def build_exam(i):
+    n, level, title, file, dek = EXAMS[i]
+    intro = (ROOT / f"content/exam{n}.html").read_text()
+    questions = (ROOT / f"content/exam{n}.questions.js").read_text().strip().rstrip(";")
+    nq = len(re.findall(r"\bq:\s*\"", questions))
+    intro, toc = number_sections(intro)
+    toc.append(("quiz", "Start the exam"))
+    toc_items = "".join(f'<li><a href="#{h}">{html.escape(t)}</a></li>' for h, t in toc)
+    prev_link = next_link = ""
+    if i > 0:
+        p = EXAMS[i - 1]
+        prev_link = f'<a class="prev" href="{p[3]}"><small>← Mock Exam {p[0]}</small><span>{html.escape(p[1])}</span></a>'
+    if i < len(EXAMS) - 1:
+        x = EXAMS[i + 1]
+        next_link = f'<a class="next" href="{x[3]}"><small>Mock Exam {x[0]} →</small><span>{html.escape(x[1])}</span></a>'
+    page = f"""
+<header class="hero">
+  <div class="kicker">Mock Exam {n} of {len(EXAMS)} · TOGAF EA Foundation (Part 1)</div>
+  <h1>{html.escape(title)}</h1>
+  <p class="dek">{dek}</p>
+  <span class="level">{html.escape(level)}</span>
+  <div class="byline"><span><b>{SITE}</b></span><span>{nq} questions</span><span>60 minutes</span><span>Pass mark 60%</span><span>TOGAF Standard, 10th Edition</span></div>
+</header>
+<div class="layout">
+  <aside class="toc">
+    <details open><summary style="list-style:none"><h4>In this exam</h4></summary>
+    <ol>{toc_items}</ol></details>
+  </aside>
+  <article>
+    <div class="facts">
+      <div><b>{nq}</b><span>questions</span></div>
+      <div><b>60</b><span>minutes</span></div>
+      <div><b>24</b><span>correct to pass (60%)</span></div>
+      <div><b>1</b><span>correct answer each</span></div>
+    </div>
+{intro}
+    <section class="quiz-head" id="quiz">
+      <div class="kicker">Exam conditions</div>
+      <h2>Start Mock Exam {n}</h2>
+      <p>Closed book, {nq} questions, 60 minutes. Start the timer, answer every question, then submit to see your score, a breakdown by topic, and the reasoning for every option.</p>
+    </section>
+    <div class="controls sticky">
+      <button id="startBtn">Start 60-min timer</button>
+      <span id="answered"></span>
+      <span id="timer">60:00</span>
+    </div>
+    <div id="questions"></div>
+    <div class="controls">
+      <button id="submitBtn">Submit exam</button>
+      <button class="secondary" id="resetBtn">Reset</button>
+      <span id="score"></span>
+    </div>
+    <div id="breakdown" hidden></div>
+    <nav class="pager">{prev_link}{next_link}</nav>
+  </article>
+</div>
+<script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
+<script>
+window.QUIZ_MINUTES = 60;
+const QUESTIONS = {questions};
+{QUIZ_JS}
+</script>"""
+    (ROOT / file).write_text(shell(f"{title} · {SITE}", page))
+    return file
+
+
 def build_index(published_count):
     sections = {}
     for d in DAYS:
@@ -174,6 +252,12 @@ def build_index(published_count):
     parts = []
     for name, items in sections.items():
         tiles = []
+        if name == PRACTICE:
+            for en, level, etitle, efile, edek in EXAMS:
+                if (ROOT / f"content/exam{en}.questions.js").exists():
+                    tiles.append(f'<a class="tile" href="{efile}"><div class="n">Mock Exam {en} · Part 1</div>'
+                                 f'<div class="t">{html.escape(etitle.split(": ", 1)[1])}</div><div class="d">{edek}</div>'
+                                 f'<div class="lvl">{html.escape(level)} · 40 questions · 60 min</div></a>')
         for n, _, title, file, dek in items:
             if file:
                 tiles.append(f'<a class="tile" href="{file}"><div class="n">Day {n}</div>'
@@ -197,6 +281,8 @@ def build_readme():
     rows = "\n".join(
         f"| {n} | {title} | " + (f"[Open]({file})" if file else "Coming soon") + " |"
         for n, _, title, file, _ in DAYS)
+    exam_rows = "\n".join(f"- [{title}]({file}) ({level})" for _, level, title, file, _ in EXAMS
+                          if (ROOT / file).exists())
     (ROOT / "README.md").write_text(f"""# TOGAF Explained: 25-Day Study Guide
 
 A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation and Practitioner). Each day has an explainer-style lesson and a 20-minute interactive mock test with scoring and detailed reasoning for every option.
@@ -206,6 +292,12 @@ A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation an
 | Day | Topic | Page |
 |---|---|---|
 {rows}
+
+## Part 1 (Foundation) mock exams
+
+Three full-length mock exams in the real exam format: 40 questions, 60 minutes, 60% to pass.
+
+{exam_rows}
 
 ## How the site is built
 
@@ -225,6 +317,9 @@ if __name__ == "__main__":
     published = [d for d in DAYS if d[3]]
     for i in range(len(published)):
         print("built", build_day(i, published))
+    for i, e in enumerate(EXAMS):
+        if (ROOT / f"content/exam{e[0]}.questions.js").exists():
+            print("built", build_exam(i))
     build_index(len(published))
     build_readme()
     print("built index.html, README.md")
