@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOGAF Day 3 – Preliminary Phase</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --surface: #ffffff; --text: #1f2328; --muted: #5b6270;
+    --accent: #1d4e89; --accent-soft: #e6eef8; --border: #e2e0da;
+    --ok: #1e7a46; --ok-soft: #e5f4ec; --bad: #b3261e; --bad-soft: #fbe9e7;
+    --warn-soft: #fff6e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171b; --surface: #1d2026; --text: #e6e7ea; --muted: #a0a6b1;
+      --accent: #7fb0f0; --accent-soft: #1f2d42; --border: #2e323a;
+      --ok: #5fcf8f; --ok-soft: #173024; --bad: #f28b82; --bad-soft: #3a1d1b;
+      --warn-soft: #3a3120;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { border-bottom: 3px solid var(--accent); padding-bottom: 16px; margin-bottom: 24px; }
+  header .tag { color: var(--accent); font-weight: 700; letter-spacing: .08em; font-size: 13px; text-transform: uppercase; }
+  h1 { margin: 4px 0 6px; font-size: 32px; line-height: 1.2; }
+  h2 { margin-top: 40px; font-size: 24px; border-left: 4px solid var(--accent); padding-left: 12px; }
+  h3 { margin-top: 28px; font-size: 19px; color: var(--accent); }
+  nav { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 24px; }
+  nav a { color: var(--accent); text-decoration: none; margin-right: 14px; display: inline-block; }
+  .home { display: inline-block; margin-bottom: 12px; color: var(--accent); text-decoration: none; font-size: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .def { background: var(--accent-soft); border-left: 4px solid var(--accent); }
+  .tip { background: var(--warn-soft); }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); }
+  th, td { border: 1px solid var(--border); padding: 9px 11px; text-align: left; vertical-align: top; }
+  th { background: var(--accent-soft); }
+  .chain { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin: 16px 0; }
+  .chain .box { background: var(--surface); border: 2px solid var(--accent); border-radius: 10px; padding: 12px 16px; text-align: center; min-width: 130px; }
+  .chain .box b { display: block; color: var(--accent); }
+  .chain .box small { color: var(--muted); }
+  .chain .arrow { color: var(--muted); font-weight: 600; font-size: 14px; }
+  .q { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .q p.stem { font-weight: 600; margin: 0 0 10px; }
+  .q label { display: block; padding: 7px 10px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
+  .q label:hover { background: var(--accent-soft); }
+  .q input { margin-right: 8px; }
+  .q.correct { border-color: var(--ok); }
+  .q.wrong { border-color: var(--bad); }
+  label.is-answer { background: var(--ok-soft); border-color: var(--ok); }
+  label.is-wrong { background: var(--bad-soft); border-color: var(--bad); }
+  .reason { display: none; margin-top: 12px; padding: 12px; border-radius: 8px; background: var(--accent-soft); font-size: 15px; }
+  .show .reason { display: block; }
+  .verdict { font-weight: 700; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0; }
+  button { background: var(--accent); color: var(--surface); border: 0; border-radius: 8px; padding: 10px 18px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  button.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  #timer { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 18px; }
+  #score { font-size: 20px; font-weight: 700; }
+  ul, ol { padding-left: 22px; }
+  @media print { nav, .controls, .home { display: none; } .reason { display: block; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="home" href="index.html">← All days</a>
+<header>
+  <div class="tag">TOGAF Standard, 10th Edition · 25-Day Programme</div>
+  <h1>Day 3: Preliminary Phase and Architecture Principles</h1>
+  <div style="color:var(--muted)">Preparing the organization for EA, tailoring TOGAF, and defining good Architecture Principles</div>
+</header>
+
+<nav>
+  <a href="#purpose">1. Purpose</a>
+  <a href="#objectives">2. Objectives</a>
+  <a href="#inputs">3. Inputs</a>
+  <a href="#steps">4. Steps</a>
+  <a href="#outputs">5. Outputs</a>
+  <a href="#tailor">6. Tailoring</a>
+  <a href="#principles">7. Principles</a>
+  <a href="#summary">Summary</a>
+  <a href="#quiz">Mock Test</a>
+</nav>
+
+<h2 id="purpose">1. Purpose of the Preliminary Phase</h2>
+<div class="card def">
+  The Preliminary Phase <b>prepares the organization</b> for successful Enterprise Architecture. It answers the <b>where, what, why, who and how</b> of architecture in the enterprise, and it establishes the <b>Architecture Capability</b> that will run the ADM.
+</div>
+<ul>
+  <li><b>Where:</b> the scope of the enterprise and the organizations affected.</li>
+  <li><b>What and why:</b> the business drivers and what EA must achieve.</li>
+  <li><b>Who:</b> the EA team, sponsors, and the governance bodies such as the Architecture Board.</li>
+  <li><b>How:</b> the tailored framework, the principles, the tools, and the governance process.</li>
+</ul>
+<p>It sits <b>outside</b> the A–H cycle. It is usually done once to set up the capability, then revisited when the organization or its EA practice changes significantly.</p>
+
+<h2 id="objectives">2. Objectives</h2>
+<p>TOGAF groups the objectives into two areas:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Determine the Architecture Capability desired</th><th>Establish the Architecture Capability</th></tr>
+  <tr>
+    <td>
+      <ul>
+        <li>Review the organizational context for EA</li>
+        <li>Identify and scope the parts of the enterprise affected</li>
+        <li>Identify the frameworks, methods and processes already in use that interact with EA</li>
+        <li>Establish a target for Architecture Capability maturity</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Define and establish the <b>Organizational Model for EA</b></li>
+        <li>Define and establish the detailed process and resources for <b>architecture governance</b></li>
+        <li>Select and implement <b>tools</b> that support the capability</li>
+        <li>Define the <b>Architecture Principles</b></li>
+      </ul>
+    </td>
+  </tr>
+</table>
+</div>
+
+<h2 id="inputs">3. Inputs</h2>
+<ul>
+  <li><b>The TOGAF Library</b> and other architecture frameworks</li>
+  <li>Board strategies, business plans, business strategy and IT strategy</li>
+  <li><b>Business principles, goals and drivers</b></li>
+  <li>Major frameworks already operating in the business (e.g. project or portfolio management, ITIL, COBIT)</li>
+  <li>Governance and legal frameworks, including architecture governance strategy</li>
+  <li>Partnership and contract agreements</li>
+  <li>Any <b>existing</b> Organizational Model for EA, architecture framework, Architecture Principles and Architecture Repository</li>
+</ul>
+
+<h2 id="steps">4. Steps</h2>
+<ol>
+  <li><b>Scope</b> the enterprise organizations impacted</li>
+  <li><b>Confirm governance and support frameworks</b></li>
+  <li><b>Define and establish the EA team</b> and organization</li>
+  <li><b>Identify and establish Architecture Principles</b></li>
+  <li><b>Tailor</b> the TOGAF framework and any other selected frameworks</li>
+  <li><b>Develop strategy and implementation plans for tools</b> and techniques</li>
+</ol>
+<div class="card tip">💡 <b>Scoping the enterprise:</b> TOGAF distinguishes the <b>core enterprise</b> (units directly affected), the <b>soft enterprise</b> (units that will see change but are not directly part of it), the <b>extended enterprise</b> (partners outside the organization) and <b>communities</b> (stakeholder groups with common purpose).</div>
+
+<h2 id="outputs">5. Outputs</h2>
+<ul>
+  <li><b>Organizational Model for Enterprise Architecture</b>: scope of the organizations affected, maturity assessment and gaps, roles and responsibilities for the architecture team, constraints on architecture work, budget requirements, governance and support strategy.</li>
+  <li><b>Tailored Architecture Framework</b>: the tailored architecture method and content, the <b>Architecture Principles</b>, configured and deployed tools, and interfaces with governance models and other frameworks.</li>
+  <li>An <b>initial Architecture Repository</b>, populated with framework content</li>
+  <li>Restatement of, or reference to, <b>business principles, goals and drivers</b></li>
+  <li>A <b>Request for Architecture Work</b> (optional; it triggers Phase A)</li>
+  <li>An <b>Architecture Governance Framework</b></li>
+</ul>
+<div class="card tip">⚠️ <b>Exam trap:</b> the <b>Statement of Architecture Work</b> is <i>not</i> a Preliminary output. It is produced and approved in <b>Phase A</b>. The Preliminary Phase may produce the <i>Request</i> for Architecture Work that starts Phase A.</div>
+
+<h2 id="tailor">6. Tailoring TOGAF</h2>
+<p>TOGAF is meant to be adapted to the organization. Tailoring happens in three areas:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Area</th><th>What is adapted</th></tr>
+  <tr><td><b>Terminology</b></td><td>Use terms the organization already understands, so architecture is easy to communicate</td></tr>
+  <tr><td><b>Process</b></td><td>Add, remove, merge or reorder ADM phases and steps; align with existing processes such as project management and procurement</td></tr>
+  <tr><td><b>Content</b></td><td>Choose which deliverables and artifacts to produce, and adapt the content metamodel</td></tr>
+</table>
+</div>
+<p>The Preliminary Phase must also make sure TOGAF fits with other frameworks in use, such as business planning, portfolio management, operations management and solution development.</p>
+
+<h2 id="principles">7. Architecture Principles</h2>
+<div class="card def">
+  <b>Principles</b> are general rules and guidelines, intended to be enduring and seldom amended, that inform and support the way an organization sets about fulfilling its mission.
+</div>
+
+<h3>Principle hierarchy</h3>
+<div class="chain">
+  <div class="box"><b>Enterprise principles</b><small>whole organization</small></div>
+  <span class="arrow">inform →</span>
+  <div class="box"><b>IT principles</b><small>use of IT</small></div>
+  <span class="arrow">inform →</span>
+  <div class="box"><b>Architecture principles</b><small>architecture work</small></div>
+</div>
+<p>Architecture Principles govern both the <b>architecture process</b> (how architecture is developed) and the <b>architecture itself</b> (how it is implemented). They are <b>established in the Preliminary Phase</b> and <b>confirmed and elaborated in Phase A</b>.</p>
+
+<h3>The four components of a principle</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Component</th><th>What it contains</th></tr>
+  <tr><td><b>Name</b></td><td>A short, memorable label that captures the essence of the rule. It should avoid naming specific technology platforms.</td></tr>
+  <tr><td><b>Statement</b></td><td>A clear, unambiguous statement of the fundamental rule</td></tr>
+  <tr><td><b>Rationale</b></td><td>The <b>business benefits</b> of following the principle, in business terms, and how it relates to other principles</td></tr>
+  <tr><td><b>Implications</b></td><td>The <b>requirements</b> for carrying out the principle, for both the business and IT: resources, costs, and activities or tasks</td></tr>
+</table>
+</div>
+<div class="card tip">💡 <b>Memory hook: "NSRI".</b> Rationale answers <i>why</i> (benefits). Implications answer <i>what it will take</i> (impact and cost).</div>
+
+<h3>The five criteria for a good set of principles</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Criterion</th><th>Meaning</th></tr>
+  <tr><td><b>Understandable</b></td><td>Quickly grasped by people across the organization; the intent is clear and unambiguous</td></tr>
+  <tr><td><b>Robust</b></td><td>Enable good-quality decisions; precise enough to support consistent decision-making in complex, potentially controversial situations; enforceable</td></tr>
+  <tr><td><b>Complete</b></td><td>Every potentially important principle for governing IT and information management is defined; they cover every situation perceived</td></tr>
+  <tr><td><b>Consistent</b></td><td>Strict adherence to one principle may need a loose interpretation of another, so principles must allow a balance of interpretations; they should not contradict each other</td></tr>
+  <tr><td><b>Stable</b></td><td>Enduring, yet able to accommodate change through an amendment process</td></tr>
+</table>
+</div>
+<div class="card tip">💡 <b>Memory hook: "U-R-C-C-S"</b> ("You Are Creating Consistent Standards").</div>
+
+<h3>TOGAF's example principles</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Category</th><th>Examples</th></tr>
+  <tr><td><b>Business</b></td><td>Primacy of Principles · Maximize Benefit to the Enterprise · Information Management is Everybody's Business · Business Continuity · Common Use Applications · Service Orientation · Compliance with Law · IT Responsibility · Protection of Intellectual Property</td></tr>
+  <tr><td><b>Data</b></td><td>Data is an Asset · Data is Shared · Data is Accessible · Data Trustee · Common Vocabulary and Data Definitions · Data Security</td></tr>
+  <tr><td><b>Application</b></td><td>Technology Independence · Ease-of-Use</td></tr>
+  <tr><td><b>Technology</b></td><td>Requirements-Based Change · Responsive Change Management · Control Technical Diversity · Interoperability</td></tr>
+</table>
+</div>
+<p><b>Primacy of Principles</b> says the principles apply to <i>all</i> organizations within the enterprise. It is the principle that gives all the others their authority.</p>
+
+<h2 id="summary">📌 Day 3 Summary</h2>
+<div class="card">
+  <ul>
+    <li>The Preliminary Phase <b>prepares the organization</b>: the where, what, why, who and how of EA.</li>
+    <li>Its six steps: scope the organizations, confirm governance, set up the EA team, establish principles, tailor TOGAF, and plan tools.</li>
+    <li>Key outputs: <b>Organizational Model for EA</b>, <b>Tailored Architecture Framework</b> (which includes the principles), initial Architecture Repository, and optionally a <b>Request for Architecture Work</b>.</li>
+    <li>Tailoring covers <b>terminology, process and content</b>.</li>
+    <li>A principle has four parts: <b>Name, Statement, Rationale, Implications</b>.</li>
+    <li>A good set of principles is <b>Understandable, Robust, Complete, Consistent and Stable</b>.</li>
+  </ul>
+</div>
+
+<h2 id="quiz">📝 Day 3 Mock Test (20 minutes)</h2>
+<div class="controls">
+  <button id="startBtn">Start 20-min timer</button>
+  <span id="timer">20:00</span>
+</div>
+<div id="questions"></div>
+<div class="controls">
+  <button id="submitBtn">Submit &amp; show reasoning</button>
+  <button class="secondary" id="resetBtn">Reset</button>
+  <span id="score"></span>
+</div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  { q: "What is the main purpose of the Preliminary Phase?",
+    o: ["To develop the baseline and target Business Architecture","To obtain approval for the Statement of Architecture Work","To prepare the organization for successful EA, defining the where, what, why, who and how of architecture","To produce the Implementation and Migration Plan"],
+    a: 2,
+    r: "The Preliminary Phase prepares the organization and establishes the Architecture Capability. A is Phase B. B is Phase A: the Statement of Architecture Work is approved at the end of Phase A. D is Phase F." },
+  { q: "Which are the four components TOGAF recommends for documenting an Architecture Principle?",
+    o: ["Name, Statement, Rationale, Implications","Name, Owner, Scope, Priority","Statement, Rationale, Risk, Cost","Title, Definition, Example, Exception"],
+    a: 0,
+    r: "TOGAF's standard format is <b>Name, Statement, Rationale, Implications</b>. The other options contain attributes that sound reasonable (owner, priority, risk) but are not the TOGAF template." },
+  { q: "Which of the following is NOT one of TOGAF's criteria for a good set of principles?",
+    o: ["Understandable","Robust","Stable","Technology-specific"],
+    a: 3,
+    r: "The five criteria are <b>Understandable, Robust, Complete, Consistent and Stable</b>. Principles should <i>not</i> be technology-specific; TOGAF even advises that a principle's name should avoid referring to specific technology platforms." },
+  { q: "Which component of a principle describes the business benefits of adhering to it?",
+    o: ["Statement","Rationale","Implications","Name"],
+    a: 1,
+    r: "The <b>Rationale</b> explains <i>why</i> the principle matters, stressing business benefits in business terms. The Statement is the rule itself. Implications describe what is needed to carry it out. The Name is a short label." },
+  { q: "What does the \"Implications\" component of a principle describe?",
+    o: ["The short name of the principle","How the principle relates to industry standards","The requirements, for both business and IT, for carrying out the principle: resources, costs and activities","The business benefits of adhering to the principle"],
+    a: 2,
+    r: "Implications describe the <b>impact</b>: what the business and IT must do and spend to follow the principle. D describes the Rationale, and A describes the Name. B is not a defined component." },
+  { q: "According to TOGAF's principle hierarchy, what provides the basis for Architecture Principles?",
+    o: ["Enterprise principles and IT principles","Solution Building Blocks","The Implementation and Migration Plan","Vendor product roadmaps"],
+    a: 0,
+    r: "Principles are layered: <b>enterprise principles</b> inform <b>IT principles</b>, which inform <b>Architecture Principles</b>. SBBs, migration plans and vendor roadmaps are downstream, implementation-level items, not the source of principles." },
+  { q: "\"Data is an Asset\" is an example of which category of TOGAF principle?",
+    o: ["Business principle","Application principle","Data principle","Technology principle"],
+    a: 2,
+    r: "It is one of TOGAF's example <b>Data principles</b>, alongside Data is Shared and Data is Accessible. Business examples include Primacy of Principles; Application examples include Technology Independence; Technology examples include Interoperability." },
+  { q: "Which of the following is an output of the Preliminary Phase?",
+    o: ["Approved Statement of Architecture Work","Architecture Contract","Implementation and Migration Plan","Tailored Architecture Framework"],
+    a: 3,
+    r: "The <b>Tailored Architecture Framework</b>, which includes the Architecture Principles, is a key Preliminary output. A is a Phase A output, B is associated with Phase G, and C is a Phase F output." },
+  { q: "In TOGAF, tailoring the framework typically involves adapting which three areas?",
+    o: ["Budget, schedule and staffing","Terminology, process and content","Vendors, products and licences","Business, data and technology"],
+    a: 1,
+    r: "Tailoring adjusts <b>terminology</b> (the organization's own vocabulary), <b>process</b> (ADM phases and steps) and <b>content</b> (deliverables, artifacts and metamodel). D lists architecture domains, not tailoring areas." },
+  { q: "What does the \"Primacy of Principles\" principle state?",
+    o: ["The principles apply to all organizations within the enterprise","Business principles always override data principles","Principles can be ignored when a project is under time pressure","Only IT staff are bound by Architecture Principles"],
+    a: 0,
+    r: "Primacy of Principles says the principles apply to <b>all</b> organizations in the enterprise, which gives the whole set consistent authority. B invents a ranking TOGAF does not state. C contradicts the purpose of principles. D is wrong because the principles bind the whole enterprise." },
+  { q: "\"Principles should be precise enough to support consistent decision-making in complex, potentially controversial situations.\" Which criterion is this?",
+    o: ["Understandable","Complete","Robust","Stable"],
+    a: 2,
+    r: "This describes <b>Robust</b>. Understandable is about being easily grasped. Complete is about covering every important situation. Stable is about being enduring while allowing controlled amendment." },
+  { q: "<i>Scenario:</i> An organization is deciding who will sponsor EA, what roles the architecture team will have, what budget it needs, and what constraints apply to architecture work. Which Preliminary output documents this?",
+    o: ["Architecture Vision","Organizational Model for Enterprise Architecture","Architecture Requirements Specification","Communications Plan"],
+    a: 1,
+    r: "The <b>Organizational Model for EA</b> covers scope of organizations impacted, maturity and gaps, roles and responsibilities, constraints, budget and governance strategy. The Architecture Vision and Communications Plan are Phase A outputs, and the Architecture Requirements Specification is developed in Phases B–D." },
+  { q: "Where in the ADM are Architecture Principles first established, and where are they confirmed and elaborated?",
+    o: ["Established in Phase A; confirmed in Phase B","Established in Phase G; confirmed in Phase H","Established in Phase B; confirmed in Requirements Management","Established in the Preliminary Phase; confirmed and elaborated in Phase A"],
+    a: 3,
+    r: "Principles are <b>established in the Preliminary Phase</b>, then <b>confirmed and elaborated in Phase A</b> for the specific architecture project, including any business principles. The other pairings do not match the ADM." }
+];
+
+const container = document.getElementById("questions");
+const letters = "ABCD";
+QUESTIONS.forEach((item, i) => {
+  const div = document.createElement("div");
+  div.className = "q"; div.id = "q" + i;
+  let html = `<p class="stem">Q${i + 1}. ${item.q}</p>`;
+  item.o.forEach((opt, j) => {
+    html += `<label><input type="radio" name="q${i}" value="${j}">${letters[j]}. ${opt}</label>`;
+  });
+  html += `<div class="reason"><span class="verdict"></span> Correct answer: <b>${letters[item.a]}. ${item.o[item.a]}</b><br>${item.r}</div>`;
+  div.innerHTML = html;
+  container.appendChild(div);
+});
+
+let seconds = 1200, timerId = null;
+const timerEl = document.getElementById("timer");
+function renderTime() {
+  const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const s = String(seconds % 60).padStart(2, "0");
+  timerEl.textContent = `${m}:${s}`;
+}
+document.getElementById("startBtn").onclick = () => {
+  if (timerId) return;
+  timerId = setInterval(() => {
+    seconds--; renderTime();
+    if (seconds <= 0) { clearInterval(timerId); timerId = null; timerEl.textContent = "Time's up!"; grade(); }
+  }, 1000);
+};
+
+function grade() {
+  if (timerId) { clearInterval(timerId); timerId = null; }
+  let score = 0;
+  QUESTIONS.forEach((item, i) => {
+    const div = document.getElementById("q" + i);
+    const chosen = div.querySelector("input:checked");
+    const labels = div.querySelectorAll("label");
+    labels.forEach(l => l.classList.remove("is-answer", "is-wrong"));
+    labels[item.a].classList.add("is-answer");
+    const verdict = div.querySelector(".verdict");
+    div.classList.remove("correct", "wrong");
+    if (chosen && Number(chosen.value) === item.a) {
+      score++; div.classList.add("correct"); verdict.textContent = "✅ Correct.";
+    } else {
+      div.classList.add("wrong");
+      if (chosen) labels[Number(chosen.value)].classList.add("is-wrong");
+      verdict.textContent = chosen ? "❌ Not quite." : "⚪ Not answered.";
+    }
+    div.classList.add("show");
+  });
+  const pct = Math.round(score / QUESTIONS.length * 100);
+  document.getElementById("score").textContent =
+    `Score: ${score} / ${QUESTIONS.length} (${pct}%) ${pct >= 60 ? "– Pass ✅" : "– Below 60% ❌"}`;
+}
+document.getElementById("submitBtn").onclick = grade;
+document.getElementById("resetBtn").onclick = () => {
+  if (timerId) { clearInterval(timerId); timerId = null; }
+  seconds = 1200; renderTime();
+  document.querySelectorAll("input[type=radio]").forEach(r => r.checked = false);
+  document.querySelectorAll(".q").forEach(d => {
+    d.classList.remove("show", "correct", "wrong");
+    d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong"));
+  });
+  document.getElementById("score").textContent = "";
+};
+</script>
+</body>
+</html>

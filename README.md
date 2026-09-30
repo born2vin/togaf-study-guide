@@ -8,8 +8,8 @@ Open any HTML file in a browser. No installation needed.
 |---|---|---|
 | 1 | Introduction to TOGAF | [TOGAF_Day1_Introduction.html](TOGAF_Day1_Introduction.html) |
 | 2 | Core Terminology | [TOGAF_Day2_Core_Terminology.html](TOGAF_Day2_Core_Terminology.html) |
-| 3 | Preliminary Phase and Architecture Principles | Coming soon |
-| 4 | Phase A: Architecture Vision | Coming soon |
+| 3 | Preliminary Phase and Architecture Principles | [TOGAF_Day3_Preliminary_Phase.html](TOGAF_Day3_Preliminary_Phase.html) |
+| 4 | Phase A: Architecture Vision | [TOGAF_Day4_Architecture_Vision.html](TOGAF_Day4_Architecture_Vision.html) |
 | 5 | Phase B: Business Architecture | Coming soon |
 | 6 | Phase C: Data Architecture | Coming soon |
 | 7 | Phase C: Application Architecture | Coming soon |

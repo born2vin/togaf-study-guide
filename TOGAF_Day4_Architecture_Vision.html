@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOGAF Day 4 – Architecture Vision</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --surface: #ffffff; --text: #1f2328; --muted: #5b6270;
+    --accent: #1d4e89; --accent-soft: #e6eef8; --border: #e2e0da;
+    --ok: #1e7a46; --ok-soft: #e5f4ec; --bad: #b3261e; --bad-soft: #fbe9e7;
+    --warn-soft: #fff6e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171b; --surface: #1d2026; --text: #e6e7ea; --muted: #a0a6b1;
+      --accent: #7fb0f0; --accent-soft: #1f2d42; --border: #2e323a;
+      --ok: #5fcf8f; --ok-soft: #173024; --bad: #f28b82; --bad-soft: #3a1d1b;
+      --warn-soft: #3a3120;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { border-bottom: 3px solid var(--accent); padding-bottom: 16px; margin-bottom: 24px; }
+  header .tag { color: var(--accent); font-weight: 700; letter-spacing: .08em; font-size: 13px; text-transform: uppercase; }
+  h1 { margin: 4px 0 6px; font-size: 32px; line-height: 1.2; }
+  h2 { margin-top: 40px; font-size: 24px; border-left: 4px solid var(--accent); padding-left: 12px; }
+  h3 { margin-top: 28px; font-size: 19px; color: var(--accent); }
+  nav { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 24px; }
+  nav a { color: var(--accent); text-decoration: none; margin-right: 14px; display: inline-block; }
+  .home { display: inline-block; margin-bottom: 12px; color: var(--accent); text-decoration: none; font-size: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .def { background: var(--accent-soft); border-left: 4px solid var(--accent); }
+  .tip { background: var(--warn-soft); }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); }
+  th, td { border: 1px solid var(--border); padding: 9px 11px; text-align: left; vertical-align: top; }
+  th { background: var(--accent-soft); }
+  .chain { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin: 16px 0; }
+  .chain .box { background: var(--surface); border: 2px solid var(--accent); border-radius: 10px; padding: 12px 16px; text-align: center; min-width: 130px; }
+  .chain .box b { display: block; color: var(--accent); }
+  .chain .box small { color: var(--muted); }
+  .chain .arrow { color: var(--muted); font-weight: 600; font-size: 14px; }
+  .q { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .q p.stem { font-weight: 600; margin: 0 0 10px; }
+  .q label { display: block; padding: 7px 10px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
+  .q label:hover { background: var(--accent-soft); }
+  .q input { margin-right: 8px; }
+  .q.correct { border-color: var(--ok); }
+  .q.wrong { border-color: var(--bad); }
+  label.is-answer { background: var(--ok-soft); border-color: var(--ok); }
+  label.is-wrong { background: var(--bad-soft); border-color: var(--bad); }
+  .reason { display: none; margin-top: 12px; padding: 12px; border-radius: 8px; background: var(--accent-soft); font-size: 15px; }
+  .show .reason { display: block; }
+  .verdict { font-weight: 700; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0; }
+  button { background: var(--accent); color: var(--surface); border: 0; border-radius: 8px; padding: 10px 18px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  button.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  #timer { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 18px; }
+  #score { font-size: 20px; font-weight: 700; }
+  ul, ol { padding-left: 22px; }
+  @media print { nav, .controls, .home { display: none; } .reason { display: block; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="home" href="index.html">← All days</a>
+<header>
+  <div class="tag">TOGAF Standard, 10th Edition · 25-Day Programme</div>
+  <h1>Day 4: Phase A – Architecture Vision</h1>
+  <div style="color:var(--muted)">Starting an ADM cycle: scope, stakeholders, the Architecture Vision and the Statement of Architecture Work</div>
+</header>
+
+<nav>
+  <a href="#purpose">1. Purpose</a>
+  <a href="#objectives">2. Objectives</a>
+  <a href="#inputs">3. Inputs</a>
+  <a href="#steps">4. Steps</a>
+  <a href="#scope">5. Scope</a>
+  <a href="#vision">6. Vision &amp; SoAW</a>
+  <a href="#outputs">7. Outputs</a>
+  <a href="#artifacts">8. Artifacts</a>
+  <a href="#summary">Summary</a>
+  <a href="#quiz">Mock Test</a>
+</nav>
+
+<h2 id="purpose">1. Purpose of Phase A</h2>
+<div class="card def">
+  Phase A is the <b>initial phase of each ADM cycle</b>. It defines the <b>scope</b>, identifies the <b>stakeholders</b>, creates the <b>Architecture Vision</b>, and obtains <b>approval</b> to proceed with the architecture work.
+</div>
+<p>Phase A is <b>started by a Request for Architecture Work</b>, sent by the sponsoring organization to the architecture organization. It <b>ends</b> when the <b>Statement of Architecture Work</b> is approved.</p>
+<div class="chain">
+  <div class="box"><b>Request for Architecture Work</b><small>trigger (from sponsor)</small></div>
+  <span class="arrow">starts →</span>
+  <div class="box"><b>Phase A</b><small>scope, stakeholders, vision</small></div>
+  <span class="arrow">ends with →</span>
+  <div class="box"><b>Approved Statement of Architecture Work</b><small>go-ahead for B–H</small></div>
+</div>
+
+<h2 id="objectives">2. Objectives</h2>
+<ul>
+  <li>Develop a <b>high-level, aspirational vision</b> of the capabilities and business value to be delivered by the proposed EA.</li>
+  <li>Obtain <b>approval for a Statement of Architecture Work</b> that defines a programme of work to develop and deploy the architecture described in the Architecture Vision.</li>
+</ul>
+
+<h2 id="inputs">3. Inputs</h2>
+<ul>
+  <li><b>Request for Architecture Work</b> (the key trigger)</li>
+  <li>Business principles, business goals and business drivers</li>
+  <li><b>Organizational Model for EA</b> and <b>Tailored Architecture Framework</b> (from the Preliminary Phase), including Architecture Principles</li>
+  <li>A populated <b>Architecture Repository</b>: existing architecture documentation, reference models and standards</li>
+</ul>
+
+<h2 id="steps">4. Steps</h2>
+<ol>
+  <li><b>Establish the architecture project</b> (within the enterprise's project management framework)</li>
+  <li><b>Identify stakeholders, concerns and business requirements</b></li>
+  <li><b>Confirm and elaborate business goals, drivers and constraints</b></li>
+  <li><b>Evaluate capabilities</b> (baseline and target capability levels)</li>
+  <li><b>Assess readiness for business transformation</b></li>
+  <li><b>Define scope</b></li>
+  <li><b>Confirm and elaborate Architecture Principles</b>, including business principles</li>
+  <li><b>Develop the Architecture Vision</b></li>
+  <li><b>Define the Target Architecture value propositions and KPIs</b></li>
+  <li><b>Identify business transformation risks</b> and mitigation activities</li>
+  <li><b>Develop the Statement of Architecture Work</b> and secure approval</li>
+</ol>
+<div class="card tip">💡 <b>Risk in Phase A:</b> TOGAF classifies risk as <b>initial level of risk</b> (before mitigation) and <b>residual level of risk</b> (after mitigation). Risks are identified in Phase A and managed throughout the cycle.</div>
+<div class="card tip">💡 <b>Business Transformation Readiness Assessment</b> evaluates how ready the organization is to accept change, using readiness factors such as vision, desire and willingness, need, business case, funding, sponsorship, governance, accountability, IT capacity and ability to implement.</div>
+
+<h2 id="scope">5. Defining Scope</h2>
+<p>TOGAF defines the scope of an architecture effort across four dimensions:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Dimension</th><th>Question it answers</th></tr>
+  <tr><td><b>Breadth</b></td><td>Which parts of the enterprise are covered? (the full enterprise, a business unit, a function)</td></tr>
+  <tr><td><b>Depth</b></td><td>How much detail is needed?</td></tr>
+  <tr><td><b>Time period</b></td><td>How far into the future does the architecture look, and how many transition steps are needed?</td></tr>
+  <tr><td><b>Architecture domains</b></td><td>Which of Business, Data, Application and Technology are included?</td></tr>
+</table>
+</div>
+<p>Scope is shaped by practical <b>constraints</b> such as time, cost, available skills and the organization's readiness.</p>
+
+<h2 id="vision">6. The Architecture Vision and the Statement of Architecture Work</h2>
+<h3>Architecture Vision</h3>
+<div class="card def">
+  A <b>high-level, aspirational</b> description of the Target Architecture and the business value it will deliver. It acts as the architect's <b>"elevator pitch"</b>: a tool to explain the benefits to stakeholders and win their support.
+</div>
+<ul>
+  <li>It is developed at a high level, often using a <b>Solution Concept diagram</b>.</li>
+  <li><b>Business Scenarios</b> are a key technique for discovering and documenting the business requirements behind the vision.</li>
+  <li>It includes value propositions and <b>KPIs</b> that show how success will be measured.</li>
+</ul>
+
+<h3>Statement of Architecture Work</h3>
+<div class="card def">
+  The <b>formal agreement</b> between the sponsor and the architecture organization. It defines the scope and approach for completing the architecture project, and it is the document against which successful execution is measured.
+</div>
+<p>Typical contents: title, architecture project request and background, project description and scope, overview of the Architecture Vision, specific change of scope procedures, roles and responsibilities, architecture approach, work plan, risks and mitigation, acceptance criteria and procedures, schedule, and approvals.</p>
+
+<h2 id="outputs">7. Outputs</h2>
+<ul>
+  <li><b>Approved Statement of Architecture Work</b></li>
+  <li>Refined statements of <b>business principles, goals and drivers</b></li>
+  <li>Confirmed <b>Architecture Principles</b></li>
+  <li><b>Capability Assessment</b></li>
+  <li>Tailored Architecture Framework (refined for this project)</li>
+  <li><b>Architecture Vision</b></li>
+  <li><b>Draft Architecture Definition Document</b>, with high-level baseline and target for Business, Data, Application and Technology</li>
+  <li><b>Communications Plan</b></li>
+  <li>Additional content for the Architecture Repository</li>
+</ul>
+
+<h2 id="artifacts">8. Artifacts Typically Produced</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Type</th><th>Phase A artifacts</th></tr>
+  <tr><td><b>Matrix</b></td><td>Stakeholder Map Matrix</td></tr>
+  <tr><td><b>Diagrams</b></td><td>Business Model Diagram · Business Capability Map · Value Stream Map · Value Chain Diagram · <b>Solution Concept Diagram</b></td></tr>
+</table>
+</div>
+<div class="card tip">⚠️ <b>Exam trap:</b> detailed diagrams such as the Application Communication Diagram or the Environments and Locations Diagram belong to Phases C and D, not Phase A. Phase A stays <b>high level</b>.</div>
+
+<h2 id="summary">📌 Day 4 Summary</h2>
+<div class="card">
+  <ul>
+    <li>Phase A <b>starts</b> with a <b>Request for Architecture Work</b> and <b>ends</b> with an approved <b>Statement of Architecture Work</b>.</li>
+    <li>It identifies <b>stakeholders and concerns</b>, confirms goals, drivers and principles, and defines <b>scope</b> by breadth, depth, time period and domains.</li>
+    <li>The <b>Architecture Vision</b> is a high-level, aspirational "elevator pitch", often supported by <b>Business Scenarios</b> and a <b>Solution Concept diagram</b>.</li>
+    <li>It also covers capability assessment, <b>transformation readiness</b>, value propositions and KPIs, and <b>risk</b> (initial and residual).</li>
+    <li>Other outputs include the draft Architecture Definition Document and the <b>Communications Plan</b>.</li>
+  </ul>
+</div>
+
+<h2 id="quiz">📝 Day 4 Mock Test (20 minutes)</h2>
+<div class="controls">
+  <button id="startBtn">Start 20-min timer</button>
+  <span id="timer">20:00</span>
+</div>
+<div id="questions"></div>
+<div class="controls">
+  <button id="submitBtn">Submit &amp; show reasoning</button>
+  <button class="secondary" id="resetBtn">Reset</button>
+  <span id="score"></span>
+</div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  { q: "Which input triggers the start of Phase A?",
+    o: ["Statement of Architecture Work","Request for Architecture Work","Architecture Contract","Implementation and Migration Plan"],
+    a: 1,
+    r: "Phase A is started by a <b>Request for Architecture Work</b> from the sponsoring organization. The Statement of Architecture Work is the <i>output</i> approved at the end of Phase A. The Architecture Contract belongs to Phase G, and the Implementation and Migration Plan to Phase F." },
+  { q: "Which deliverable must be approved by the end of Phase A for the architecture work to proceed?",
+    o: ["Statement of Architecture Work","Architecture Requirements Specification","Architecture Roadmap","Compliance Assessment"],
+    a: 0,
+    r: "The <b>Statement of Architecture Work</b> defines scope and approach and is the formal agreement to proceed. The Architecture Requirements Specification and Architecture Roadmap are developed in Phases B–F, and Compliance Assessments are done in Phase G." },
+  { q: "Which of the following is NOT an objective of Phase A?",
+    o: ["Develop a high-level, aspirational vision of the capabilities and business value to be delivered","Obtain approval for a Statement of Architecture Work","Define a programme of work to develop and deploy the architecture in the vision","Develop the detailed Target Technology Architecture"],
+    a: 3,
+    r: "Phase A stays at a <b>high level</b>. The detailed Target Technology Architecture is developed in <b>Phase D</b>. A, B and C all reflect Phase A's two objectives." },
+  { q: "Which set lists TOGAF's dimensions for defining the scope of an architecture effort?",
+    o: ["Cost, quality, time and risk","People, process, technology and data","Breadth, depth, time period and architecture domains","Strategy, segment, capability and solution"],
+    a: 2,
+    r: "TOGAF scopes architecture work by <b>breadth, depth, time period and architecture domains</b>. A is a project-management view. B is a common IT phrase but not TOGAF's scoping model. D lists architecture levels (landscape partitioning), not scope dimensions." },
+  { q: "Which technique is commonly used in Phase A to discover and document the business requirements behind the Architecture Vision?",
+    o: ["Business Scenarios","Gap Analysis","Interoperability Requirements","Migration Planning Techniques"],
+    a: 0,
+    r: "<b>Business Scenarios</b> help identify and articulate business requirements and are highlighted as a key Phase A technique. Gap Analysis is used mainly in Phases B–D. Interoperability and migration planning techniques are used mainly in Phases E and F." },
+  { q: "What best describes the role of the Architecture Vision?",
+    o: ["A detailed design specification for implementation teams","A high-level, aspirational view of the target state that acts as an \"elevator pitch\" to secure stakeholder support","A contract between the architecture function and implementation partners","A list of all applications in the enterprise"],
+    a: 1,
+    r: "The Architecture Vision is deliberately <b>high level and aspirational</b>; it sells the benefits to stakeholders. A is too detailed for Phase A. C describes an Architecture Contract. D describes the Application Portfolio Catalog." },
+  { q: "Which Phase A output describes how, when and in what format information about the architecture will be shared with stakeholders?",
+    o: ["Capability Assessment","Architecture Vision","Communications Plan","Tailored Architecture Framework"],
+    a: 2,
+    r: "The <b>Communications Plan</b> sets out the stakeholder communications. The Capability Assessment evaluates baseline and target capability levels. The Architecture Vision describes the target at a high level. The Tailored Architecture Framework describes method and content." },
+  { q: "An architect evaluates the organization's vision, desire, need, funding, sponsorship and ability to implement change. Which technique is being used?",
+    o: ["Stakeholder Management","Gap Analysis","Risk Management","Business Transformation Readiness Assessment"],
+    a: 3,
+    r: "These are the readiness factors of the <b>Business Transformation Readiness Assessment</b>, carried out in Phase A. Stakeholder Management analyses stakeholders and their concerns. Gap Analysis compares baseline and target. Risk Management identifies and mitigates risks." },
+  { q: "In TOGAF, what is the \"residual level of risk\"?",
+    o: ["The risk before any mitigation actions are taken","The risk remaining after mitigation actions have been applied","Risk that has been transferred to a vendor","Risk related only to technology components"],
+    a: 1,
+    r: "TOGAF classifies risk as <b>initial</b> (before mitigation) and <b>residual</b> (after mitigation). A describes initial risk. C and D are not TOGAF's definitions." },
+  { q: "<i>Scenario:</i> In Phase A, the architect lists all stakeholders, their concerns, the level of influence each has, and which views should be produced for them. Which artifact is this?",
+    o: ["Stakeholder Map Matrix","Application Portfolio Catalog","Value Stream Map","Solution Concept Diagram"],
+    a: 0,
+    r: "The <b>Stakeholder Map Matrix</b> records stakeholders, their concerns, influence and the relevant views. The Application Portfolio Catalog lists applications (Phase C). A Value Stream Map shows how value is delivered. A Solution Concept Diagram sketches the target solution." },
+  { q: "In Phase A, the draft Architecture Definition Document contains high-level baseline and target descriptions for which domains?",
+    o: ["Business only","Business and Technology only","Business, Data, Application and Technology","Data and Application only"],
+    a: 2,
+    r: "Phase A produces a <b>draft</b> Architecture Definition Document covering <b>all four domains</b> at a high level. Phases B, C and D then develop each domain in detail." },
+  { q: "<i>Scenario:</i> A sponsor asks the architect to go straight into detailed technology design because the budget is already approved. According to TOGAF, what should the architect do first?",
+    o: ["Start Phase D immediately, since the budget is approved","Skip to Phase G to set up the Architecture Contracts","Produce the Implementation and Migration Plan","Confirm scope, stakeholders and the Architecture Vision, and get the Statement of Architecture Work approved"],
+    a: 3,
+    r: "The ADM requires that Phase A establish <b>scope, stakeholders, the vision and an approved Statement of Architecture Work</b> before detailed architecture development. Budget approval alone does not replace these. A, B and C skip the phases that give the work its direction and agreement." },
+  { q: "Which of the following diagrams is typically produced in Phase A?",
+    o: ["Application Communication Diagram","Solution Concept Diagram","Environments and Locations Diagram","Data Lifecycle Diagram"],
+    a: 1,
+    r: "The <b>Solution Concept Diagram</b> gives a high-level orientation of the proposed solution in Phase A. The Application Communication and Data Lifecycle Diagrams belong to Phase C, and the Environments and Locations Diagram belongs to Phase D." }
+];
+
+const container = document.getElementById("questions");
+const letters = "ABCD";
+QUESTIONS.forEach((item, i) => {
+  const div = document.createElement("div");
+  div.className = "q"; div.id = "q" + i;
+  let html = `<p class="stem">Q${i + 1}. ${item.q}</p>`;
+  item.o.forEach((opt, j) => {
+    html += `<label><input type="radio" name="q${i}" value="${j}">${letters[j]}. ${opt}</label>`;
+  });
+  html += `<div class="reason"><span class="verdict"></span> Correct answer: <b>${letters[item.a]}. ${item.o[item.a]}</b><br>${item.r}</div>`;
+  div.innerHTML = html;
+  container.appendChild(div);
+});
+
+let seconds = 1200, timerId = null;
+const timerEl = document.getElementById("timer");
+function renderTime() {
+  const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const s = String(seconds % 60).padStart(2, "0");
+  timerEl.textContent = `${m}:${s}`;
+}
+document.getElementById("startBtn").onclick = () => {
+  if (timerId) return;
+  timerId = setInterval(() => {
+    seconds--; renderTime();
+    if (seconds <= 0) { clearInterval(timerId); timerId = null; timerEl.textContent = "Time's up!"; grade(); }
+  }, 1000);
+};
+
+function grade() {
+  if (timerId) { clearInterval(timerId); timerId = null; }
+  let score = 0;
+  QUESTIONS.forEach((item, i) => {
+    const div = document.getElementById("q" + i);
+    const chosen = div.querySelector("input:checked");
+    const labels = div.querySelectorAll("label");
+    labels.forEach(l => l.classList.remove("is-answer", "is-wrong"));
+    labels[item.a].classList.add("is-answer");
+    const verdict = div.querySelector(".verdict");
+    div.classList.remove("correct", "wrong");
+    if (chosen && Number(chosen.value) === item.a) {
+      score++; div.classList.add("correct"); verdict.textContent = "✅ Correct.";
+    } else {
+      div.classList.add("wrong");
+      if (chosen) labels[Number(chosen.value)].classList.add("is-wrong");
+      verdict.textContent = chosen ? "❌ Not quite." : "⚪ Not answered.";
+    }
+    div.classList.add("show");
+  });
+  const pct = Math.round(score / QUESTIONS.length * 100);
+  document.getElementById("score").textContent =
+    `Score: ${score} / ${QUESTIONS.length} (${pct}%) ${pct >= 60 ? "– Pass ✅" : "– Below 60% ❌"}`;
+}
+document.getElementById("submitBtn").onclick = grade;
+document.getElementById("resetBtn").onclick = () => {
+  if (timerId) { clearInterval(timerId); timerId = null; }
+  seconds = 1200; renderTime();
+  document.querySelectorAll("input[type=radio]").forEach(r => r.checked = false);
+  document.querySelectorAll(".q").forEach(d => {
+    d.classList.remove("show", "correct", "wrong");
+    d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong"));
+  });
+  document.getElementById("score").textContent = "";
+};
+</script>
+</body>
+</html>
