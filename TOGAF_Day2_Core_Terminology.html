@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOGAF Day 2 – Terminology</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --surface: #ffffff; --text: #1f2328; --muted: #5b6270;
+    --accent: #1d4e89; --accent-soft: #e6eef8; --border: #e2e0da;
+    --ok: #1e7a46; --ok-soft: #e5f4ec; --bad: #b3261e; --bad-soft: #fbe9e7;
+    --warn-soft: #fff6e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171b; --surface: #1d2026; --text: #e6e7ea; --muted: #a0a6b1;
+      --accent: #7fb0f0; --accent-soft: #1f2d42; --border: #2e323a;
+      --ok: #5fcf8f; --ok-soft: #173024; --bad: #f28b82; --bad-soft: #3a1d1b;
+      --warn-soft: #3a3120;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { border-bottom: 3px solid var(--accent); padding-bottom: 16px; margin-bottom: 24px; }
+  header .tag { color: var(--accent); font-weight: 700; letter-spacing: .08em; font-size: 13px; text-transform: uppercase; }
+  h1 { margin: 4px 0 6px; font-size: 32px; line-height: 1.2; }
+  h2 { margin-top: 40px; font-size: 24px; border-left: 4px solid var(--accent); padding-left: 12px; }
+  h3 { margin-top: 28px; font-size: 19px; color: var(--accent); }
+  nav { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 24px; }
+  nav a { color: var(--accent); text-decoration: none; margin-right: 14px; display: inline-block; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .def { background: var(--accent-soft); border-left: 4px solid var(--accent); }
+  .tip { background: var(--warn-soft); }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); }
+  th, td { border: 1px solid var(--border); padding: 9px 11px; text-align: left; vertical-align: top; }
+  th { background: var(--accent-soft); }
+  .chain { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin: 16px 0; }
+  .chain .box { background: var(--surface); border: 2px solid var(--accent); border-radius: 10px; padding: 12px 16px; text-align: center; min-width: 130px; }
+  .chain .box b { display: block; color: var(--accent); }
+  .chain .box small { color: var(--muted); }
+  .chain .arrow { color: var(--muted); font-weight: 600; font-size: 14px; }
+  .q { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
+  .q p.stem { font-weight: 600; margin: 0 0 10px; }
+  .q label { display: block; padding: 7px 10px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
+  .q label:hover { background: var(--accent-soft); }
+  .q input { margin-right: 8px; }
+  .q.correct { border-color: var(--ok); }
+  .q.wrong { border-color: var(--bad); }
+  label.is-answer { background: var(--ok-soft); border-color: var(--ok); }
+  label.is-wrong { background: var(--bad-soft); border-color: var(--bad); }
+  .reason { display: none; margin-top: 12px; padding: 12px; border-radius: 8px; background: var(--accent-soft); font-size: 15px; }
+  .show .reason { display: block; }
+  .verdict { font-weight: 700; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0; }
+  button { background: var(--accent); color: var(--surface); border: 0; border-radius: 8px; padding: 10px 18px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  button.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  #timer { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 18px; }
+  #score { font-size: 20px; font-weight: 700; }
+  ul { padding-left: 22px; }
+  @media print { nav, .controls { display: none; } .reason { display: block; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">TOGAF Standard, 10th Edition · 25-Day Programme</div>
+  <h1>Day 2: Core Terminology</h1>
+  <div style="color:var(--muted)">Stakeholders and concerns, views and viewpoints, deliverables, artifacts, building blocks, and architecture states</div>
+</header>
+
+<nav>
+  <a href="#stake">1. Stakeholders &amp; Concerns</a>
+  <a href="#views">2. Views &amp; Viewpoints</a>
+  <a href="#dab">3. Deliverables, Artifacts, Building Blocks</a>
+  <a href="#states">4. Architecture States</a>
+  <a href="#more">5. More Terms</a>
+  <a href="#summary">Summary</a>
+  <a href="#quiz">Mock Test</a>
+</nav>
+
+<p>Yesterday covered the big picture. Today covers the words TOGAF uses to describe architecture work. Foundation questions test these definitions closely, and the options are often very similar. Learn the <b>exact wording</b> and the <b>differences</b> between terms.</p>
+
+<h2 id="stake">1. Stakeholders and Concerns</h2>
+<p>TOGAF takes these definitions from ISO/IEC/IEEE 42010.</p>
+<div class="card def">
+  <b>Stakeholder:</b> an individual, team, organization, or class thereof, having an interest in a system.<br>
+  <span style="color:var(--muted)">Examples: CEO, CFO, CIO, business process owners, end users, regulators, project managers, suppliers.</span>
+</div>
+<div class="card def">
+  <b>Concern:</b> an interest in a system that matters to one or more stakeholders.<br>
+  <span style="color:var(--muted)">Examples: performance, reliability, security, cost, compliance, scalability, ease of change.</span>
+</div>
+<p>A concern is <b>what a stakeholder cares about</b>. It is <i>not</i> a document or a diagram. Stakeholders are identified in the <b>Preliminary Phase</b> and <b>Phase A</b>. How to manage them is covered on Day 15.</p>
+
+<h2 id="views">2. Views and Viewpoints</h2>
+<p>This is the pair most often confused in exams.</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Term</th><th>TOGAF meaning</th><th>Analogy</th></tr>
+  <tr><td><b>Viewpoint</b></td><td>The <b>specification of the conventions</b> for building and using a view. It is the perspective or template: which stakeholders, which concerns, and which models or notations to use.</td><td>The <b>blueprint type</b>, e.g. "electrical wiring plan"</td></tr>
+  <tr><td><b>View</b></td><td>The <b>representation of a system</b> from the perspective of a related set of concerns. It is the actual output.</td><td>The <b>actual wiring plan</b> for <i>this</i> house</td></tr>
+</table>
+</div>
+<ul>
+  <li><b>Link to the other terms:</b> a view is built <i>according to</i> a viewpoint, and it addresses the <b>concerns</b> of certain <b>stakeholders</b>.</li>
+  <li><b>Memory hook:</b> the <b>viewpoint</b> is <i>where you look from</i>; the <b>view</b> is <i>what you see</i>.</li>
+  <li><b>Example:</b> a "Security viewpoint" defines how to show security controls for the CISO. The diagram showing <i>this</i> bank's customer-data protection controls is a <b>view</b>.</li>
+</ul>
+<div class="chain">
+  <div class="box"><b>Stakeholder</b><small>e.g. CISO</small></div>
+  <span class="arrow">has →</span>
+  <div class="box"><b>Concern</b><small>data security</small></div>
+  <span class="arrow">framed by →</span>
+  <div class="box"><b>Viewpoint</b><small>"Security" conventions</small></div>
+  <span class="arrow">governs →</span>
+  <div class="box"><b>View</b><small>this system's controls</small></div>
+</div>
+<p><b>Architecture Description</b> is a related term. It is the collection of artifacts that documents an architecture. An architecture description is made up of <b>views</b>.</p>
+
+<h2 id="dab">3. Deliverables, Artifacts and Building Blocks</h2>
+<p>These three terms form the backbone of TOGAF's Architecture Content Framework.</p>
+
+<h3>Deliverable</h3>
+<div class="card def">A work product that is <b>contractually specified</b>, then <b>formally reviewed, agreed and signed off</b> by stakeholders.</div>
+<ul>
+  <li>Examples: Statement of Architecture Work, Architecture Definition Document, Architecture Requirements Specification, Architecture Roadmap.</li>
+  <li>Deliverables are outputs of <i>projects</i>.</li>
+  <li>When a project ends, a deliverable is either <b>archived</b>, or <b>transitioned into the Architecture Repository</b> as a reference model, a standard, or a snapshot of the Architecture Landscape.</li>
+</ul>
+
+<h3>Artifact</h3>
+<p>A <b>more granular</b> work product that describes one aspect of the architecture. There are three types:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Type</th><th>What it shows</th><th>Example</th></tr>
+  <tr><td><b>Catalog</b></td><td>A <b>list</b> of building blocks of one type</td><td>Application Portfolio Catalog</td></tr>
+  <tr><td><b>Matrix</b></td><td><b>Relationships</b> between building blocks, in a grid</td><td>Application/Function Matrix</td></tr>
+  <tr><td><b>Diagram</b></td><td>A <b>picture</b> of building blocks and how they relate</td><td>Application Communication Diagram</td></tr>
+</table>
+</div>
+
+<h3>Building Block</h3>
+<div class="card def">A potentially <b>reusable</b> component of enterprise capability. It can be combined with other building blocks to deliver architectures and solutions.</div>
+<div class="table-wrap">
+<table>
+  <tr><th></th><th>Architecture Building Block (ABB)</th><th>Solution Building Block (SBB)</th></tr>
+  <tr><td><b>Nature</b></td><td>Describes the <i>required capability</i></td><td>Describes the <i>actual component</i> that implements it</td></tr>
+  <tr><td><b>Product/vendor</b></td><td><b>Product- and vendor-neutral</b></td><td><b>Product- or vendor-aware</b></td></tr>
+  <tr><td><b>Role</b></td><td>Captures requirements; directs and guides SBB development</td><td>Implements the capability defined by ABBs</td></tr>
+  <tr><td><b>Example</b></td><td>"Customer Relationship Management capability"</td><td>"Salesforce Sales Cloud, configured as…"</td></tr>
+</table>
+</div>
+<p><b>Features of a good building block:</b></p>
+<ul>
+  <li>It has a defined boundary and is recognisable as one thing.</li>
+  <li>It has published, well-defined <b>interfaces</b>.</li>
+  <li>It can be made from other building blocks, or be part of a larger one.</li>
+  <li>Ideally, it is <b>reusable and replaceable</b>.</li>
+  <li>It can be defined at different levels of detail.</li>
+  <li>It is <i>not</i> necessarily software. It can be a process, a role, a data entity or a platform.</li>
+</ul>
+
+<p><b>Key relationship</b> (a very likely exam question):</p>
+<div class="chain">
+  <div class="box"><b>Deliverables</b><small>formally signed off</small></div>
+  <span class="arrow">contain →</span>
+  <div class="box"><b>Artifacts</b><small>catalogs, matrices, diagrams</small></div>
+  <span class="arrow">describe →</span>
+  <div class="box"><b>Building Blocks</b><small>ABBs &amp; SBBs</small></div>
+</div>
+
+<h2 id="states">4. Architecture States: Baseline, Target, Transition, Gap</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Term</th><th>Meaning</th></tr>
+  <tr><td><b>Baseline Architecture</b></td><td>The existing, defined architecture before a change ("as-is")</td></tr>
+  <tr><td><b>Target Architecture</b></td><td>The description of a future state ("to-be")</td></tr>
+  <tr><td><b>Transition Architecture</b></td><td>A formal description of <b>one state</b> of the architecture at an architecturally significant point in time. It shows an <b>intermediate</b> step between Baseline and Target.</td></tr>
+  <tr><td><b>Gap</b></td><td>A statement of the <b>difference</b> between two states. Gap Analysis is used in Phases B, C and D.</td></tr>
+</table>
+</div>
+<p>Transition Architectures are mainly developed in <b>Phases E and F</b>. They let organizations deliver business value in steps instead of making one big change.</p>
+
+<h2 id="more">5. Two More Useful Terms</h2>
+<ul>
+  <li><b>Capability:</b> an ability that an organization, person or system possesses, such as "Online Payment Processing."</li>
+  <li><b>Architecture Repository:</b> where architecture outputs are stored. It is covered on Day 19.</li>
+</ul>
+
+<h2 id="summary">📌 Day 2 Summary</h2>
+<div class="card">
+  <ul>
+    <li><b>Stakeholders</b> have <b>concerns</b>.</li>
+    <li>A <b>viewpoint</b> defines the conventions for a <b>view</b>, and a view addresses those concerns.</li>
+    <li><b>Deliverables</b> are formally signed off. They <b>contain artifacts</b>: catalogs (lists), matrices (relationships) and diagrams (pictures). Artifacts <b>describe building blocks</b>.</li>
+    <li><b>ABBs</b> are vendor-neutral and define <i>what</i> is needed. <b>SBBs</b> are product-aware and define <i>how</i> it is implemented.</li>
+    <li>Architecture moves from <b>Baseline</b> to <b>Target</b> through <b>Transition Architectures</b>. The <b>Gap</b> is the difference between two states.</li>
+  </ul>
+</div>
+
+<h2 id="quiz">📝 Day 2 Mock Test (20 minutes)</h2>
+<div class="controls">
+  <button id="startBtn">Start 20-min timer</button>
+  <span id="timer">20:00</span>
+</div>
+<div id="questions"></div>
+<div class="controls">
+  <button id="submitBtn">Submit &amp; show reasoning</button>
+  <button class="secondary" id="resetBtn">Reset</button>
+  <span id="score"></span>
+</div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  { q: "\"An individual, team, organization, or class thereof, having an interest in a system.\" This is TOGAF's definition of:",
+    o: ["A concern","An actor","A stakeholder","A role"],
+    a: 2,
+    r: "This is TOGAF's definition of a <b>stakeholder</b>, taken from ISO/IEC/IEEE 42010. A concern is the <i>interest</i> itself, not the party that holds it. Actor and role are Business Architecture terms: an actor is a person, organization or system that performs behaviour, and a role is a function an actor performs. Neither is defined by \"having an interest in a system.\"" },
+  { q: "Which of the following is an example of a <i>concern</i>?",
+    o: ["The reliability and security of the payment system","The Application Communication Diagram","The Architecture Board","The Statement of Architecture Work"],
+    a: 0,
+    r: "A concern is an interest in a system, such as reliability, security, performance or cost. B is an <b>artifact</b> (a diagram), which might be used to <i>address</i> a concern but is not one. C is a <b>governance body</b>. D is a <b>deliverable</b> produced in Phase A." },
+  { q: "Which statement correctly describes the relationship between a view and a viewpoint?",
+    o: ["A view specifies the conventions; a viewpoint is the resulting representation","Views and viewpoints are interchangeable terms in TOGAF","A viewpoint is a signed-off deliverable, while a view is an informal sketch","A viewpoint specifies the conventions for building a view; a view is the representation of a system from the perspective of related concerns"],
+    a: 3,
+    r: "The viewpoint is <i>where you look from</i> (the conventions or template). The view is <i>what you see</i> (the actual representation). A reverses the two definitions, a classic trap. B is wrong because TOGAF defines them as distinct terms. C mixes in the term \"deliverable\", which is unrelated to this distinction." },
+  { q: "Which term describes a work product that is contractually specified, then formally reviewed, agreed and signed off by stakeholders?",
+    o: ["Artifact","Deliverable","Building block","Viewpoint"],
+    a: 1,
+    r: "This is the TOGAF definition of a <b>deliverable</b>. An artifact is more granular and describes one aspect of the architecture; it is not signed off on its own. A building block is a component of enterprise capability. A viewpoint is a set of conventions for a view." },
+  { q: "Which of the following is NOT one of TOGAF's artifact types?",
+    o: ["Catalog","Matrix","Diagram","Contract"],
+    a: 3,
+    r: "TOGAF has exactly three artifact types: <b>catalogs</b> (lists), <b>matrices</b> (relationships) and <b>diagrams</b> (pictures). A \"contract\" is not an artifact type. Architecture Contracts do exist in TOGAF, but they are agreements used in governance (Phase G), not an artifact classification." },
+  { q: "An architect produces a list of all applications in use across the enterprise. What type of artifact is this?",
+    o: ["Diagram","Catalog","Matrix","Deliverable"],
+    a: 1,
+    r: "A <b>list</b> of building blocks of one type is a <b>catalog</b>; here it is the Application Portfolio Catalog. A diagram is a picture and a matrix shows relationships. A deliverable is not an artifact type at all; it is a signed-off work product that <i>contains</i> artifacts." },
+  { q: "An architect produces a grid showing which business functions are supported by which applications. What type of artifact is this?",
+    o: ["Catalog","Diagram","Matrix","Roadmap"],
+    a: 2,
+    r: "A grid showing <b>relationships</b> between two types of building block is a <b>matrix</b>; here it is the Application/Function Matrix. A catalog lists one type only. A diagram is a picture. A roadmap is a deliverable component showing sequencing over time, not an artifact type." },
+  { q: "Which statement best describes a Solution Building Block (SBB)?",
+    o: ["It defines the products and components that will implement the functionality, and may be product- or vendor-aware","It captures architecture requirements in a vendor-neutral way and guides development","It is a list of building blocks of the same type","It is the formal agreement to carry out architecture work"],
+    a: 0,
+    r: "SBBs are the <b>implementation</b> view and may be <b>product- or vendor-aware</b>. B describes an <b>Architecture Building Block (ABB)</b>, which is vendor-neutral and guides SBB development. C describes a catalog. D describes the Statement of Architecture Work." },
+  { q: "Which statement correctly describes the relationship between deliverables, artifacts and building blocks?",
+    o: ["Building blocks contain deliverables, which describe artifacts","Deliverables contain artifacts, and artifacts describe building blocks","Artifacts contain deliverables, and deliverables describe building blocks","Deliverables and artifacts are the same thing"],
+    a: 1,
+    r: "The core rule of the Architecture Content Framework: <b>deliverables contain artifacts, and artifacts describe building blocks</b>. A and C scramble the order. D is wrong because deliverables are formally signed off and contain one or more artifacts, while artifacts are more granular." },
+  { q: "Which of the following is NOT a characteristic of a good building block in TOGAF?",
+    o: ["It has published, well-defined interfaces","It may be assembled from other building blocks","It is ideally reusable and replaceable","It must always be a software product"],
+    a: 3,
+    r: "A building block can be a process, role, organization unit, data entity, application or technology platform. It is <b>not</b> restricted to software. A, B and C are all listed characteristics of a good building block. Note the absolute word \"always\" in D." },
+  { q: "Which best defines a Transition Architecture?",
+    o: ["The existing architecture before any change","The final, fully realised future-state architecture","A formal description of one state of the architecture at an architecturally significant point in time","A statement of the differences between two architectures"],
+    a: 2,
+    r: "A Transition Architecture is an <b>intermediate state</b> between Baseline and Target, developed mainly in Phases E and F. A is the <b>Baseline</b> Architecture, B is the <b>Target</b> Architecture, and D is a <b>gap</b>." },
+  { q: "In TOGAF, a \"gap\" is best described as:",
+    o: ["A statement of difference between two states","A missing stakeholder","An unapproved deliverable","A risk that has not been mitigated"],
+    a: 0,
+    r: "A gap is a statement of difference between two states, usually Baseline and Target. Gap Analysis is used in Phases B, C and D. The other options sound plausible but are not TOGAF's definition. Gap analysis can <i>reveal</i> missing items, but a gap is the difference itself." },
+  { q: "<i>Scenario:</i> The CISO is concerned about how customer data is protected. The architect creates a diagram of the data flows and security controls for the customer data platform, following the organization's standard \"Security\" conventions. What is the diagram?",
+    o: ["A viewpoint","A view","A concern","An Architecture Building Block"],
+    a: 1,
+    r: "The diagram is the actual representation of <i>this</i> system for <i>these</i> concerns, so it is a <b>view</b>. The standard \"Security\" conventions it follows are the <b>viewpoint</b> (A). The CISO's interest in data protection is the <b>concern</b> (C). The diagram may <i>show</i> building blocks, but it is not an ABB (D)." },
+  { q: "According to TOGAF, what typically happens to a deliverable when the project that produced it is completed?",
+    o: ["It is always deleted to avoid outdated information","It becomes the Architecture Vision for the next cycle","It is converted into a Solution Building Block","It is archived, or transitioned into the Architecture Repository as a reference model, standard, or snapshot of the Architecture Landscape"],
+    a: 3,
+    r: "TOGAF says deliverables are either <b>archived</b> or <b>transitioned into the Architecture Repository</b>. A is wrong because TOGAF values reuse. B is wrong because the Architecture Vision is a separate Phase A output. C is wrong because a deliverable is a document, not a component." }
+];
+
+const container = document.getElementById("questions");
+const letters = "ABCD";
+QUESTIONS.forEach((item, i) => {
+  const div = document.createElement("div");
+  div.className = "q"; div.id = "q" + i;
+  let html = `<p class="stem">Q${i + 1}. ${item.q}</p>`;
+  item.o.forEach((opt, j) => {
+    html += `<label><input type="radio" name="q${i}" value="${j}">${letters[j]}. ${opt}</label>`;
+  });
+  html += `<div class="reason"><span class="verdict"></span> Correct answer: <b>${letters[item.a]}. ${item.o[item.a]}</b><br>${item.r}</div>`;
+  div.innerHTML = html;
+  container.appendChild(div);
+});
+
+let seconds = 1200, timerId = null;
+const timerEl = document.getElementById("timer");
+function renderTime() {
+  const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const s = String(seconds % 60).padStart(2, "0");
+  timerEl.textContent = `${m}:${s}`;
+}
+document.getElementById("startBtn").onclick = () => {
+  if (timerId) return;
+  timerId = setInterval(() => {
+    seconds--; renderTime();
+    if (seconds <= 0) { clearInterval(timerId); timerId = null; timerEl.textContent = "Time's up!"; grade(); }
+  }, 1000);
+};
+
+function grade() {
+  if (timerId) { clearInterval(timerId); timerId = null; }
+  let score = 0;
+  QUESTIONS.forEach((item, i) => {
+    const div = document.getElementById("q" + i);
+    const chosen = div.querySelector("input:checked");
+    const labels = div.querySelectorAll("label");
+    labels.forEach(l => l.classList.remove("is-answer", "is-wrong"));
+    labels[item.a].classList.add("is-answer");
+    const verdict = div.querySelector(".verdict");
+    div.classList.remove("correct", "wrong");
+    if (chosen && Number(chosen.value) === item.a) {
+      score++; div.classList.add("correct"); verdict.textContent = "✅ Correct.";
+    } else {
+      div.classList.add("wrong");
+      if (chosen) labels[Number(chosen.value)].classList.add("is-wrong");
+      verdict.textContent = chosen ? "❌ Not quite." : "⚪ Not answered.";
+    }
+    div.classList.add("show");
+  });
+  const pct = Math.round(score / QUESTIONS.length * 100);
+  document.getElementById("score").textContent =
+    `Score: ${score} / ${QUESTIONS.length} (${pct}%) ${pct >= 60 ? "– Pass ✅" : "– Below 60% ❌"}`;
+}
+document.getElementById("submitBtn").onclick = grade;
+document.getElementById("resetBtn").onclick = () => {
+  if (timerId) { clearInterval(timerId); timerId = null; }
+  seconds = 1200; renderTime();
+  document.querySelectorAll("input[type=radio]").forEach(r => r.checked = false);
+  document.querySelectorAll(".q").forEach(d => {
+    d.classList.remove("show", "correct", "wrong");
+    d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong"));
+  });
+  document.getElementById("score").textContent = "";
+};
+</script>
+</body>
+</html>
