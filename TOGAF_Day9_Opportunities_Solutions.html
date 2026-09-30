@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Day 4: Phase A: Architecture Vision · TOGAF Explained</title>
+<title>Day 9: Phase E: Opportunities &amp; Solutions · TOGAF Explained</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
@@ -226,129 +226,107 @@ a.tile:hover .t { color: var(--red); }
 </div></div>
 
 <header class="hero">
-  <div class="kicker">Day 4 of 25 · Foundation</div>
-  <h1>Phase A: Architecture Vision</h1>
-  <p class="dek">Starting an ADM cycle: scope, stakeholders, the Architecture Vision and the Statement of Architecture Work</p>
+  <div class="kicker">Day 9 of 25 · Foundation</div>
+  <h1>Phase E: Opportunities &amp; Solutions</h1>
+  <p class="dek">The first implementation phase: consolidating gaps, work packages, Transition Architectures and the initial roadmap</p>
   <div class="byline"><span><b>TOGAF Explained</b></span><span>About 3 min read</span><span>13-question mock test</span><span>TOGAF Standard, 10th Edition</span></div>
-  <div class="progress" aria-label="Course progress"><i style="width:16%"></i></div>
+  <div class="progress" aria-label="Course progress"><i style="width:36%"></i></div>
 </header>
 <div class="layout">
   <aside class="toc">
     <details open><summary style="list-style:none"><h4>In this explainer</h4></summary>
-    <ol><li><a href="#purpose">Purpose of Phase A</a></li><li><a href="#objectives">Objectives</a></li><li><a href="#inputs">Inputs</a></li><li><a href="#steps">Steps</a></li><li><a href="#scope">Defining Scope</a></li><li><a href="#vision">The Architecture Vision and the Statement of Architecture Work</a></li><li><a href="#outputs">Outputs</a></li><li><a href="#artifacts">Artifacts Typically Produced</a></li><li><a href="#summary">The takeaway</a></li><li><a href="#quiz">Mock test</a></li></ol></details>
+    <ol><li><a href="#purpose">Purpose of Phase E</a></li><li><a href="#objectives">Objectives</a></li><li><a href="#steps">Steps</a></li><li><a href="#strategy">Implementation and Migration Strategy</a></li><li><a href="#tools">Key Techniques and Tables</a></li><li><a href="#outputs">Outputs</a></li><li><a href="#artifacts">Artifacts Typically Produced</a></li><li><a href="#summary">The takeaway</a></li><li><a href="#quiz">Mock test</a></li></ol></details>
   </aside>
   <article>
-<h2 id="purpose"><span class="num">01</span>Purpose of Phase A</h2>
+<p>With the four domains defined, the ADM turns towards <b>delivery</b>. Phase E is the first phase directly concerned with <b>implementation</b>: it works out how to get from the Baseline to the Target.</p>
+
+<h2 id="purpose"><span class="num">01</span>Purpose of Phase E</h2>
 <div class="card def">
-  Phase A is the <b>initial phase of each ADM cycle</b>. It defines the <b>scope</b>, identifies the <b>stakeholders</b>, creates the <b>Architecture Vision</b>, and obtains <b>approval</b> to proceed with the architecture work.
+  Phase E describes the process of identifying <b>delivery vehicles</b> (projects, programmes or portfolios) that effectively deliver the Target Architecture identified in the previous phases. It creates the <b>initial complete version of the Architecture Roadmap</b>.
 </div>
-<p>Phase A is <b>started by a Request for Architecture Work</b>, sent by the sponsoring organization to the architecture organization. It <b>ends</b> when the <b>Statement of Architecture Work</b> is approved.</p>
-<div class="chain">
-  <div class="box"><b>Request for Architecture Work</b><small>trigger (from sponsor)</small></div>
-  <span class="arrow">↓ starts</span>
-  <div class="box"><b>Phase A</b><small>scope, stakeholders, vision</small></div>
-  <span class="arrow">↓ ends with</span>
-  <div class="box"><b>Approved Statement of Architecture Work</b><small>go-ahead for B–H</small></div>
-</div>
+<p>Phase E consolidates the gaps from Phases B, C and D, groups them into <b>work packages</b>, and decides whether an <b>incremental approach</b> using <b>Transition Architectures</b> is needed.</p>
 
 <h2 id="objectives"><span class="num">02</span>Objectives</h2>
 <ul>
-  <li>Develop a <b>high-level, aspirational vision</b> of the capabilities and business value to be delivered by the proposed EA.</li>
-  <li>Obtain <b>approval for a Statement of Architecture Work</b> that defines a programme of work to develop and deploy the architecture described in the Architecture Vision.</li>
+  <li>Generate the <b>initial complete version of the Architecture Roadmap</b>, based on the gap analysis and candidate roadmap components from Phases B, C and D.</li>
+  <li>Determine whether an <b>incremental approach</b> is required, and if so identify <b>Transition Architectures</b> that will deliver continuous business value.</li>
 </ul>
 
-<h2 id="inputs"><span class="num">03</span>Inputs</h2>
-<ul>
-  <li><b>Request for Architecture Work</b> (the key trigger)</li>
-  <li>Business principles, business goals and business drivers</li>
-  <li><b>Organizational Model for EA</b> and <b>Tailored Architecture Framework</b> (from the Preliminary Phase), including Architecture Principles</li>
-  <li>A populated <b>Architecture Repository</b>: existing architecture documentation, reference models and standards</li>
-</ul>
-
-<h2 id="steps"><span class="num">04</span>Steps</h2>
+<h2 id="steps"><span class="num">03</span>Steps</h2>
 <ol>
-  <li><b>Establish the architecture project</b> (within the enterprise's project management framework)</li>
-  <li><b>Identify stakeholders, concerns and business requirements</b></li>
-  <li><b>Confirm and elaborate business goals, drivers and constraints</b></li>
-  <li><b>Evaluate capabilities</b> (baseline and target capability levels)</li>
-  <li><b>Assess readiness for business transformation</b></li>
-  <li><b>Define scope</b></li>
-  <li><b>Confirm and elaborate Architecture Principles</b>, including business principles</li>
-  <li><b>Develop the Architecture Vision</b></li>
-  <li><b>Define the Target Architecture value propositions and KPIs</b></li>
-  <li><b>Identify business transformation risks</b> and mitigation activities</li>
-  <li><b>Develop the Statement of Architecture Work</b> and secure approval</li>
+  <li><b>Determine or confirm key corporate change attributes</b></li>
+  <li><b>Determine business constraints</b> for implementation</li>
+  <li><b>Review and consolidate gap analysis results</b> from Phases B to D</li>
+  <li><b>Review consolidated requirements</b> across related business functions</li>
+  <li><b>Consolidate and reconcile interoperability requirements</b></li>
+  <li><b>Refine and validate dependencies</b></li>
+  <li><b>Confirm readiness and risk</b> for business transformation</li>
+  <li><b>Formulate the Implementation and Migration Strategy</b></li>
+  <li><b>Identify and group major work packages</b></li>
+  <li><b>Identify Transition Architectures</b></li>
+  <li><b>Create the Architecture Roadmap and Implementation and Migration Plan</b></li>
 </ol>
-<div class="card tip"><b>Risk in Phase A:</b> TOGAF classifies risk as <b>initial level of risk</b> (before mitigation) and <b>residual level of risk</b> (after mitigation). Risks are identified in Phase A and managed throughout the cycle.</div>
-<div class="card tip"><b>Business Transformation Readiness Assessment</b> evaluates how ready the organization is to accept change, using readiness factors such as vision, desire and willingness, need, business case, funding, sponsorship, governance, accountability, IT capacity and ability to implement.</div>
 
-<h2 id="scope"><span class="num">05</span>Defining Scope</h2>
-<p>TOGAF defines the scope of an architecture effort across four dimensions:</p>
+<h2 id="strategy"><span class="num">04</span>Implementation and Migration Strategy</h2>
+<h3>Basic strategy</h3>
 <div class="table-wrap">
 <table>
-  <tr><th>Dimension</th><th>Question it answers</th></tr>
-  <tr><td><b>Breadth</b></td><td>Which parts of the enterprise are covered? (the full enterprise, a business unit, a function)</td></tr>
-  <tr><td><b>Depth</b></td><td>How much detail is needed?</td></tr>
-  <tr><td><b>Time period</b></td><td>How far into the future does the architecture look, and how many transition steps are needed?</td></tr>
-  <tr><td><b>Architecture domains</b></td><td>Which of Business, Data, Application and Technology are included?</td></tr>
+  <tr><th>Strategy</th><th>Meaning</th></tr>
+  <tr><td><b>Greenfield</b></td><td>Start from the beginning, with no existing environment to migrate from</td></tr>
+  <tr><td><b>Revolutionary</b></td><td>A radical change: switch over from old to new in one step (a "big bang")</td></tr>
+  <tr><td><b>Evolutionary</b></td><td>Convergent, phased change delivered in increments, usually through Transition Architectures</td></tr>
 </table>
 </div>
-<p>Scope is shaped by practical <b>constraints</b> such as time, cost, available skills and the organization's readiness.</p>
-
-<h2 id="vision"><span class="num">06</span>The Architecture Vision and the Statement of Architecture Work</h2>
-<h3>Architecture Vision</h3>
-<div class="card def">
-  A <b>high-level, aspirational</b> description of the Target Architecture and the business value it will deliver. It acts as the architect's <b>"elevator pitch"</b>: a tool to explain the benefits to stakeholders and win their support.
-</div>
+<h3>Implementation approach</h3>
 <ul>
-  <li>It is developed at a high level, often using a <b>Solution Concept diagram</b>.</li>
-  <li><b>Business Scenarios</b> are a key technique for discovering and documenting the business requirements behind the vision.</li>
-  <li>It includes value propositions and <b>KPIs</b> that show how success will be measured.</li>
+  <li><b>Build, buy or reuse</b> for each solution: develop in-house, buy a commercial product (COTS), or reuse existing assets</li>
+  <li><b>Outsourcing</b> or open-source options where relevant</li>
 </ul>
 
-<h3>Statement of Architecture Work</h3>
-<div class="card def">
-  The <b>formal agreement</b> between the sponsor and the architecture organization. It defines the scope and approach for completing the architecture project, and it is the document against which successful execution is measured.
+<h2 id="tools"><span class="num">05</span>Key Techniques and Tables</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Technique</th><th>Purpose</th></tr>
+  <tr><td><b>Consolidated Gaps, Solutions and Dependencies matrix</b></td><td>Brings together all gaps from Phases B–D with potential solutions and their dependencies</td></tr>
+  <tr><td><b>Implementation Factor Assessment and Deduction matrix</b></td><td>Records factors that affect the implementation (risks, issues, assumptions, dependencies), with their descriptions, deductions and impacts</td></tr>
+  <tr><td><b>Architecture Definition Increments table</b></td><td>Lists the projects and the increments (Transition Architectures) each will deliver</td></tr>
+  <tr><td><b>Transition Architecture State Evolution table</b></td><td>Shows the state of each architecture building block in each Transition Architecture</td></tr>
+  <tr><td><b>Business Value Assessment</b></td><td>A matrix of value against risk to help prioritise work packages</td></tr>
+</table>
 </div>
-<p>Typical contents: title, architecture project request and background, project description and scope, overview of the Architecture Vision, specific change of scope procedures, roles and responsibilities, architecture approach, work plan, risks and mitigation, acceptance criteria and procedures, schedule, and approvals.</p>
+<div class="card tip">Each Transition Architecture should deliver <b>business value</b> on its own. If a step delivers nothing useful, it is usually not a good transition point.</div>
 
-<h2 id="outputs"><span class="num">07</span>Outputs</h2>
+<h2 id="outputs"><span class="num">06</span>Outputs</h2>
 <ul>
-  <li><b>Approved Statement of Architecture Work</b></li>
-  <li>Refined statements of <b>business principles, goals and drivers</b></li>
-  <li>Confirmed <b>Architecture Principles</b></li>
+  <li>Refined and updated Phase A deliverables</li>
+  <li>Updated <b>Architecture Definition Document</b> and <b>Architecture Requirements Specification</b></li>
   <li><b>Capability Assessment</b></li>
-  <li>Tailored Architecture Framework (refined for this project)</li>
-  <li><b>Architecture Vision</b></li>
-  <li><b>Draft Architecture Definition Document</b>, with high-level baseline and target for Business, Data, Application and Technology</li>
-  <li><b>Communications Plan</b></li>
-  <li>Additional content for the Architecture Repository</li>
+  <li><b>Architecture Roadmap</b>: work package portfolio, identification of Transition Architectures, and implementation recommendations</li>
+  <li><b>Transition Architectures</b></li>
+  <li><b>Implementation and Migration Plan (version 0.1)</b>: the implementation and migration strategy and initial project charters</li>
 </ul>
+<div class="card tip trap">Phase E creates only an <b>initial</b> version of the Implementation and Migration Plan. It is <b>finalized in Phase F</b>. Exam questions often test which phase creates and which finalizes.</div>
 
-<h2 id="artifacts"><span class="num">08</span>Artifacts Typically Produced</h2>
-<div class="table-wrap">
-<table>
-  <tr><th>Type</th><th>Phase A artifacts</th></tr>
-  <tr><td><b>Matrix</b></td><td>Stakeholder Map Matrix</td></tr>
-  <tr><td><b>Diagrams</b></td><td>Business Model Diagram · Business Capability Map · Value Stream Map · Value Chain Diagram · <b>Solution Concept Diagram</b></td></tr>
-</table>
-</div>
-<div class="card tip trap"><b>Exam trap:</b> detailed diagrams such as the Application Communication Diagram or the Environments and Locations Diagram belong to Phases C and D, not Phase A. Phase A stays <b>high level</b>.</div>
+<h2 id="artifacts"><span class="num">07</span>Artifacts Typically Produced</h2>
+<ul>
+  <li><b>Project Context diagram</b>: shows the scope of a work package and its links to organizations, functions, services, processes, applications, data and technology</li>
+  <li><b>Benefits diagram</b>: shows opportunities identified in an architecture definition, classified by size, complexity and benefit</li>
+</ul>
 
 <h2 id="summary">The takeaway</h2>
 <div class="card">
   <ul>
-    <li>Phase A <b>starts</b> with a <b>Request for Architecture Work</b> and <b>ends</b> with an approved <b>Statement of Architecture Work</b>.</li>
-    <li>It identifies <b>stakeholders and concerns</b>, confirms goals, drivers and principles, and defines <b>scope</b> by breadth, depth, time period and domains.</li>
-    <li>The <b>Architecture Vision</b> is a high-level, aspirational "elevator pitch", often supported by <b>Business Scenarios</b> and a <b>Solution Concept diagram</b>.</li>
-    <li>It also covers capability assessment, <b>transformation readiness</b>, value propositions and KPIs, and <b>risk</b> (initial and residual).</li>
-    <li>Other outputs include the draft Architecture Definition Document and the <b>Communications Plan</b>.</li>
+    <li>Phase E is the <b>first phase directly concerned with implementation</b>.</li>
+    <li>It creates the <b>initial complete Architecture Roadmap</b> and decides whether <b>Transition Architectures</b> are needed.</li>
+    <li>It <b>consolidates</b> gaps, requirements, interoperability and dependencies from Phases B–D, then groups them into <b>work packages</b>.</li>
+    <li>Basic strategies: <b>Greenfield, Revolutionary, Evolutionary</b>; approaches include <b>build, buy or reuse</b>.</li>
+    <li>It produces <b>version 0.1</b> of the Implementation and Migration Plan, which is finalized in Phase F.</li>
   </ul>
 </div>
 
     <section class="quiz-head" id="quiz">
       <div class="kicker">Test yourself</div>
-      <h2>Day 4 mock test</h2>
+      <h2>Day 9 mock test</h2>
       <p>13 questions in 20 minutes. Start the timer, pick your answers, then submit to see your score and the reasoning for every option.</p>
     </section>
     <div class="controls sticky">
@@ -361,64 +339,64 @@ a.tile:hover .t { color: var(--red); }
       <button class="secondary" id="resetBtn">Reset</button>
       <span id="score"></span>
     </div>
-    <nav class="pager"><a class="prev" href="TOGAF_Day3_Preliminary_Phase.html"><small>← Day 3</small><span>Preliminary Phase and Architecture Principles</span></a><a class="next" href="TOGAF_Day5_Business_Architecture.html"><small>Day 5 →</small><span>Phase B: Business Architecture</span></a></nav>
+    <nav class="pager"><a class="prev" href="TOGAF_Day8_Technology_Architecture.html"><small>← Day 8</small><span>Phase D: Technology Architecture</span></a><a class="next" href="TOGAF_Day10_Migration_Planning.html"><small>Day 10 →</small><span>Phase F: Migration Planning</span></a></nav>
   </article>
 </div>
 <script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
 <script>
 const QUESTIONS = [
-  { q: "Which input triggers the start of Phase A?",
-    o: ["Statement of Architecture Work","Request for Architecture Work","Architecture Contract","Implementation and Migration Plan"],
+  { q: "Which is an objective of Phase E?",
+    o: ["Develop the Target Technology Architecture","Generate the initial complete version of the Architecture Roadmap, based on the gap analysis and candidate roadmap components from Phases B, C and D","Obtain approval for the Statement of Architecture Work","Establish the Architecture Capability"],
     a: 1,
-    r: "Phase A is started by a <b>Request for Architecture Work</b> from the sponsoring organization. The Statement of Architecture Work is the <i>output</i> approved at the end of Phase A. The Architecture Contract belongs to Phase G, and the Implementation and Migration Plan to Phase F." },
-  { q: "Which deliverable must be approved by the end of Phase A for the architecture work to proceed?",
-    o: ["Statement of Architecture Work","Architecture Requirements Specification","Architecture Roadmap","Compliance Assessment"],
+    r: "Phase E creates the <b>initial complete Architecture Roadmap</b> and determines whether Transition Architectures are needed. A is Phase D, C is Phase A, and D is the Preliminary Phase." },
+  { q: "Phase E is described as the first phase that is directly concerned with:",
+    o: ["Implementation","Stakeholder identification","Business capability mapping","Architecture Principles"],
     a: 0,
-    r: "The <b>Statement of Architecture Work</b> defines scope and approach and is the formal agreement to proceed. The Architecture Requirements Specification and Architecture Roadmap are developed in Phases B–F, and Compliance Assessments are done in Phase G." },
-  { q: "Which of the following is NOT an objective of Phase A?",
-    o: ["Develop a high-level, aspirational vision of the capabilities and business value to be delivered","Obtain approval for a Statement of Architecture Work","Define a programme of work to develop and deploy the architecture in the vision","Develop the detailed Target Technology Architecture"],
-    a: 3,
-    r: "Phase A stays at a <b>high level</b>. The detailed Target Technology Architecture is developed in <b>Phase D</b>. A, B and C all reflect Phase A's two objectives." },
-  { q: "Which set lists TOGAF's dimensions for defining the scope of an architecture effort?",
-    o: ["Cost, quality, time and risk","People, process, technology and data","Breadth, depth, time period and architecture domains","Strategy, segment, capability and solution"],
+    r: "Phase E is the first phase directly concerned with <b>implementation</b>: it identifies the delivery vehicles (projects, programmes, portfolios) for the Target Architecture. Stakeholders are identified in Phase A, capabilities are mapped in Phase B, and principles come from the Preliminary Phase." },
+  { q: "Which of the following best describes a Transition Architecture in the context of Phase E?",
+    o: ["A replacement for the Target Architecture","An architecture for a different enterprise","An intermediate state that delivers business value on the way from Baseline to Target","A list of all applications to be retired"],
     a: 2,
-    r: "TOGAF scopes architecture work by <b>breadth, depth, time period and architecture domains</b>. A is a project-management view. B is a common IT phrase but not TOGAF's scoping model. D lists architecture levels (landscape partitioning), not scope dimensions." },
-  { q: "Which technique is commonly used in Phase A to discover and document the business requirements behind the Architecture Vision?",
-    o: ["Business Scenarios","Gap Analysis","Interoperability Requirements","Migration Planning Techniques"],
+    r: "A <b>Transition Architecture</b> is an intermediate state between Baseline and Target. Phase E identifies them when an incremental approach is needed, and each should deliver business value." },
+  { q: "Which basic implementation strategy describes a radical change, switching over from the old environment to the new one in a single step?",
+    o: ["Greenfield","Evolutionary","Incremental","Revolutionary"],
+    a: 3,
+    r: "A <b>Revolutionary</b> strategy is a radical, one-step switch-over. <b>Greenfield</b> starts from scratch with nothing to migrate. <b>Evolutionary</b> is phased and convergent. \"Incremental\" describes the evolutionary style but is not one of TOGAF's three named strategies." },
+  { q: "Which Phase E step brings together all the gap analysis results produced in the earlier architecture phases?",
+    o: ["Review and consolidate gap analysis results from Phases B to D","Perform enterprise architecture compliance reviews","Establish the value realization process","Develop the Baseline Business Architecture"],
     a: 0,
-    r: "<b>Business Scenarios</b> help identify and articulate business requirements and are highlighted as a key Phase A technique. Gap Analysis is used mainly in Phases B–D. Interoperability and migration planning techniques are used mainly in Phases E and F." },
-  { q: "What best describes the role of the Architecture Vision?",
-    o: ["A detailed design specification for implementation teams","A high-level, aspirational view of the target state that acts as an \"elevator pitch\" to secure stakeholder support","A contract between the architecture function and implementation partners","A list of all applications in the enterprise"],
+    r: "Phase E's third step is to <b>review and consolidate gap analysis results from Phases B to D</b>. B is Phase G, C is Phase H, and D is Phase B." },
+  { q: "What is the purpose of the Consolidated Gaps, Solutions and Dependencies matrix?",
+    o: ["To list stakeholders and their concerns","To bring together all gaps from Phases B–D with potential solutions and their dependencies","To record compliance levels of implementation projects","To map data entities to business functions"],
     a: 1,
-    r: "The Architecture Vision is deliberately <b>high level and aspirational</b>; it sells the benefits to stakeholders. A is too detailed for Phase A. C describes an Architecture Contract. D describes the Application Portfolio Catalog." },
-  { q: "Which Phase A output describes how, when and in what format information about the architecture will be shared with stakeholders?",
-    o: ["Capability Assessment","Architecture Vision","Communications Plan","Tailored Architecture Framework"],
-    a: 2,
-    r: "The <b>Communications Plan</b> sets out the stakeholder communications. The Capability Assessment evaluates baseline and target capability levels. The Architecture Vision describes the target at a high level. The Tailored Architecture Framework describes method and content." },
-  { q: "An architect evaluates the organization's vision, desire, need, funding, sponsorship and ability to implement change. Which technique is being used?",
-    o: ["Stakeholder Management","Gap Analysis","Risk Management","Business Transformation Readiness Assessment"],
+    r: "This matrix <b>consolidates gaps, solutions and dependencies</b> to support grouping into work packages. A is the Stakeholder Map Matrix, C is a Compliance Assessment, and D is the Data Entity/Business Function matrix." },
+  { q: "Which version of the Implementation and Migration Plan is produced in Phase E?",
+    o: ["The finalized version","The version signed as an Architecture Contract","No version; it is only produced in Phase G","An initial version (0.1), including the implementation and migration strategy"],
     a: 3,
-    r: "These are the readiness factors of the <b>Business Transformation Readiness Assessment</b>, carried out in Phase A. Stakeholder Management analyses stakeholders and their concerns. Gap Analysis compares baseline and target. Risk Management identifies and mitigates risks." },
-  { q: "In TOGAF, what is the \"residual level of risk\"?",
-    o: ["The risk before any mitigation actions are taken","The risk remaining after mitigation actions have been applied","Risk that has been transferred to a vendor","Risk related only to technology components"],
-    a: 1,
-    r: "TOGAF classifies risk as <b>initial</b> (before mitigation) and <b>residual</b> (after mitigation). A describes initial risk. C and D are not TOGAF's definitions." },
-  { q: "<i>Scenario:</i> In Phase A, the architect lists all stakeholders, their concerns, the level of influence each has, and which views should be produced for them. Which artifact is this?",
-    o: ["Stakeholder Map Matrix","Application Portfolio Catalog","Value Stream Map","Solution Concept Diagram"],
+    r: "Phase E creates an <b>initial version</b> of the Implementation and Migration Plan. It is <b>finalized in Phase F</b>. The plan is not an Architecture Contract, and it is not created in Phase G." },
+  { q: "Which Phase E technique records factors that affect implementation, such as risks, issues, assumptions and dependencies, with their deductions and impacts?",
+    o: ["Business Scenario","Stakeholder Map Matrix","Implementation Factor Assessment and Deduction matrix","Application Portfolio catalog"],
+    a: 2,
+    r: "The <b>Implementation Factor Assessment and Deduction matrix</b> records the factors affecting implementation and what they mean for the plan. The other options are unrelated techniques and artifacts from other phases." },
+  { q: "Which table shows the state of each architecture building block in each Transition Architecture?",
+    o: ["Transition Architecture State Evolution table","Architecture Definition Increments table","Business Value Assessment matrix","Technology Standards catalog"],
     a: 0,
-    r: "The <b>Stakeholder Map Matrix</b> records stakeholders, their concerns, influence and the relevant views. The Application Portfolio Catalog lists applications (Phase C). A Value Stream Map shows how value is delivered. A Solution Concept Diagram sketches the target solution." },
-  { q: "In Phase A, the draft Architecture Definition Document contains high-level baseline and target descriptions for which domains?",
-    o: ["Business only","Business and Technology only","Business, Data, Application and Technology","Data and Application only"],
-    a: 2,
-    r: "Phase A produces a <b>draft</b> Architecture Definition Document covering <b>all four domains</b> at a high level. Phases B, C and D then develop each domain in detail." },
-  { q: "<i>Scenario:</i> A sponsor asks the architect to go straight into detailed technology design because the budget is already approved. According to TOGAF, what should the architect do first?",
-    o: ["Start Phase D immediately, since the budget is approved","Skip to Phase G to set up the Architecture Contracts","Produce the Implementation and Migration Plan","Confirm scope, stakeholders and the Architecture Vision, and get the Statement of Architecture Work approved"],
-    a: 3,
-    r: "The ADM requires that Phase A establish <b>scope, stakeholders, the vision and an approved Statement of Architecture Work</b> before detailed architecture development. Budget approval alone does not replace these. A, B and C skip the phases that give the work its direction and agreement." },
-  { q: "Which of the following diagrams is typically produced in Phase A?",
-    o: ["Application Communication Diagram","Solution Concept Diagram","Environments and Locations Diagram","Data Lifecycle Diagram"],
+    r: "The <b>Transition Architecture State Evolution table</b> shows how each building block evolves across Transition Architectures. The Architecture Definition Increments table lists projects and the increments they deliver. The Business Value Assessment compares value and risk." },
+  { q: "Which of the following is an output of Phase E?",
+    o: ["Approved Statement of Architecture Work","Architecture Roadmap, including the work package portfolio and identification of Transition Architectures","Signed Architecture Contract","Compliance Assessment"],
     a: 1,
-    r: "The <b>Solution Concept Diagram</b> gives a high-level orientation of the proposed solution in Phase A. The Application Communication and Data Lifecycle Diagrams belong to Phase C, and the Environments and Locations Diagram belongs to Phase D." }
+    r: "Phase E produces the <b>Architecture Roadmap</b> with work packages, Transition Architectures and implementation recommendations. A is Phase A, C is Phase G, and D is Phase G." },
+  { q: "<i>Scenario:</i> A company's architecture needs to replace ten legacy systems. The business cannot tolerate a single large cut-over, and it wants to see benefits within six months. Which strategy should Phase E recommend?",
+    o: ["Revolutionary, with a single switch-over","Greenfield, ignoring the legacy systems","Postpone all change until every system can be replaced","Evolutionary, with Transition Architectures that each deliver business value"],
+    a: 3,
+    r: "Avoiding a big cut-over and delivering early benefits calls for an <b>Evolutionary</b> strategy using <b>Transition Architectures</b>. Revolutionary is the single cut-over the business rejected. Greenfield ignores the migration need. Postponing delivers no value." },
+  { q: "The Phase E implementation approach typically considers which of the following options for each solution?",
+    o: ["Build, buy or reuse","Approve, reject or defer","Baseline, target or transition","Catalog, matrix or diagram"],
+    a: 0,
+    r: "The implementation approach looks at whether to <b>build</b>, <b>buy</b> (e.g. COTS) or <b>reuse</b> existing assets, and may also consider outsourcing. The other options are governance decisions, architecture states and artifact types." },
+  { q: "Which Phase E artifact shows the scope of a work package and its relationships to organizations, functions, applications, data and technology?",
+    o: ["Benefits diagram","Solution Concept diagram","Project Context diagram","Business Footprint diagram"],
+    a: 2,
+    r: "The <b>Project Context diagram</b> shows the scope of a work package. The Benefits diagram classifies opportunities by size, complexity and benefit. The Solution Concept diagram is Phase A, and the Business Footprint diagram is Phase B." }
 ];
 // Shared quiz engine. Expects a global QUESTIONS array:
 // { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML }

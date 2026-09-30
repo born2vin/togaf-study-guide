@@ -1,0 +1,85 @@
+<p>Phase C covers the <b>Information Systems Architectures</b>: Data and Application. TOGAF lets you develop them in either order, or in parallel. Today covers the <b>Data Architecture</b>; tomorrow covers Application.</p>
+
+<h2 id="purpose">1. Purpose of Phase C (Data)</h2>
+<div class="card def">
+  The <b>Data Architecture</b> describes the structure of an organization's <b>logical and physical data assets</b> and <b>data management resources</b>.
+</div>
+<div class="chain">
+  <div class="box"><b>Business Architecture</b><small>Phase B</small></div>
+  <span class="arrow">↓ is enabled by</span>
+  <div class="box"><b>Data Architecture</b><small>Phase C</small></div>
+  <span class="arrow">↓ is used by</span>
+  <div class="box"><b>Application Architecture</b><small>Phase C</small></div>
+</div>
+
+<h2 id="objectives">2. Objectives</h2>
+<ul>
+  <li>Develop the <b>Target Data Architecture</b> that enables the Business Architecture and the Architecture Vision, while addressing the Request for Architecture Work and stakeholder concerns.</li>
+  <li>Identify <b>candidate Architecture Roadmap components</b> based on gaps between the Baseline and Target Data Architectures.</li>
+</ul>
+<p>The steps are the same <b>nine common steps</b> used in Phases B and D.</p>
+
+<h2 id="considerations">3. Key Considerations</h2>
+<h3>Data management</h3>
+<p>A clear data management approach helps the enterprise use data as a strategic asset. The architecture should answer questions such as:</p>
+<ul>
+  <li>Which application components will act as the <b>system of record</b> or reference for enterprise master data?</li>
+  <li>Will there be an enterprise-wide <b>standard</b> that all applications, including packages, must adopt?</li>
+  <li>How are <b>data entities</b> used by business functions, processes and services?</li>
+  <li>How and where is data <b>created, stored, transported and reported</b>?</li>
+  <li>What level and complexity of <b>data transformation</b> is needed?</li>
+</ul>
+<h3>Data migration</h3>
+<p>When a new application replaces an existing one, data must be migrated. The Data Architecture should identify <b>data migration requirements</b>, including data quality, data cleansing, and the transformation needed to fit the new applications.</p>
+<h3>Data governance</h3>
+<p>Data governance makes sure the enterprise has the necessary dimensions in place to enable data transformation:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Dimension</th><th>What it covers</th></tr>
+  <tr><td><b>Structure</b></td><td>Whether the organization has the structure and standards to manage data entities</td></tr>
+  <tr><td><b>Management system</b></td><td>Whether the enterprise has the management systems and data-related programmes to manage data governance</td></tr>
+  <tr><td><b>People</b></td><td>Whether the enterprise has the data-related skills and roles it needs</td></tr>
+</table>
+</div>
+
+<h2 id="models">4. Data Models and Reference Models</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Level</th><th>Purpose</th></tr>
+  <tr><td><b>Conceptual</b></td><td>The key business entities and how they relate; understood by business stakeholders</td></tr>
+  <tr><td><b>Logical</b></td><td>Entities, attributes and relationships in more detail, independent of any specific database technology</td></tr>
+  <tr><td><b>Physical</b></td><td>How data is actually stored in specific technologies; usually a solution-level concern</td></tr>
+</table>
+</div>
+<p>Industry <b>reference models</b> can speed up Data Architecture work. Examples include ARTS (retail) and Energistics (energy), as well as industry-specific data models from standards bodies.</p>
+
+<h2 id="outputs">5. Outputs</h2>
+<ul>
+  <li>Refined Phase A deliverables</li>
+  <li><b>Draft Architecture Definition Document</b>, with Baseline and Target Data Architecture and relevant views</li>
+  <li><b>Draft Architecture Requirements Specification</b>, including gap analysis results and data interoperability requirements</li>
+  <li><b>Data Architecture components of an Architecture Roadmap</b></li>
+</ul>
+
+<h2 id="artifacts">6. Artifacts Typically Produced</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Type</th><th>Phase C (Data) artifacts</th></tr>
+  <tr><td><b>Catalog</b></td><td>Data Entity/Data Component catalog</td></tr>
+  <tr><td><b>Matrices</b></td><td>Data Entity/Business Function matrix · Application/Data matrix</td></tr>
+  <tr><td><b>Diagrams</b></td><td>Conceptual Data · Logical Data · Data Dissemination · Data Security · Data Migration · Data Lifecycle</td></tr>
+</table>
+</div>
+<div class="card tip">The <b>Data Entity/Business Function matrix</b> links Phase B and Phase C: it shows which business functions use which data, and helps assign <b>data ownership</b> (data trustees).</div>
+<div class="card tip trap">The <b>Data Security diagram</b> shows which actors can access which data, while the <b>Data Dissemination diagram</b> shows how data is spread across application components and where it physically lives. Don't mix them up.</div>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Phase C covers Data and Application Architecture, in <b>either order</b> or in parallel.</li>
+    <li>Data Architecture describes <b>logical and physical data assets</b> and <b>data management resources</b>.</li>
+    <li>Key considerations: <b>data management</b>, <b>data migration</b>, and <b>data governance</b> (structure, management system, people).</li>
+    <li>Data models run from <b>conceptual</b> to <b>logical</b> to <b>physical</b>.</li>
+    <li>Key artifacts: Data Entity/Data Component catalog, Data Entity/Business Function matrix, and the Conceptual, Logical, Dissemination, Security, Migration and Lifecycle diagrams.</li>
+  </ul>
+</div>

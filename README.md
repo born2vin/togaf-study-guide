@@ -10,14 +10,14 @@ A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation an
 | 2 | Core Terminology | [Open](TOGAF_Day2_Core_Terminology.html) |
 | 3 | Preliminary Phase and Architecture Principles | [Open](TOGAF_Day3_Preliminary_Phase.html) |
 | 4 | Phase A: Architecture Vision | [Open](TOGAF_Day4_Architecture_Vision.html) |
-| 5 | Phase B: Business Architecture | Coming soon |
-| 6 | Phase C: Data Architecture | Coming soon |
-| 7 | Phase C: Application Architecture | Coming soon |
-| 8 | Phase D: Technology Architecture | Coming soon |
-| 9 | Phase E: Opportunities & Solutions | Coming soon |
-| 10 | Phase F: Migration Planning | Coming soon |
-| 11 | Phase G: Implementation Governance | Coming soon |
-| 12 | Phase H and Requirements Management | Coming soon |
+| 5 | Phase B: Business Architecture | [Open](TOGAF_Day5_Business_Architecture.html) |
+| 6 | Phase C: Data Architecture | [Open](TOGAF_Day6_Data_Architecture.html) |
+| 7 | Phase C: Application Architecture | [Open](TOGAF_Day7_Application_Architecture.html) |
+| 8 | Phase D: Technology Architecture | [Open](TOGAF_Day8_Technology_Architecture.html) |
+| 9 | Phase E: Opportunities & Solutions | [Open](TOGAF_Day9_Opportunities_Solutions.html) |
+| 10 | Phase F: Migration Planning | [Open](TOGAF_Day10_Migration_Planning.html) |
+| 11 | Phase G: Implementation Governance | [Open](TOGAF_Day11_Implementation_Governance.html) |
+| 12 | Phase H and Requirements Management | [Open](TOGAF_Day12_Change_and_Requirements_Management.html) |
 | 13 | Checkpoint: Full ADM Review Test | Coming soon |
 | 14 | Applying the ADM | Coming soon |
 | 15 | ADM Techniques I | Coming soon |

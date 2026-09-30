@@ -1,0 +1,79 @@
+<p>Phase D completes the architecture domains. The Technology Architecture describes the <b>platforms and infrastructure</b> that will host the applications and data defined in Phase C.</p>
+
+<h2 id="purpose">1. Purpose of Phase D</h2>
+<div class="card def">
+  The <b>Technology Architecture</b> describes the <b>software and hardware capabilities</b> needed to support the deployment of business, data and application services. This includes IT infrastructure, middleware, networks, communications, processing and standards.
+</div>
+<div class="chain">
+  <div class="box"><b>Business Architecture</b><small>what the business needs</small></div>
+  <span class="arrow">↓ supported by</span>
+  <div class="box"><b>Data &amp; Application Architectures</b><small>logical components</small></div>
+  <span class="arrow">↓ deployed on</span>
+  <div class="box"><b>Technology Architecture</b><small>platforms &amp; infrastructure</small></div>
+</div>
+
+<h2 id="objectives">2. Objectives</h2>
+<ul>
+  <li>Develop the <b>Target Technology Architecture</b> that enables the <b>logical and physical application and data components</b> and the Architecture Vision, while addressing the Request for Architecture Work and stakeholder concerns.</li>
+  <li>Identify <b>candidate Architecture Roadmap components</b> based on gaps between the Baseline and Target Technology Architectures.</li>
+</ul>
+<p>The steps are the same <b>nine common steps</b> used in Phases B and C.</p>
+
+<h2 id="refmodels">3. Reference Models and Standards</h2>
+<ul>
+  <li><b>TOGAF Technical Reference Model (TRM)</b>: a generic Foundation Architecture that provides a taxonomy of platform services. It is now published as a <b>Series Guide</b>. Its main elements are <b>Application Software</b>, the <b>Application Platform</b> and the <b>Communications Infrastructure</b>, joined by the Application Platform Interface and the Communications Infrastructure Interface.</li>
+  <li>The organization's own <b>Standards Information Base</b> in the Architecture Repository: technology standards that projects must follow.</li>
+  <li>Industry and vendor reference architectures, such as cloud provider reference architectures.</li>
+</ul>
+<div class="card tip">The TRM is a <b>Foundation Architecture</b> in the Enterprise Continuum: generic and reusable by any organization. The Enterprise Continuum is covered on Day 19.</div>
+
+<h2 id="considerations">4. Key Technology Considerations</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Consideration</th><th>Typical questions</th></tr>
+  <tr><td><b>Emerging technologies</b></td><td>Can new technologies, such as cloud, containers or AI platforms, deliver business value or reduce cost?</td></tr>
+  <tr><td><b>Performance and capacity</b></td><td>Will the platforms handle expected volumes and growth?</td></tr>
+  <tr><td><b>Availability and resilience</b></td><td>What service levels and recovery times are needed?</td></tr>
+  <tr><td><b>Location and latency</b></td><td>Where must components be hosted, and what network latency is acceptable?</td></tr>
+  <tr><td><b>Maintainability and standards</b></td><td>Does the Target reduce technical diversity and follow the approved standards?</td></tr>
+  <tr><td><b>Security</b></td><td>How are infrastructure-level security controls provided?</td></tr>
+</table>
+</div>
+<div class="card tip">The TOGAF example principle <b>Control Technical Diversity</b> applies strongly here: limiting the number of supported platforms reduces cost and complexity.</div>
+
+<h2 id="outputs">5. Outputs</h2>
+<ul>
+  <li>Refined Phase A deliverables</li>
+  <li><b>Draft Architecture Definition Document</b>, with Baseline and Target Technology Architecture and relevant views</li>
+  <li><b>Draft Architecture Requirements Specification</b>, including gap analysis results and requirements for the technology</li>
+  <li><b>Technology Architecture components of an Architecture Roadmap</b></li>
+</ul>
+<div class="card tip trap">Phase D is the <b>last</b> of the architecture-development phases. After it, the Architecture Definition Document and Architecture Requirements Specification cover all four domains. They are then used in Phase E to plan implementation.</div>
+
+<h2 id="artifacts">6. Artifacts Typically Produced</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Type</th><th>Phase D artifacts</th></tr>
+  <tr><td><b>Catalogs</b></td><td>Technology Standards catalog · Technology Portfolio catalog</td></tr>
+  <tr><td><b>Matrix</b></td><td>Application/Technology matrix</td></tr>
+  <tr><td><b>Diagrams</b></td><td>Environments and Locations · Platform Decomposition · Processing · Networked Computing/Hardware · Network and Communications</td></tr>
+</table>
+</div>
+<ul>
+  <li><b>Technology Standards catalog</b>: the agreed standards for technology across the enterprise.</li>
+  <li><b>Technology Portfolio catalog</b>: all the technology in use, such as platforms, products and versions.</li>
+  <li><b>Application/Technology matrix</b>: which applications run on which technology.</li>
+  <li><b>Environments and Locations diagram</b>: which locations host which applications and technology, and in which environments (e.g. development, test, production).</li>
+  <li><b>Platform Decomposition diagram</b>: the technology platform broken down into its components.</li>
+</ul>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Technology Architecture describes the <b>software and hardware capabilities</b> that host business, data and application services.</li>
+    <li>Phase D uses the same <b>nine common steps</b> as Phases B and C, and is the last architecture-development phase.</li>
+    <li>The <b>TRM</b> is a generic <b>Foundation Architecture</b>: Application Software, Application Platform and Communications Infrastructure.</li>
+    <li>Key considerations include emerging technology, performance, availability, location and latency, and controlling technical diversity.</li>
+    <li>Key artifacts: Technology Standards and Technology Portfolio catalogs, the Application/Technology matrix, and the Environments and Locations and Platform Decomposition diagrams.</li>
+  </ul>
+</div>

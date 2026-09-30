@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Day 4: Phase A: Architecture Vision · TOGAF Explained</title>
+<title>Day 6: Phase C: Data Architecture · TOGAF Explained</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
@@ -226,129 +226,107 @@ a.tile:hover .t { color: var(--red); }
 </div></div>
 
 <header class="hero">
-  <div class="kicker">Day 4 of 25 · Foundation</div>
-  <h1>Phase A: Architecture Vision</h1>
-  <p class="dek">Starting an ADM cycle: scope, stakeholders, the Architecture Vision and the Statement of Architecture Work</p>
+  <div class="kicker">Day 6 of 25 · Foundation</div>
+  <h1>Phase C: Data Architecture</h1>
+  <p class="dek">Logical and physical data assets, data management, migration and governance, and the key Data Architecture artifacts</p>
   <div class="byline"><span><b>TOGAF Explained</b></span><span>About 3 min read</span><span>13-question mock test</span><span>TOGAF Standard, 10th Edition</span></div>
-  <div class="progress" aria-label="Course progress"><i style="width:16%"></i></div>
+  <div class="progress" aria-label="Course progress"><i style="width:24%"></i></div>
 </header>
 <div class="layout">
   <aside class="toc">
     <details open><summary style="list-style:none"><h4>In this explainer</h4></summary>
-    <ol><li><a href="#purpose">Purpose of Phase A</a></li><li><a href="#objectives">Objectives</a></li><li><a href="#inputs">Inputs</a></li><li><a href="#steps">Steps</a></li><li><a href="#scope">Defining Scope</a></li><li><a href="#vision">The Architecture Vision and the Statement of Architecture Work</a></li><li><a href="#outputs">Outputs</a></li><li><a href="#artifacts">Artifacts Typically Produced</a></li><li><a href="#summary">The takeaway</a></li><li><a href="#quiz">Mock test</a></li></ol></details>
+    <ol><li><a href="#purpose">Purpose of Phase C (Data)</a></li><li><a href="#objectives">Objectives</a></li><li><a href="#considerations">Key Considerations</a></li><li><a href="#models">Data Models and Reference Models</a></li><li><a href="#outputs">Outputs</a></li><li><a href="#artifacts">Artifacts Typically Produced</a></li><li><a href="#summary">The takeaway</a></li><li><a href="#quiz">Mock test</a></li></ol></details>
   </aside>
   <article>
-<h2 id="purpose"><span class="num">01</span>Purpose of Phase A</h2>
+<p>Phase C covers the <b>Information Systems Architectures</b>: Data and Application. TOGAF lets you develop them in either order, or in parallel. Today covers the <b>Data Architecture</b>; tomorrow covers Application.</p>
+
+<h2 id="purpose"><span class="num">01</span>Purpose of Phase C (Data)</h2>
 <div class="card def">
-  Phase A is the <b>initial phase of each ADM cycle</b>. It defines the <b>scope</b>, identifies the <b>stakeholders</b>, creates the <b>Architecture Vision</b>, and obtains <b>approval</b> to proceed with the architecture work.
+  The <b>Data Architecture</b> describes the structure of an organization's <b>logical and physical data assets</b> and <b>data management resources</b>.
 </div>
-<p>Phase A is <b>started by a Request for Architecture Work</b>, sent by the sponsoring organization to the architecture organization. It <b>ends</b> when the <b>Statement of Architecture Work</b> is approved.</p>
 <div class="chain">
-  <div class="box"><b>Request for Architecture Work</b><small>trigger (from sponsor)</small></div>
-  <span class="arrow">↓ starts</span>
-  <div class="box"><b>Phase A</b><small>scope, stakeholders, vision</small></div>
-  <span class="arrow">↓ ends with</span>
-  <div class="box"><b>Approved Statement of Architecture Work</b><small>go-ahead for B–H</small></div>
+  <div class="box"><b>Business Architecture</b><small>Phase B</small></div>
+  <span class="arrow">↓ is enabled by</span>
+  <div class="box"><b>Data Architecture</b><small>Phase C</small></div>
+  <span class="arrow">↓ is used by</span>
+  <div class="box"><b>Application Architecture</b><small>Phase C</small></div>
 </div>
 
 <h2 id="objectives"><span class="num">02</span>Objectives</h2>
 <ul>
-  <li>Develop a <b>high-level, aspirational vision</b> of the capabilities and business value to be delivered by the proposed EA.</li>
-  <li>Obtain <b>approval for a Statement of Architecture Work</b> that defines a programme of work to develop and deploy the architecture described in the Architecture Vision.</li>
+  <li>Develop the <b>Target Data Architecture</b> that enables the Business Architecture and the Architecture Vision, while addressing the Request for Architecture Work and stakeholder concerns.</li>
+  <li>Identify <b>candidate Architecture Roadmap components</b> based on gaps between the Baseline and Target Data Architectures.</li>
 </ul>
+<p>The steps are the same <b>nine common steps</b> used in Phases B and D.</p>
 
-<h2 id="inputs"><span class="num">03</span>Inputs</h2>
+<h2 id="considerations"><span class="num">03</span>Key Considerations</h2>
+<h3>Data management</h3>
+<p>A clear data management approach helps the enterprise use data as a strategic asset. The architecture should answer questions such as:</p>
 <ul>
-  <li><b>Request for Architecture Work</b> (the key trigger)</li>
-  <li>Business principles, business goals and business drivers</li>
-  <li><b>Organizational Model for EA</b> and <b>Tailored Architecture Framework</b> (from the Preliminary Phase), including Architecture Principles</li>
-  <li>A populated <b>Architecture Repository</b>: existing architecture documentation, reference models and standards</li>
+  <li>Which application components will act as the <b>system of record</b> or reference for enterprise master data?</li>
+  <li>Will there be an enterprise-wide <b>standard</b> that all applications, including packages, must adopt?</li>
+  <li>How are <b>data entities</b> used by business functions, processes and services?</li>
+  <li>How and where is data <b>created, stored, transported and reported</b>?</li>
+  <li>What level and complexity of <b>data transformation</b> is needed?</li>
 </ul>
-
-<h2 id="steps"><span class="num">04</span>Steps</h2>
-<ol>
-  <li><b>Establish the architecture project</b> (within the enterprise's project management framework)</li>
-  <li><b>Identify stakeholders, concerns and business requirements</b></li>
-  <li><b>Confirm and elaborate business goals, drivers and constraints</b></li>
-  <li><b>Evaluate capabilities</b> (baseline and target capability levels)</li>
-  <li><b>Assess readiness for business transformation</b></li>
-  <li><b>Define scope</b></li>
-  <li><b>Confirm and elaborate Architecture Principles</b>, including business principles</li>
-  <li><b>Develop the Architecture Vision</b></li>
-  <li><b>Define the Target Architecture value propositions and KPIs</b></li>
-  <li><b>Identify business transformation risks</b> and mitigation activities</li>
-  <li><b>Develop the Statement of Architecture Work</b> and secure approval</li>
-</ol>
-<div class="card tip"><b>Risk in Phase A:</b> TOGAF classifies risk as <b>initial level of risk</b> (before mitigation) and <b>residual level of risk</b> (after mitigation). Risks are identified in Phase A and managed throughout the cycle.</div>
-<div class="card tip"><b>Business Transformation Readiness Assessment</b> evaluates how ready the organization is to accept change, using readiness factors such as vision, desire and willingness, need, business case, funding, sponsorship, governance, accountability, IT capacity and ability to implement.</div>
-
-<h2 id="scope"><span class="num">05</span>Defining Scope</h2>
-<p>TOGAF defines the scope of an architecture effort across four dimensions:</p>
+<h3>Data migration</h3>
+<p>When a new application replaces an existing one, data must be migrated. The Data Architecture should identify <b>data migration requirements</b>, including data quality, data cleansing, and the transformation needed to fit the new applications.</p>
+<h3>Data governance</h3>
+<p>Data governance makes sure the enterprise has the necessary dimensions in place to enable data transformation:</p>
 <div class="table-wrap">
 <table>
-  <tr><th>Dimension</th><th>Question it answers</th></tr>
-  <tr><td><b>Breadth</b></td><td>Which parts of the enterprise are covered? (the full enterprise, a business unit, a function)</td></tr>
-  <tr><td><b>Depth</b></td><td>How much detail is needed?</td></tr>
-  <tr><td><b>Time period</b></td><td>How far into the future does the architecture look, and how many transition steps are needed?</td></tr>
-  <tr><td><b>Architecture domains</b></td><td>Which of Business, Data, Application and Technology are included?</td></tr>
+  <tr><th>Dimension</th><th>What it covers</th></tr>
+  <tr><td><b>Structure</b></td><td>Whether the organization has the structure and standards to manage data entities</td></tr>
+  <tr><td><b>Management system</b></td><td>Whether the enterprise has the management systems and data-related programmes to manage data governance</td></tr>
+  <tr><td><b>People</b></td><td>Whether the enterprise has the data-related skills and roles it needs</td></tr>
 </table>
 </div>
-<p>Scope is shaped by practical <b>constraints</b> such as time, cost, available skills and the organization's readiness.</p>
 
-<h2 id="vision"><span class="num">06</span>The Architecture Vision and the Statement of Architecture Work</h2>
-<h3>Architecture Vision</h3>
-<div class="card def">
-  A <b>high-level, aspirational</b> description of the Target Architecture and the business value it will deliver. It acts as the architect's <b>"elevator pitch"</b>: a tool to explain the benefits to stakeholders and win their support.
-</div>
-<ul>
-  <li>It is developed at a high level, often using a <b>Solution Concept diagram</b>.</li>
-  <li><b>Business Scenarios</b> are a key technique for discovering and documenting the business requirements behind the vision.</li>
-  <li>It includes value propositions and <b>KPIs</b> that show how success will be measured.</li>
-</ul>
-
-<h3>Statement of Architecture Work</h3>
-<div class="card def">
-  The <b>formal agreement</b> between the sponsor and the architecture organization. It defines the scope and approach for completing the architecture project, and it is the document against which successful execution is measured.
-</div>
-<p>Typical contents: title, architecture project request and background, project description and scope, overview of the Architecture Vision, specific change of scope procedures, roles and responsibilities, architecture approach, work plan, risks and mitigation, acceptance criteria and procedures, schedule, and approvals.</p>
-
-<h2 id="outputs"><span class="num">07</span>Outputs</h2>
-<ul>
-  <li><b>Approved Statement of Architecture Work</b></li>
-  <li>Refined statements of <b>business principles, goals and drivers</b></li>
-  <li>Confirmed <b>Architecture Principles</b></li>
-  <li><b>Capability Assessment</b></li>
-  <li>Tailored Architecture Framework (refined for this project)</li>
-  <li><b>Architecture Vision</b></li>
-  <li><b>Draft Architecture Definition Document</b>, with high-level baseline and target for Business, Data, Application and Technology</li>
-  <li><b>Communications Plan</b></li>
-  <li>Additional content for the Architecture Repository</li>
-</ul>
-
-<h2 id="artifacts"><span class="num">08</span>Artifacts Typically Produced</h2>
+<h2 id="models"><span class="num">04</span>Data Models and Reference Models</h2>
 <div class="table-wrap">
 <table>
-  <tr><th>Type</th><th>Phase A artifacts</th></tr>
-  <tr><td><b>Matrix</b></td><td>Stakeholder Map Matrix</td></tr>
-  <tr><td><b>Diagrams</b></td><td>Business Model Diagram · Business Capability Map · Value Stream Map · Value Chain Diagram · <b>Solution Concept Diagram</b></td></tr>
+  <tr><th>Level</th><th>Purpose</th></tr>
+  <tr><td><b>Conceptual</b></td><td>The key business entities and how they relate; understood by business stakeholders</td></tr>
+  <tr><td><b>Logical</b></td><td>Entities, attributes and relationships in more detail, independent of any specific database technology</td></tr>
+  <tr><td><b>Physical</b></td><td>How data is actually stored in specific technologies; usually a solution-level concern</td></tr>
 </table>
 </div>
-<div class="card tip trap"><b>Exam trap:</b> detailed diagrams such as the Application Communication Diagram or the Environments and Locations Diagram belong to Phases C and D, not Phase A. Phase A stays <b>high level</b>.</div>
+<p>Industry <b>reference models</b> can speed up Data Architecture work. Examples include ARTS (retail) and Energistics (energy), as well as industry-specific data models from standards bodies.</p>
+
+<h2 id="outputs"><span class="num">05</span>Outputs</h2>
+<ul>
+  <li>Refined Phase A deliverables</li>
+  <li><b>Draft Architecture Definition Document</b>, with Baseline and Target Data Architecture and relevant views</li>
+  <li><b>Draft Architecture Requirements Specification</b>, including gap analysis results and data interoperability requirements</li>
+  <li><b>Data Architecture components of an Architecture Roadmap</b></li>
+</ul>
+
+<h2 id="artifacts"><span class="num">06</span>Artifacts Typically Produced</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Type</th><th>Phase C (Data) artifacts</th></tr>
+  <tr><td><b>Catalog</b></td><td>Data Entity/Data Component catalog</td></tr>
+  <tr><td><b>Matrices</b></td><td>Data Entity/Business Function matrix · Application/Data matrix</td></tr>
+  <tr><td><b>Diagrams</b></td><td>Conceptual Data · Logical Data · Data Dissemination · Data Security · Data Migration · Data Lifecycle</td></tr>
+</table>
+</div>
+<div class="card tip">The <b>Data Entity/Business Function matrix</b> links Phase B and Phase C: it shows which business functions use which data, and helps assign <b>data ownership</b> (data trustees).</div>
+<div class="card tip trap">The <b>Data Security diagram</b> shows which actors can access which data, while the <b>Data Dissemination diagram</b> shows how data is spread across application components and where it physically lives. Don't mix them up.</div>
 
 <h2 id="summary">The takeaway</h2>
 <div class="card">
   <ul>
-    <li>Phase A <b>starts</b> with a <b>Request for Architecture Work</b> and <b>ends</b> with an approved <b>Statement of Architecture Work</b>.</li>
-    <li>It identifies <b>stakeholders and concerns</b>, confirms goals, drivers and principles, and defines <b>scope</b> by breadth, depth, time period and domains.</li>
-    <li>The <b>Architecture Vision</b> is a high-level, aspirational "elevator pitch", often supported by <b>Business Scenarios</b> and a <b>Solution Concept diagram</b>.</li>
-    <li>It also covers capability assessment, <b>transformation readiness</b>, value propositions and KPIs, and <b>risk</b> (initial and residual).</li>
-    <li>Other outputs include the draft Architecture Definition Document and the <b>Communications Plan</b>.</li>
+    <li>Phase C covers Data and Application Architecture, in <b>either order</b> or in parallel.</li>
+    <li>Data Architecture describes <b>logical and physical data assets</b> and <b>data management resources</b>.</li>
+    <li>Key considerations: <b>data management</b>, <b>data migration</b>, and <b>data governance</b> (structure, management system, people).</li>
+    <li>Data models run from <b>conceptual</b> to <b>logical</b> to <b>physical</b>.</li>
+    <li>Key artifacts: Data Entity/Data Component catalog, Data Entity/Business Function matrix, and the Conceptual, Logical, Dissemination, Security, Migration and Lifecycle diagrams.</li>
   </ul>
 </div>
 
     <section class="quiz-head" id="quiz">
       <div class="kicker">Test yourself</div>
-      <h2>Day 4 mock test</h2>
+      <h2>Day 6 mock test</h2>
       <p>13 questions in 20 minutes. Start the timer, pick your answers, then submit to see your score and the reasoning for every option.</p>
     </section>
     <div class="controls sticky">
@@ -361,64 +339,64 @@ a.tile:hover .t { color: var(--red); }
       <button class="secondary" id="resetBtn">Reset</button>
       <span id="score"></span>
     </div>
-    <nav class="pager"><a class="prev" href="TOGAF_Day3_Preliminary_Phase.html"><small>← Day 3</small><span>Preliminary Phase and Architecture Principles</span></a><a class="next" href="TOGAF_Day5_Business_Architecture.html"><small>Day 5 →</small><span>Phase B: Business Architecture</span></a></nav>
+    <nav class="pager"><a class="prev" href="TOGAF_Day5_Business_Architecture.html"><small>← Day 5</small><span>Phase B: Business Architecture</span></a><a class="next" href="TOGAF_Day7_Application_Architecture.html"><small>Day 7 →</small><span>Phase C: Application Architecture</span></a></nav>
   </article>
 </div>
 <script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
 <script>
 const QUESTIONS = [
-  { q: "Which input triggers the start of Phase A?",
-    o: ["Statement of Architecture Work","Request for Architecture Work","Architecture Contract","Implementation and Migration Plan"],
+  { q: "In Phase C, in what order are the Data and Application Architectures developed?",
+    o: ["Data must always be developed before Application","In either order, or in parallel","Application must always be developed before Data","Data Architecture is developed in Phase D"],
     a: 1,
-    r: "Phase A is started by a <b>Request for Architecture Work</b> from the sponsoring organization. The Statement of Architecture Work is the <i>output</i> approved at the end of Phase A. The Architecture Contract belongs to Phase G, and the Implementation and Migration Plan to Phase F." },
-  { q: "Which deliverable must be approved by the end of Phase A for the architecture work to proceed?",
-    o: ["Statement of Architecture Work","Architecture Requirements Specification","Architecture Roadmap","Compliance Assessment"],
-    a: 0,
-    r: "The <b>Statement of Architecture Work</b> defines scope and approach and is the formal agreement to proceed. The Architecture Requirements Specification and Architecture Roadmap are developed in Phases B–F, and Compliance Assessments are done in Phase G." },
-  { q: "Which of the following is NOT an objective of Phase A?",
-    o: ["Develop a high-level, aspirational vision of the capabilities and business value to be delivered","Obtain approval for a Statement of Architecture Work","Define a programme of work to develop and deploy the architecture in the vision","Develop the detailed Target Technology Architecture"],
-    a: 3,
-    r: "Phase A stays at a <b>high level</b>. The detailed Target Technology Architecture is developed in <b>Phase D</b>. A, B and C all reflect Phase A's two objectives." },
-  { q: "Which set lists TOGAF's dimensions for defining the scope of an architecture effort?",
-    o: ["Cost, quality, time and risk","People, process, technology and data","Breadth, depth, time period and architecture domains","Strategy, segment, capability and solution"],
+    r: "TOGAF says Phase C involves some combination of Data and Application Architecture, <b>in either order</b>. A and C impose an order TOGAF doesn't require, and D is wrong because Phase D covers Technology Architecture." },
+  { q: "Which statement best describes the Data Architecture domain?",
+    o: ["The software and hardware capabilities needed to deploy services","The individual applications and how they interact","The structure of an organization's logical and physical data assets and data management resources","The business strategy, governance and processes"],
     a: 2,
-    r: "TOGAF scopes architecture work by <b>breadth, depth, time period and architecture domains</b>. A is a project-management view. B is a common IT phrase but not TOGAF's scoping model. D lists architecture levels (landscape partitioning), not scope dimensions." },
-  { q: "Which technique is commonly used in Phase A to discover and document the business requirements behind the Architecture Vision?",
-    o: ["Business Scenarios","Gap Analysis","Interoperability Requirements","Migration Planning Techniques"],
+    r: "Data Architecture describes <b>logical and physical data assets</b> and <b>data management resources</b>. A is Technology, B is Application, and D is Business Architecture." },
+  { q: "Which of the following is an objective of Phase C (Data)?",
+    o: ["Develop the Target Data Architecture that enables the Business Architecture and the Architecture Vision","Develop the Implementation and Migration Plan","Select specific database products for each application","Define the Architecture Principles for the first time"],
     a: 0,
-    r: "<b>Business Scenarios</b> help identify and articulate business requirements and are highlighted as a key Phase A technique. Gap Analysis is used mainly in Phases B–D. Interoperability and migration planning techniques are used mainly in Phases E and F." },
-  { q: "What best describes the role of the Architecture Vision?",
-    o: ["A detailed design specification for implementation teams","A high-level, aspirational view of the target state that acts as an \"elevator pitch\" to secure stakeholder support","A contract between the architecture function and implementation partners","A list of all applications in the enterprise"],
-    a: 1,
-    r: "The Architecture Vision is deliberately <b>high level and aspirational</b>; it sells the benefits to stakeholders. A is too detailed for Phase A. C describes an Architecture Contract. D describes the Application Portfolio Catalog." },
-  { q: "Which Phase A output describes how, when and in what format information about the architecture will be shared with stakeholders?",
-    o: ["Capability Assessment","Architecture Vision","Communications Plan","Tailored Architecture Framework"],
-    a: 2,
-    r: "The <b>Communications Plan</b> sets out the stakeholder communications. The Capability Assessment evaluates baseline and target capability levels. The Architecture Vision describes the target at a high level. The Tailored Architecture Framework describes method and content." },
-  { q: "An architect evaluates the organization's vision, desire, need, funding, sponsorship and ability to implement change. Which technique is being used?",
-    o: ["Stakeholder Management","Gap Analysis","Risk Management","Business Transformation Readiness Assessment"],
+    r: "Phase C develops the <b>Target Data Architecture</b> and identifies candidate roadmap components. B is Phase F. C is too product-specific for architecture work at this stage. D belongs to the Preliminary Phase." },
+  { q: "What are the three dimensions TOGAF considers for data governance?",
+    o: ["Conceptual, logical and physical","Create, read and delete","Cost, quality and time","Structure, management system and people"],
     a: 3,
-    r: "These are the readiness factors of the <b>Business Transformation Readiness Assessment</b>, carried out in Phase A. Stakeholder Management analyses stakeholders and their concerns. Gap Analysis compares baseline and target. Risk Management identifies and mitigates risks." },
-  { q: "In TOGAF, what is the \"residual level of risk\"?",
-    o: ["The risk before any mitigation actions are taken","The risk remaining after mitigation actions have been applied","Risk that has been transferred to a vendor","Risk related only to technology components"],
+    r: "Data governance looks at <b>structure</b>, <b>management system</b> and <b>people</b>. A lists data model levels, B lists data operations, and C lists project constraints." },
+  { q: "A new CRM application will replace a legacy system. Which Data Architecture consideration addresses moving and cleansing the existing customer records?",
+    o: ["Data governance","Data migration","Data dissemination","Data security"],
     a: 1,
-    r: "TOGAF classifies risk as <b>initial</b> (before mitigation) and <b>residual</b> (after mitigation). A describes initial risk. C and D are not TOGAF's definitions." },
-  { q: "<i>Scenario:</i> In Phase A, the architect lists all stakeholders, their concerns, the level of influence each has, and which views should be produced for them. Which artifact is this?",
-    o: ["Stakeholder Map Matrix","Application Portfolio Catalog","Value Stream Map","Solution Concept Diagram"],
+    r: "<b>Data migration</b> covers identifying migration requirements, data quality, cleansing and transformation when applications are replaced. Governance is about structures and skills, dissemination is about where data is distributed, and security is about access." },
+  { q: "Which artifact shows which business functions use which data entities, and helps assign data ownership?",
+    o: ["Data Entity/Business Function matrix","Application/Data matrix","Data Lifecycle diagram","Logical Data diagram"],
     a: 0,
-    r: "The <b>Stakeholder Map Matrix</b> records stakeholders, their concerns, influence and the relevant views. The Application Portfolio Catalog lists applications (Phase C). A Value Stream Map shows how value is delivered. A Solution Concept Diagram sketches the target solution." },
-  { q: "In Phase A, the draft Architecture Definition Document contains high-level baseline and target descriptions for which domains?",
-    o: ["Business only","Business and Technology only","Business, Data, Application and Technology","Data and Application only"],
+    r: "The <b>Data Entity/Business Function matrix</b> links business functions to data entities, supporting data ownership (trustees). The Application/Data matrix links applications to data. The Data Lifecycle diagram shows data states over time. The Logical Data diagram shows logical data structures." },
+  { q: "Which Phase C artifact shows how data is distributed across application components and where it physically resides?",
+    o: ["Data Security diagram","Conceptual Data diagram","Data Dissemination diagram","Data Migration diagram"],
     a: 2,
-    r: "Phase A produces a <b>draft</b> Architecture Definition Document covering <b>all four domains</b> at a high level. Phases B, C and D then develop each domain in detail." },
-  { q: "<i>Scenario:</i> A sponsor asks the architect to go straight into detailed technology design because the budget is already approved. According to TOGAF, what should the architect do first?",
-    o: ["Start Phase D immediately, since the budget is approved","Skip to Phase G to set up the Architecture Contracts","Produce the Implementation and Migration Plan","Confirm scope, stakeholders and the Architecture Vision, and get the Statement of Architecture Work approved"],
-    a: 3,
-    r: "The ADM requires that Phase A establish <b>scope, stakeholders, the vision and an approved Statement of Architecture Work</b> before detailed architecture development. Budget approval alone does not replace these. A, B and C skip the phases that give the work its direction and agreement." },
-  { q: "Which of the following diagrams is typically produced in Phase A?",
-    o: ["Application Communication Diagram","Solution Concept Diagram","Environments and Locations Diagram","Data Lifecycle Diagram"],
+    r: "The <b>Data Dissemination diagram</b> shows the relationship between data entities, business services and application components, including where data is physically stored. The Data Security diagram shows access by actors, the Conceptual Data diagram shows business entities, and the Data Migration diagram shows data flows from source to target applications." },
+  { q: "Which data model level is most suitable for discussing key business entities and relationships with business stakeholders?",
+    o: ["Physical data model","Conceptual data model","Database schema","Data dictionary"],
     a: 1,
-    r: "The <b>Solution Concept Diagram</b> gives a high-level orientation of the proposed solution in Phase A. The Application Communication and Data Lifecycle Diagrams belong to Phase C, and the Environments and Locations Diagram belongs to Phase D." }
+    r: "The <b>conceptual</b> model shows the main business entities and their relationships in business terms. Physical models, database schemas and data dictionaries are detailed and technology-oriented." },
+  { q: "Which of the following is a Data Architecture artifact?",
+    o: ["Application Portfolio catalog","Technology Standards catalog","Organization/Actor catalog","Data Entity/Data Component catalog"],
+    a: 3,
+    r: "The <b>Data Entity/Data Component catalog</b> is the core Data Architecture catalog. The Application Portfolio catalog is Application Architecture, the Technology Standards catalog is Phase D, and the Organization/Actor catalog is Phase B." },
+  { q: "Which Phase C (Data) artifact shows which actors (people, roles, systems) are allowed to access which data?",
+    o: ["Data Security diagram","Data Lifecycle diagram","Data Entity/Business Function matrix","Conceptual Data diagram"],
+    a: 0,
+    r: "The <b>Data Security diagram</b> shows which actors can access which data, supporting security and privacy concerns. The other artifacts do not focus on access rights." },
+  { q: "<i>Scenario:</i> Several applications each keep their own copy of customer data, and the copies disagree. The architect wants to decide which application will hold the authoritative version. Which Data Architecture consideration is this?",
+    o: ["Data migration","Data dissemination only","Data management: identifying the system of record for master data","Technology standardization"],
+    a: 2,
+    r: "Deciding which component acts as the <b>system of record</b> for enterprise master data is a key <b>data management</b> question in TOGAF. Migration concerns moving data between systems. Dissemination alone describes where data lives but doesn't decide authority. Technology standardization is a Phase D concern." },
+  { q: "Which of the following is an output of Phase C (Data)?",
+    o: ["Signed Architecture Contract","Data Architecture components of an Architecture Roadmap","Finalized Implementation and Migration Plan","Approved Statement of Architecture Work"],
+    a: 1,
+    r: "Like Phases B and D, Phase C produces <b>roadmap components</b> for its domain, plus the draft ADD and ARS. The Architecture Contract is signed in Phase G, the Implementation and Migration Plan is finalized in Phase F, and the Statement of Architecture Work is approved in Phase A." },
+  { q: "Which statement about industry reference models in the Data Architecture is correct?",
+    o: ["They must never be used, because every enterprise's data is unique","They replace the need for gap analysis","They are only used in Phase H","They can accelerate Data Architecture work, for example ARTS for retail or Energistics for energy"],
+    a: 3,
+    r: "TOGAF encourages using <b>industry data reference models</b>, such as ARTS or Energistics, to accelerate work. They do not replace gap analysis, they are used in Phase C, and they are certainly allowed." }
 ];
 // Shared quiz engine. Expects a global QUESTIONS array:
 // { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML }

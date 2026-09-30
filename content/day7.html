@@ -1,0 +1,70 @@
+<p>Yesterday covered the data side of Phase C. Today covers the other half: the <b>Application Architecture</b>, which describes the applications the enterprise needs to process its data and support its business.</p>
+
+<h2 id="purpose">1. Purpose of Phase C (Application)</h2>
+<div class="card def">
+  The <b>Application Architecture</b> provides a blueprint for the <b>individual applications</b> to be deployed, their <b>interactions</b>, and their <b>relationships to the core business processes</b> of the organization.
+</div>
+<p>It defines the <b>kinds of application systems</b> needed: logical groups of capabilities that manage the data objects in the Data Architecture and support the business functions in the Business Architecture. It is <b>not</b> primarily about choosing products; it describes what applications must do.</p>
+
+<h2 id="objectives">2. Objectives</h2>
+<ul>
+  <li>Develop the <b>Target Application Architecture</b> that enables the Business Architecture and the Architecture Vision, while addressing the Request for Architecture Work and stakeholder concerns.</li>
+  <li>Identify <b>candidate Architecture Roadmap components</b> based on gaps between the Baseline and Target Application Architectures.</li>
+</ul>
+<p>The steps are the same <b>nine common steps</b> used in Phases B, C (Data) and D.</p>
+
+<h2 id="refmodels">3. Reference Models</h2>
+<ul>
+  <li><b>Integrated Information Infrastructure Reference Model (III-RM)</b>: a TOGAF reference model, published as a Series Guide, focused on the application-level components and services needed for <b>Boundaryless Information Flow™</b>, meaning getting the right information to the right people at the right time, securely.</li>
+  <li><b>Industry application reference models</b>, where available, such as models for telecoms or retail.</li>
+  <li>The organization's own <b>existing application portfolio</b> and standards in the Architecture Repository.</li>
+</ul>
+<div class="card tip">The III-RM is a subset of the TOGAF <b>Technical Reference Model (TRM)</b>: it expands the TRM's application software and application platform areas. Both are covered on Day 22.</div>
+
+<h2 id="interop">4. Interoperability and Integration</h2>
+<p>The Application Architecture must show how applications <b>work together</b>. TOGAF encourages defining interoperability early, because integration problems are expensive to fix later. Typical questions include:</p>
+<ul>
+  <li>Which applications must exchange information, and in what form?</li>
+  <li>Which interfaces exist today, and which are needed in the Target?</li>
+  <li>Can shared services replace point-to-point integrations?</li>
+</ul>
+<p>Detailed interoperability requirements are consolidated and reconciled in <b>Phase E</b>.</p>
+
+<h2 id="gaps">5. Typical Application Gaps</h2>
+<p>Application gap analysis uses the same matrix technique as Phase B. Common findings include:</p>
+<ul>
+  <li><b>Missing applications</b>: capabilities needed in the Target with no application today</li>
+  <li><b>Redundant applications</b>: several applications doing the same job, which are candidates for consolidation</li>
+  <li><b>Applications to retire</b>: Baseline applications not needed in the Target</li>
+  <li><b>Interface gaps</b>: missing or inadequate connections between applications</li>
+</ul>
+
+<h2 id="outputs">6. Outputs</h2>
+<ul>
+  <li>Refined Phase A deliverables</li>
+  <li><b>Draft Architecture Definition Document</b>, with Baseline and Target Application Architecture and relevant views</li>
+  <li><b>Draft Architecture Requirements Specification</b>, including gap analysis results, application interoperability requirements, and constraints on the Technology Architecture</li>
+  <li><b>Application Architecture components of an Architecture Roadmap</b></li>
+</ul>
+
+<h2 id="artifacts">7. Artifacts Typically Produced</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Type</th><th>Phase C (Application) artifacts</th></tr>
+  <tr><td><b>Catalogs</b></td><td>Application Portfolio catalog · Interface catalog</td></tr>
+  <tr><td><b>Matrices</b></td><td>Application/Organization · Role/Application · Application/Function · Application Interaction</td></tr>
+  <tr><td><b>Diagrams</b></td><td>Application Communication · Application and User Location · Application Use-Case · Enterprise Manageability · Process/Application Realization · Software Engineering · Application Migration · Software Distribution</td></tr>
+</table>
+</div>
+<div class="card tip trap">The <b>Application Interaction matrix</b> and the <b>Application Communication diagram</b> both describe how applications communicate. The matrix is a grid of which applications talk to which; the diagram is a picture of the communication paths and interfaces.</div>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Application Architecture is a blueprint for <b>individual applications</b>, their <b>interactions</b>, and their links to <b>business processes</b>.</li>
+    <li>It defines the <b>kinds of applications</b> needed, not specific products.</li>
+    <li>The <b>III-RM</b> supports <b>Boundaryless Information Flow</b> and is a subset of the TRM.</li>
+    <li>Gap analysis finds missing, redundant and retiring applications and interface gaps.</li>
+    <li>Key artifacts: Application Portfolio and Interface catalogs, Application/Function and Application Interaction matrices, and the Application Communication diagram.</li>
+  </ul>
+</div>

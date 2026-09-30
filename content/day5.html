@@ -1,0 +1,90 @@
+<p>Phases B, C and D follow the same pattern: describe where you are (Baseline), describe where you want to be (Target), and work out the difference (Gap). Phase B does this first for the <b>business</b>, because every later domain exists to support it.</p>
+
+<h2 id="purpose">1. Purpose of Phase B</h2>
+<div class="card def">
+  Phase B develops the <b>Business Architecture</b>: how the enterprise needs to operate to achieve its <b>business goals</b> and respond to the <b>strategic drivers</b> set out in the Architecture Vision.
+</div>
+<p>It describes the business strategy, governance, organization and key business processes, along with the capabilities and value streams that deliver value to customers.</p>
+
+<h2 id="objectives">2. Objectives</h2>
+<ul>
+  <li>Develop the <b>Target Business Architecture</b> that describes how the enterprise needs to operate to achieve its business goals, respond to its strategic drivers, and address the Request for Architecture Work and stakeholder concerns.</li>
+  <li>Identify <b>candidate Architecture Roadmap components</b> based on gaps between the Baseline and Target Business Architectures.</li>
+</ul>
+
+<h2 id="steps">3. The Common Steps for Phases B, C and D</h2>
+<p>Phases B, C and D share nine steps. Learn them once and apply them to every domain:</p>
+<ol>
+  <li><b>Select reference models, viewpoints and tools</b></li>
+  <li><b>Develop the Baseline</b> Architecture Description</li>
+  <li><b>Develop the Target</b> Architecture Description</li>
+  <li><b>Perform gap analysis</b></li>
+  <li><b>Define candidate roadmap components</b></li>
+  <li><b>Resolve impacts across the Architecture Landscape</b></li>
+  <li><b>Conduct formal stakeholder review</b></li>
+  <li><b>Finalize</b> the architecture</li>
+  <li><b>Create the Architecture Definition Document</b></li>
+</ol>
+<div class="card tip">Baseline or Target first? TOGAF allows either. If the change is large and the target is very different from today, it is often more useful to <b>develop the Target first</b> and describe only as much of the Baseline as is needed to find the gaps.</div>
+
+<h2 id="concepts">4. Key Business Architecture Concepts</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Concept</th><th>Meaning</th></tr>
+  <tr><td><b>Business capability</b></td><td>A particular ability that a business may possess or exchange to achieve a specific purpose. It describes <i>what</i> the business does, not <i>how</i>.</td></tr>
+  <tr><td><b>Value stream</b></td><td>An end-to-end collection of value-adding activities that create an overall result for a customer, stakeholder or end user.</td></tr>
+  <tr><td><b>Business process</b></td><td>A sequence of activities that shows <i>how</i> work is done; processes realise capabilities.</td></tr>
+  <tr><td><b>Business function</b></td><td>Delivers business capabilities, closely aligned to an organization but not necessarily governed by it.</td></tr>
+  <tr><td><b>Business service</b></td><td>Supports business capabilities through an explicitly defined interface, and is explicitly governed by an organization.</td></tr>
+  <tr><td><b>Organization map</b></td><td>Shows the main organizational units, partners and stakeholders and the relationships between them.</td></tr>
+</table>
+</div>
+<div class="card tip trap">A capability is not a process. "Payment processing" as a <b>capability</b> is stable over time; the <b>processes</b> that realise it change as technology and organization change. Exam questions often test this distinction.</div>
+
+<h3>Useful techniques in Phase B</h3>
+<ul>
+  <li><b>Business capability mapping</b> and <b>value stream mapping</b> (see the TOGAF Series Guides)</li>
+  <li><b>Business Scenarios</b> to discover and document business requirements</li>
+  <li><b>Business modeling</b>: activity or process models (e.g. BPMN), use-case models and class models</li>
+  <li><b>Organization mapping</b> and <b>information mapping</b></li>
+</ul>
+
+<h2 id="gap">5. Gap Analysis</h2>
+<p>Gap analysis is used in Phases B, C and D to validate the architecture and find what must change. TOGAF's technique uses a matrix:</p>
+<ul>
+  <li>List the <b>Baseline</b> building blocks as <b>rows</b> and the <b>Target</b> building blocks as <b>columns</b>.</li>
+  <li>Add a final row, <b>"New"</b>, and a final column, <b>"Eliminated"</b>.</li>
+  <li>Where a block appears in both, mark it as <b>"Included"</b>.</li>
+  <li>A Baseline block with no match in the Target is either <b>deliberately eliminated</b> or <b>accidentally omitted</b>. An accidental omission must be fixed.</li>
+  <li>A Target block with no match in the Baseline is a <b>gap to be filled</b>: something to develop or procure.</li>
+</ul>
+<div class="card tip">Gap analysis also highlights services that are <b>potentially reusable</b>, and is a powerful way to check that the Target Architecture is complete and consistent.</div>
+
+<h2 id="outputs">6. Outputs</h2>
+<ul>
+  <li>Refined and updated Phase A deliverables, such as the Statement of Architecture Work and validated principles, goals and drivers</li>
+  <li><b>Draft Architecture Definition Document</b>, with the Baseline and Target Business Architecture and views addressing stakeholder concerns</li>
+  <li><b>Draft Architecture Requirements Specification</b>, with gap analysis results and technical and business requirements</li>
+  <li><b>Business Architecture components of an Architecture Roadmap</b></li>
+</ul>
+
+<h2 id="artifacts">7. Artifacts Typically Produced</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Type</th><th>Phase B artifacts</th></tr>
+  <tr><td><b>Catalogs</b></td><td>Organization/Actor · Driver/Goal/Objective · Role · Business Service/Function · Location · Process/Event/Control/Product · Contract/Measure</td></tr>
+  <tr><td><b>Matrices</b></td><td>Business Interaction Matrix · Actor/Role Matrix</td></tr>
+  <tr><td><b>Diagrams</b></td><td>Business Footprint · Business Service/Information · Functional Decomposition · Product Lifecycle · Goal/Objective/Service · Business Use-Case · Organization Decomposition · Process Flow · Event · Business Capability Map · Value Stream Map · Organization Map</td></tr>
+</table>
+</div>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Phase B develops the <b>Baseline and Target Business Architecture</b> and identifies <b>candidate roadmap components</b>.</li>
+    <li>Phases B, C and D share <b>nine common steps</b>: reference models and viewpoints, baseline, target, gap analysis, roadmap components, resolve impacts, stakeholder review, finalize, and create the Architecture Definition Document.</li>
+    <li><b>Capabilities</b> describe what the business does; <b>value streams</b> show how value is delivered end to end; <b>processes</b> show how work is done.</li>
+    <li>Gap analysis uses a Baseline × Target matrix with <b>"New"</b> and <b>"Eliminated"</b> entries.</li>
+    <li>Outputs: draft <b>Architecture Definition Document</b>, draft <b>Architecture Requirements Specification</b>, and Business Architecture <b>roadmap components</b>.</li>
+  </ul>
+</div>
