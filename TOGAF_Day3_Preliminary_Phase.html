@@ -3,90 +3,242 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TOGAF Day 3 – Preliminary Phase</title>
+<title>Day 3: Preliminary Phase and Architecture Principles · TOGAF Explained</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f7f6f2; --surface: #ffffff; --text: #1f2328; --muted: #5b6270;
-    --accent: #1d4e89; --accent-soft: #e6eef8; --border: #e2e0da;
-    --ok: #1e7a46; --ok-soft: #e5f4ec; --bad: #b3261e; --bad-soft: #fbe9e7;
-    --warn-soft: #fff6e0;
+/* ==========================================================================
+   TOGAF Explained — shared template
+   Vox-style explainer layout · Société Générale-inspired palette (red/black)
+   Edit this file to change the look of every day at once, then run build.py.
+   ========================================================================== */
+:root {
+  --red: #e60028;          /* primary accent */
+  --red-dark: #b8001f;
+  --ink: #111111;          /* headlines, masthead */
+  --text: #222222;
+  --muted: #666666;
+  --rule: #e3e3e3;
+  --paper: #ffffff;
+  --wash: #f6f6f4;         /* soft panels */
+  --mark: rgba(230, 0, 40, 0.16);   /* highlighter */
+  --ok: #1f7a4a; --ok-soft: #e8f4ed;
+  --bad: #c4001f; --bad-soft: #fde9ec;
+  --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --red: #ff4d5e; --red-dark: #ff7a86;
+    --ink: #f3f3f3; --text: #e2e2e2; --muted: #a3a3a3;
+    --rule: #333333; --paper: #141414; --wash: #1d1d1d;
+    --mark: rgba(255, 77, 94, 0.26);
+    --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #15171b; --surface: #1d2026; --text: #e6e7ea; --muted: #a0a6b1;
-      --accent: #7fb0f0; --accent-soft: #1f2d42; --border: #2e323a;
-      --ok: #5fcf8f; --ok-soft: #173024; --bad: #f28b82; --bad-soft: #3a1d1b;
-      --warn-soft: #3a3120;
-    }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-    font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
-  header { border-bottom: 3px solid var(--accent); padding-bottom: 16px; margin-bottom: 24px; }
-  header .tag { color: var(--accent); font-weight: 700; letter-spacing: .08em; font-size: 13px; text-transform: uppercase; }
-  h1 { margin: 4px 0 6px; font-size: 32px; line-height: 1.2; }
-  h2 { margin-top: 40px; font-size: 24px; border-left: 4px solid var(--accent); padding-left: 12px; }
-  h3 { margin-top: 28px; font-size: 19px; color: var(--accent); }
-  nav { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 24px; }
-  nav a { color: var(--accent); text-decoration: none; margin-right: 14px; display: inline-block; }
-  .home { display: inline-block; margin-bottom: 12px; color: var(--accent); text-decoration: none; font-size: 14px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
-  .def { background: var(--accent-soft); border-left: 4px solid var(--accent); }
-  .tip { background: var(--warn-soft); }
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; background: var(--surface); }
-  th, td { border: 1px solid var(--border); padding: 9px 11px; text-align: left; vertical-align: top; }
-  th { background: var(--accent-soft); }
-  .chain { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; margin: 16px 0; }
-  .chain .box { background: var(--surface); border: 2px solid var(--accent); border-radius: 10px; padding: 12px 16px; text-align: center; min-width: 130px; }
-  .chain .box b { display: block; color: var(--accent); }
-  .chain .box small { color: var(--muted); }
-  .chain .arrow { color: var(--muted); font-weight: 600; font-size: 14px; }
-  .q { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin: 14px 0; }
-  .q p.stem { font-weight: 600; margin: 0 0 10px; }
-  .q label { display: block; padding: 7px 10px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; }
-  .q label:hover { background: var(--accent-soft); }
-  .q input { margin-right: 8px; }
-  .q.correct { border-color: var(--ok); }
-  .q.wrong { border-color: var(--bad); }
-  label.is-answer { background: var(--ok-soft); border-color: var(--ok); }
-  label.is-wrong { background: var(--bad-soft); border-color: var(--bad); }
-  .reason { display: none; margin-top: 12px; padding: 12px; border-radius: 8px; background: var(--accent-soft); font-size: 15px; }
-  .show .reason { display: block; }
-  .verdict { font-weight: 700; }
-  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0; }
-  button { background: var(--accent); color: var(--surface); border: 0; border-radius: 8px; padding: 10px 18px; font-size: 15px; font-weight: 600; cursor: pointer; }
-  button.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-  #timer { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 18px; }
-  #score { font-size: 20px; font-weight: 700; }
-  ul, ol { padding-left: 22px; }
-  @media print { nav, .controls, .home { display: none; } .reason { display: block; } }
+}
+:root[data-theme="dark"] {
+  --red: #ff4d5e; --red-dark: #ff7a86;
+  --ink: #f3f3f3; --text: #e2e2e2; --muted: #a3a3a3;
+  --rule: #333333; --paper: #141414; --wash: #1d1d1d;
+  --mark: rgba(255, 77, 94, 0.26);
+  --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--text);
+  font: 19px/1.65 var(--serif); }
+a { color: inherit; }
+
+/* ---------- Masthead ---------- */
+.masthead { background: #000; color: #fff; border-top: 6px solid var(--red); }
+.masthead .in { max-width: 1080px; margin: 0 auto; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font: 900 20px/1 var(--sans); letter-spacing: -.02em; text-decoration: none; color: #fff; }
+.brand span { color: var(--red); }
+.masthead .sect { font: 700 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #bbb; text-decoration: none; }
+.masthead .sect:hover { color: #fff; }
+
+/* ---------- Article header ---------- */
+.hero { max-width: 1080px; margin: 0 auto; padding: 40px 16px 8px; }
+.kicker { font: 800 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.hero h1 { font: 900 clamp(34px, 6vw, 60px)/1.02 var(--sans); letter-spacing: -.035em;
+  color: var(--ink); margin: 14px 0 16px; max-width: 900px; }
+.dek { font: 400 clamp(19px, 2.4vw, 23px)/1.45 var(--serif); color: var(--muted); max-width: 760px; margin: 0; }
+.byline { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--rule);
+  font: 500 13px/1.4 var(--sans); color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.byline b { color: var(--ink); }
+.progress { height: 4px; background: var(--rule); margin-top: 14px; max-width: 760px; }
+.progress i { display: block; height: 100%; background: var(--red); }
+
+/* ---------- Layout ---------- */
+.layout { max-width: 1080px; margin: 0 auto; padding: 24px 16px 64px;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+@media (min-width: 980px) { .layout { grid-template-columns: 240px minmax(0, 680px); } }
+article { min-width: 0; }
+
+/* Table of contents — "In this explainer" */
+.toc { font-family: var(--sans); }
+.toc h4 { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  margin: 0 0 12px; color: var(--ink); border-top: 4px solid var(--ink); padding-top: 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+.toc li { counter-increment: t; border-bottom: 1px solid var(--rule); }
+.toc a { display: flex; gap: 10px; padding: 9px 0; text-decoration: none; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--text); }
+.toc a::before { content: counter(t, decimal-leading-zero); color: var(--red); font-weight: 800; }
+.toc a:hover { color: var(--red); }
+@media (min-width: 980px) { .toc { position: sticky; top: 16px; align-self: start; } }
+@media (max-width: 979px) {
+  .toc details { border-top: 4px solid var(--ink); border-bottom: 1px solid var(--rule); }
+  .toc h4 { border: 0; padding: 12px 0; margin: 0; cursor: pointer; }
+}
+
+/* ---------- Body typography ---------- */
+article > p, article li { color: var(--text); }
+article p { margin: 0 0 1.1em; }
+article b, article strong { font-weight: 700; color: var(--ink); }
+ul, ol { padding-left: 1.3em; }
+li { margin: .3em 0; }
+li::marker { color: var(--red); font-weight: 700; }
+
+article h2 { font: 900 clamp(26px, 3.6vw, 34px)/1.12 var(--sans); letter-spacing: -.025em;
+  color: var(--ink); margin: 56px 0 18px; scroll-margin-top: 16px; }
+article h2 .num { display: block; font: 800 14px/1 var(--sans); letter-spacing: .14em; color: var(--red); margin-bottom: 10px; }
+article h3 { font: 800 21px/1.25 var(--sans); letter-spacing: -.01em; color: var(--ink); margin: 34px 0 12px; }
+
+/* Highlighter: key phrases in definitions */
+.def b, mark { background: linear-gradient(transparent 58%, var(--mark) 58%); padding: 0 .08em; color: var(--ink); }
+
+/* ---------- Explainer cards ---------- */
+.card { background: var(--wash); padding: 20px 22px; margin: 22px 0; border-radius: 0; }
+.card > :last-child { margin-bottom: 0; }
+.card.def { background: transparent; border-left: 6px solid var(--red); padding: 4px 0 4px 20px;
+  font: 400 21px/1.55 var(--serif); color: var(--ink); }
+.card.tip { background: var(--paper); border: 2px solid var(--ink); position: relative; padding-top: 30px; font-size: 17px; }
+.card.tip::before { content: "Tip"; position: absolute; top: -12px; left: 16px; background: var(--ink); color: var(--paper);
+  font: 800 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 6px 10px; }
+.card.tip.trap { border-color: var(--red); }
+.card.tip.trap::before { content: "Exam trap"; background: var(--red); color: #fff; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; margin: 22px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font: 15px/1.5 var(--sans); }
+th { background: var(--ink); color: var(--paper); text-align: left; font-weight: 700; padding: 10px 12px; font-size: 13px; letter-spacing: .03em; }
+td { border-bottom: 1px solid var(--rule); padding: 11px 12px; vertical-align: top; }
+td b { color: var(--ink); }
+tr:nth-child(even) td { background: var(--wash); }
+td ul { margin: 0; padding-left: 1.1em; }
+
+/* ---------- Flow chains (vertical explainer flow) ---------- */
+.chain { display: flex; flex-direction: column; align-items: stretch; gap: 0; margin: 26px 0; font-family: var(--sans); max-width: 460px; }
+.chain .box { background: var(--paper); border: 2px solid var(--ink); padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.chain .box b { font-size: 16px; line-height: 1.25; color: var(--ink); }
+.chain .box small { color: var(--muted); font-size: 14px; }
+.chain .arrow { align-self: flex-start; margin-left: 22px; padding: 6px 0 6px 14px; border-left: 2px solid var(--red);
+  font: 800 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+
+/* ---------- ADM grid (Day 1) ---------- */
+.adm { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 2px; background: var(--rule);
+  border: 2px solid var(--ink); margin: 22px 0; font: 14px/1.45 var(--sans); }
+.adm div { background: var(--paper); padding: 12px; }
+.adm b { display: block; color: var(--ink); font-size: 15px; margin-bottom: 4px; }
+.adm .center { background: var(--red); color: #fff; }
+.adm .center b { color: #fff; }
+
+/* ---------- Takeaway ---------- */
+#summary { border-top: 6px solid var(--red); padding-top: 18px; }
+#summary + .card { background: var(--ink); color: var(--paper); padding: 24px 26px; }
+#summary + .card b, #summary + .card li, #summary + .card p { color: var(--paper); }
+#summary + .card li::marker { color: var(--red); }
+
+/* ---------- Quiz ---------- */
+.quiz-head { margin-top: 64px; background: var(--red); color: #fff; padding: 26px 24px; font-family: var(--sans); }
+.quiz-head .kicker { color: #fff; opacity: .85; }
+.quiz-head h2 { color: #fff; margin: 10px 0 6px; }
+.quiz-head p { margin: 0; font: 400 17px/1.5 var(--serif); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0; font-family: var(--sans); }
+.controls.sticky { position: sticky; top: 0; z-index: 5; background: var(--paper); padding: 10px 0; border-bottom: 1px solid var(--rule); margin: 0 0 8px; }
+button { font: 700 15px/1 var(--sans); padding: 13px 20px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; border-radius: 0; }
+button:hover { background: var(--red); border-color: var(--red); color: #fff; }
+button.secondary { background: transparent; color: var(--ink); }
+#timer { font: 800 22px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--ink); margin-left: auto; }
+#timer.low { color: var(--red); }
+#score { font: 800 20px/1.3 var(--sans); color: var(--ink); width: 100%; }
+
+.q { border-top: 2px solid var(--ink); padding: 18px 0 8px; margin: 26px 0 0; }
+.q .qn { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.q p.stem { font: 700 19px/1.4 var(--sans); color: var(--ink); margin: 8px 0 14px; }
+.q p.stem i { font-weight: 700; }
+.q label { display: flex; gap: 12px; align-items: flex-start; padding: 11px 14px; margin: 6px 0; border: 1px solid var(--rule);
+  cursor: pointer; font: 400 16px/1.45 var(--sans); background: var(--paper); }
+.q label:hover { border-color: var(--ink); }
+.q label .lt { font-weight: 800; color: var(--muted); min-width: 1.2em; }
+.q input { position: absolute; opacity: 0; pointer-events: none; }
+.q label:has(input:checked) { border: 2px solid var(--ink); padding: 10px 13px; }
+.q label:has(input:checked) .lt { color: var(--red); }
+.q input:focus-visible + .lt { outline: 2px solid var(--red); outline-offset: 2px; }
+label.is-answer { background: var(--ok-soft) !important; border: 2px solid var(--ok) !important; padding: 10px 13px !important; }
+label.is-wrong { background: var(--bad-soft) !important; border: 2px solid var(--bad) !important; padding: 10px 13px !important; }
+.reason { display: none; margin: 14px 0 6px; padding: 14px 16px; background: var(--wash); border-left: 4px solid var(--ink); font-size: 16px; line-height: 1.55; }
+.show .reason { display: block; }
+.q.correct .reason { border-left-color: var(--ok); }
+.q.wrong .reason { border-left-color: var(--bad); }
+.verdict { font: 800 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+.q.correct .verdict { color: var(--ok); } .q.wrong .verdict { color: var(--bad); }
+
+/* ---------- Prev / next ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; font-family: var(--sans); }
+.pager a { display: block; border-top: 4px solid var(--ink); padding: 12px 0; text-decoration: none; }
+.pager a:hover { border-color: var(--red); }
+.pager small { display: block; font: 800 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+.pager span { font-weight: 800; color: var(--ink); line-height: 1.25; }
+.pager .next { text-align: right; grid-column: 2; }
+
+footer.site { background: #000; color: #aaa; font: 13px/1.5 var(--sans); }
+footer.site .in { max-width: 1080px; margin: 0 auto; padding: 22px 16px; }
+
+/* ---------- Index page ---------- */
+.series { max-width: 1080px; margin: 0 auto; padding: 8px 16px 64px; }
+.series h2 { font: 900 24px/1.1 var(--sans); letter-spacing: -.02em; color: var(--ink); border-top: 4px solid var(--ink); padding-top: 12px; margin: 40px 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px 24px; }
+.tile { display: block; text-decoration: none; border-top: 2px solid var(--rule); padding-top: 12px; font-family: var(--sans); }
+a.tile { border-top-color: var(--ink); }
+a.tile:hover { border-top-color: var(--red); }
+a.tile:hover .t { color: var(--red); }
+.tile .n { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.tile .t { font: 800 19px/1.2 var(--sans); color: var(--ink); margin-top: 8px; letter-spacing: -.01em; }
+.tile .d { font: 400 15px/1.45 var(--serif); color: var(--muted); margin-top: 6px; }
+.tile.soon .n { color: var(--muted); }
+.tile.soon .t { color: var(--muted); }
+.tile.soon .n::after { content: " · Coming soon"; font-weight: 600; }
+
+@media print {
+  .masthead, .toc, .controls, .pager, footer.site { display: none; }
+  .reason { display: block; }
+  .layout { display: block; }
+  body { font-size: 12pt; }
+}
+
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="masthead"><div class="in">
+  <a class="brand" href="index.html">TOGAF<span>.</span>Explained</a>
+  <a class="sect" href="index.html">All 25 days</a>
+</div></div>
 
-<a class="home" href="index.html">← All days</a>
-<header>
-  <div class="tag">TOGAF Standard, 10th Edition · 25-Day Programme</div>
-  <h1>Day 3: Preliminary Phase and Architecture Principles</h1>
-  <div style="color:var(--muted)">Preparing the organization for EA, tailoring TOGAF, and defining good Architecture Principles</div>
+<header class="hero">
+  <div class="kicker">Day 3 of 25 · Foundation</div>
+  <h1>Preliminary Phase and Architecture Principles</h1>
+  <p class="dek">Preparing the organization for EA, tailoring TOGAF, and defining good Architecture Principles</p>
+  <div class="byline"><span><b>TOGAF Explained</b></span><span>About 5 min read</span><span>13-question mock test</span><span>TOGAF Standard, 10th Edition</span></div>
+  <div class="progress" aria-label="Course progress"><i style="width:12%"></i></div>
 </header>
-
-<nav>
-  <a href="#purpose">1. Purpose</a>
-  <a href="#objectives">2. Objectives</a>
-  <a href="#inputs">3. Inputs</a>
-  <a href="#steps">4. Steps</a>
-  <a href="#outputs">5. Outputs</a>
-  <a href="#tailor">6. Tailoring</a>
-  <a href="#principles">7. Principles</a>
-  <a href="#summary">Summary</a>
-  <a href="#quiz">Mock Test</a>
-</nav>
-
-<h2 id="purpose">1. Purpose of the Preliminary Phase</h2>
+<div class="layout">
+  <aside class="toc">
+    <details open><summary style="list-style:none"><h4>In this explainer</h4></summary>
+    <ol><li><a href="#purpose">Purpose of the Preliminary Phase</a></li><li><a href="#objectives">Objectives</a></li><li><a href="#inputs">Inputs</a></li><li><a href="#steps">Steps</a></li><li><a href="#outputs">Outputs</a></li><li><a href="#tailor">Tailoring TOGAF</a></li><li><a href="#principles">Architecture Principles</a></li><li><a href="#summary">The takeaway</a></li><li><a href="#quiz">Mock test</a></li></ol></details>
+  </aside>
+  <article>
+<h2 id="purpose"><span class="num">01</span>Purpose of the Preliminary Phase</h2>
 <div class="card def">
   The Preliminary Phase <b>prepares the organization</b> for successful Enterprise Architecture. It answers the <b>where, what, why, who and how</b> of architecture in the enterprise, and it establishes the <b>Architecture Capability</b> that will run the ADM.
 </div>
@@ -98,7 +250,7 @@
 </ul>
 <p>It sits <b>outside</b> the A–H cycle. It is usually done once to set up the capability, then revisited when the organization or its EA practice changes significantly.</p>
 
-<h2 id="objectives">2. Objectives</h2>
+<h2 id="objectives"><span class="num">02</span>Objectives</h2>
 <p>TOGAF groups the objectives into two areas:</p>
 <div class="table-wrap">
 <table>
@@ -124,7 +276,7 @@
 </table>
 </div>
 
-<h2 id="inputs">3. Inputs</h2>
+<h2 id="inputs"><span class="num">03</span>Inputs</h2>
 <ul>
   <li><b>The TOGAF Library</b> and other architecture frameworks</li>
   <li>Board strategies, business plans, business strategy and IT strategy</li>
@@ -135,7 +287,7 @@
   <li>Any <b>existing</b> Organizational Model for EA, architecture framework, Architecture Principles and Architecture Repository</li>
 </ul>
 
-<h2 id="steps">4. Steps</h2>
+<h2 id="steps"><span class="num">04</span>Steps</h2>
 <ol>
   <li><b>Scope</b> the enterprise organizations impacted</li>
   <li><b>Confirm governance and support frameworks</b></li>
@@ -144,9 +296,9 @@
   <li><b>Tailor</b> the TOGAF framework and any other selected frameworks</li>
   <li><b>Develop strategy and implementation plans for tools</b> and techniques</li>
 </ol>
-<div class="card tip">💡 <b>Scoping the enterprise:</b> TOGAF distinguishes the <b>core enterprise</b> (units directly affected), the <b>soft enterprise</b> (units that will see change but are not directly part of it), the <b>extended enterprise</b> (partners outside the organization) and <b>communities</b> (stakeholder groups with common purpose).</div>
+<div class="card tip"><b>Scoping the enterprise:</b> TOGAF distinguishes the <b>core enterprise</b> (units directly affected), the <b>soft enterprise</b> (units that will see change but are not directly part of it), the <b>extended enterprise</b> (partners outside the organization) and <b>communities</b> (stakeholder groups with common purpose).</div>
 
-<h2 id="outputs">5. Outputs</h2>
+<h2 id="outputs"><span class="num">05</span>Outputs</h2>
 <ul>
   <li><b>Organizational Model for Enterprise Architecture</b>: scope of the organizations affected, maturity assessment and gaps, roles and responsibilities for the architecture team, constraints on architecture work, budget requirements, governance and support strategy.</li>
   <li><b>Tailored Architecture Framework</b>: the tailored architecture method and content, the <b>Architecture Principles</b>, configured and deployed tools, and interfaces with governance models and other frameworks.</li>
@@ -155,9 +307,9 @@
   <li>A <b>Request for Architecture Work</b> (optional; it triggers Phase A)</li>
   <li>An <b>Architecture Governance Framework</b></li>
 </ul>
-<div class="card tip">⚠️ <b>Exam trap:</b> the <b>Statement of Architecture Work</b> is <i>not</i> a Preliminary output. It is produced and approved in <b>Phase A</b>. The Preliminary Phase may produce the <i>Request</i> for Architecture Work that starts Phase A.</div>
+<div class="card tip trap"><b>Exam trap:</b> the <b>Statement of Architecture Work</b> is <i>not</i> a Preliminary output. It is produced and approved in <b>Phase A</b>. The Preliminary Phase may produce the <i>Request</i> for Architecture Work that starts Phase A.</div>
 
-<h2 id="tailor">6. Tailoring TOGAF</h2>
+<h2 id="tailor"><span class="num">06</span>Tailoring TOGAF</h2>
 <p>TOGAF is meant to be adapted to the organization. Tailoring happens in three areas:</p>
 <div class="table-wrap">
 <table>
@@ -169,7 +321,7 @@
 </div>
 <p>The Preliminary Phase must also make sure TOGAF fits with other frameworks in use, such as business planning, portfolio management, operations management and solution development.</p>
 
-<h2 id="principles">7. Architecture Principles</h2>
+<h2 id="principles"><span class="num">07</span>Architecture Principles</h2>
 <div class="card def">
   <b>Principles</b> are general rules and guidelines, intended to be enduring and seldom amended, that inform and support the way an organization sets about fulfilling its mission.
 </div>
@@ -177,9 +329,9 @@
 <h3>Principle hierarchy</h3>
 <div class="chain">
   <div class="box"><b>Enterprise principles</b><small>whole organization</small></div>
-  <span class="arrow">inform →</span>
+  <span class="arrow">↓ inform</span>
   <div class="box"><b>IT principles</b><small>use of IT</small></div>
-  <span class="arrow">inform →</span>
+  <span class="arrow">↓ inform</span>
   <div class="box"><b>Architecture principles</b><small>architecture work</small></div>
 </div>
 <p>Architecture Principles govern both the <b>architecture process</b> (how architecture is developed) and the <b>architecture itself</b> (how it is implemented). They are <b>established in the Preliminary Phase</b> and <b>confirmed and elaborated in Phase A</b>.</p>
@@ -194,7 +346,7 @@
   <tr><td><b>Implications</b></td><td>The <b>requirements</b> for carrying out the principle, for both the business and IT: resources, costs, and activities or tasks</td></tr>
 </table>
 </div>
-<div class="card tip">💡 <b>Memory hook: "NSRI".</b> Rationale answers <i>why</i> (benefits). Implications answer <i>what it will take</i> (impact and cost).</div>
+<div class="card tip"><b>Memory hook: "NSRI".</b> Rationale answers <i>why</i> (benefits). Implications answer <i>what it will take</i> (impact and cost).</div>
 
 <h3>The five criteria for a good set of principles</h3>
 <div class="table-wrap">
@@ -207,7 +359,7 @@
   <tr><td><b>Stable</b></td><td>Enduring, yet able to accommodate change through an amendment process</td></tr>
 </table>
 </div>
-<div class="card tip">💡 <b>Memory hook: "U-R-C-C-S"</b> ("You Are Creating Consistent Standards").</div>
+<div class="card tip"><b>Memory hook: "U-R-C-C-S"</b> ("You Are Creating Consistent Standards").</div>
 
 <h3>TOGAF's example principles</h3>
 <div class="table-wrap">
@@ -221,7 +373,7 @@
 </div>
 <p><b>Primacy of Principles</b> says the principles apply to <i>all</i> organizations within the enterprise. It is the principle that gives all the others their authority.</p>
 
-<h2 id="summary">📌 Day 3 Summary</h2>
+<h2 id="summary">The takeaway</h2>
 <div class="card">
   <ul>
     <li>The Preliminary Phase <b>prepares the organization</b>: the where, what, why, who and how of EA.</li>
@@ -233,20 +385,25 @@
   </ul>
 </div>
 
-<h2 id="quiz">📝 Day 3 Mock Test (20 minutes)</h2>
-<div class="controls">
-  <button id="startBtn">Start 20-min timer</button>
-  <span id="timer">20:00</span>
+    <section class="quiz-head" id="quiz">
+      <div class="kicker">Test yourself</div>
+      <h2>Day 3 mock test</h2>
+      <p>13 questions in 20 minutes. Start the timer, pick your answers, then submit to see your score and the reasoning for every option.</p>
+    </section>
+    <div class="controls sticky">
+      <button id="startBtn">Start 20-min timer</button>
+      <span id="timer">20:00</span>
+    </div>
+    <div id="questions"></div>
+    <div class="controls">
+      <button id="submitBtn">Submit &amp; show reasoning</button>
+      <button class="secondary" id="resetBtn">Reset</button>
+      <span id="score"></span>
+    </div>
+    <nav class="pager"><a class="prev" href="TOGAF_Day2_Core_Terminology.html"><small>← Day 2</small><span>Core Terminology</span></a><a class="next" href="TOGAF_Day4_Architecture_Vision.html"><small>Day 4 →</small><span>Phase A: Architecture Vision</span></a></nav>
+  </article>
 </div>
-<div id="questions"></div>
-<div class="controls">
-  <button id="submitBtn">Submit &amp; show reasoning</button>
-  <button class="secondary" id="resetBtn">Reset</button>
-  <span id="score"></span>
-</div>
-
-</div>
-
+<script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
 <script>
 const QUESTIONS = [
   { q: "What is the main purpose of the Preliminary Phase?",
@@ -302,71 +459,85 @@ const QUESTIONS = [
     a: 3,
     r: "Principles are <b>established in the Preliminary Phase</b>, then <b>confirmed and elaborated in Phase A</b> for the specific architecture project, including any business principles. The other pairings do not match the ADM." }
 ];
+// Shared quiz engine. Expects a global QUESTIONS array:
+// { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML }
+(function () {
+  const container = document.getElementById("questions");
+  const letters = "ABCDEF";
+  const lettered = item => item.o.length > 2;
 
-const container = document.getElementById("questions");
-const letters = "ABCD";
-QUESTIONS.forEach((item, i) => {
-  const div = document.createElement("div");
-  div.className = "q"; div.id = "q" + i;
-  let html = `<p class="stem">Q${i + 1}. ${item.q}</p>`;
-  item.o.forEach((opt, j) => {
-    html += `<label><input type="radio" name="q${i}" value="${j}">${letters[j]}. ${opt}</label>`;
-  });
-  html += `<div class="reason"><span class="verdict"></span> Correct answer: <b>${letters[item.a]}. ${item.o[item.a]}</b><br>${item.r}</div>`;
-  div.innerHTML = html;
-  container.appendChild(div);
-});
-
-let seconds = 1200, timerId = null;
-const timerEl = document.getElementById("timer");
-function renderTime() {
-  const m = String(Math.floor(seconds / 60)).padStart(2, "0");
-  const s = String(seconds % 60).padStart(2, "0");
-  timerEl.textContent = `${m}:${s}`;
-}
-document.getElementById("startBtn").onclick = () => {
-  if (timerId) return;
-  timerId = setInterval(() => {
-    seconds--; renderTime();
-    if (seconds <= 0) { clearInterval(timerId); timerId = null; timerEl.textContent = "Time's up!"; grade(); }
-  }, 1000);
-};
-
-function grade() {
-  if (timerId) { clearInterval(timerId); timerId = null; }
-  let score = 0;
   QUESTIONS.forEach((item, i) => {
-    const div = document.getElementById("q" + i);
-    const chosen = div.querySelector("input:checked");
-    const labels = div.querySelectorAll("label");
-    labels.forEach(l => l.classList.remove("is-answer", "is-wrong"));
-    labels[item.a].classList.add("is-answer");
-    const verdict = div.querySelector(".verdict");
-    div.classList.remove("correct", "wrong");
-    if (chosen && Number(chosen.value) === item.a) {
-      score++; div.classList.add("correct"); verdict.textContent = "✅ Correct.";
-    } else {
-      div.classList.add("wrong");
-      if (chosen) labels[Number(chosen.value)].classList.add("is-wrong");
-      verdict.textContent = chosen ? "❌ Not quite." : "⚪ Not answered.";
-    }
-    div.classList.add("show");
+    const div = document.createElement("div");
+    div.className = "q"; div.id = "q" + i;
+    let html = `<div class="qn">Question ${i + 1} of ${QUESTIONS.length}</div><p class="stem">${item.q}</p>`;
+    item.o.forEach((opt, j) => {
+      const lt = lettered(item) ? letters[j] : (j === 0 ? "T" : "F");
+      html += `<label><input type="radio" name="q${i}" value="${j}"><span class="lt">${lt}</span><span>${opt}</span></label>`;
+    });
+    const ans = lettered(item) ? `${letters[item.a]}. ${item.o[item.a]}` : item.o[item.a];
+    html += `<div class="reason"><span class="verdict"></span>Correct answer: <b>${ans}</b><br>${item.r}</div>`;
+    div.innerHTML = html;
+    container.appendChild(div);
   });
-  const pct = Math.round(score / QUESTIONS.length * 100);
-  document.getElementById("score").textContent =
-    `Score: ${score} / ${QUESTIONS.length} (${pct}%) ${pct >= 60 ? "– Pass ✅" : "– Below 60% ❌"}`;
-}
-document.getElementById("submitBtn").onclick = grade;
-document.getElementById("resetBtn").onclick = () => {
-  if (timerId) { clearInterval(timerId); timerId = null; }
-  seconds = 1200; renderTime();
-  document.querySelectorAll("input[type=radio]").forEach(r => r.checked = false);
-  document.querySelectorAll(".q").forEach(d => {
-    d.classList.remove("show", "correct", "wrong");
-    d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong"));
-  });
-  document.getElementById("score").textContent = "";
-};
+
+  let seconds = 1200, timerId = null;
+  const timerEl = document.getElementById("timer");
+  const startBtn = document.getElementById("startBtn");
+  function renderTime() {
+    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    timerEl.textContent = `${m}:${s}`;
+    timerEl.classList.toggle("low", seconds <= 120);
+  }
+  function stop() { if (timerId) { clearInterval(timerId); timerId = null; } startBtn.textContent = "Start 20-min timer"; }
+  startBtn.onclick = () => {
+    if (timerId) return;
+    startBtn.textContent = "Timer running…";
+    timerId = setInterval(() => {
+      seconds--; renderTime();
+      if (seconds <= 0) { stop(); timerEl.textContent = "Time's up"; grade(); }
+    }, 1000);
+  };
+
+  function grade() {
+    stop();
+    let score = 0;
+    QUESTIONS.forEach((item, i) => {
+      const div = document.getElementById("q" + i);
+      const chosen = div.querySelector("input:checked");
+      const labels = div.querySelectorAll("label");
+      labels.forEach(l => l.classList.remove("is-answer", "is-wrong"));
+      labels[item.a].classList.add("is-answer");
+      const verdict = div.querySelector(".verdict");
+      div.classList.remove("correct", "wrong");
+      if (chosen && Number(chosen.value) === item.a) {
+        score++; div.classList.add("correct"); verdict.textContent = "Correct";
+      } else {
+        div.classList.add("wrong");
+        if (chosen) labels[Number(chosen.value)].classList.add("is-wrong");
+        verdict.textContent = chosen ? "Not quite" : "Not answered";
+      }
+      div.classList.add("show");
+    });
+    const pct = Math.round(score / QUESTIONS.length * 100);
+    const el = document.getElementById("score");
+    el.textContent = `You scored ${score} / ${QUESTIONS.length} (${pct}%) — ${pct >= 60 ? "Pass" : "Below the 60% pass mark"}`;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  document.getElementById("submitBtn").onclick = grade;
+  document.getElementById("resetBtn").onclick = () => {
+    stop(); seconds = 1200; renderTime();
+    document.querySelectorAll(".q input[type=radio]").forEach(r => r.checked = false);
+    document.querySelectorAll(".q").forEach(d => {
+      d.classList.remove("show", "correct", "wrong");
+      d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong"));
+    });
+    document.getElementById("score").textContent = "";
+    document.getElementById("quiz").scrollIntoView({ behavior: "smooth" });
+  };
+})();
+
 </script>
+<footer class="site"><div class="in">Unofficial study material for the TOGAF Standard, 10th Edition. TOGAF is a registered trademark of The Open Group.</div></footer>
 </body>
 </html>

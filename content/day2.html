@@ -1,0 +1,119 @@
+<p>Yesterday covered the big picture. Today covers the words TOGAF uses to describe architecture work. Foundation questions test these definitions closely, and the options are often very similar. Learn the <b>exact wording</b> and the <b>differences</b> between terms.</p>
+
+<h2 id="stake">1. Stakeholders and Concerns</h2>
+<p>TOGAF takes these definitions from ISO/IEC/IEEE 42010.</p>
+<div class="card def">
+  <b>Stakeholder:</b> an individual, team, organization, or class thereof, having an interest in a system.<br>
+  <span style="color:var(--muted)">Examples: CEO, CFO, CIO, business process owners, end users, regulators, project managers, suppliers.</span>
+</div>
+<div class="card def">
+  <b>Concern:</b> an interest in a system that matters to one or more stakeholders.<br>
+  <span style="color:var(--muted)">Examples: performance, reliability, security, cost, compliance, scalability, ease of change.</span>
+</div>
+<p>A concern is <b>what a stakeholder cares about</b>. It is <i>not</i> a document or a diagram. Stakeholders are identified in the <b>Preliminary Phase</b> and <b>Phase A</b>. How to manage them is covered on Day 15.</p>
+
+<h2 id="views">2. Views and Viewpoints</h2>
+<p>This is the pair most often confused in exams.</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Term</th><th>TOGAF meaning</th><th>Analogy</th></tr>
+  <tr><td><b>Viewpoint</b></td><td>The <b>specification of the conventions</b> for building and using a view. It is the perspective or template: which stakeholders, which concerns, and which models or notations to use.</td><td>The <b>blueprint type</b>, e.g. "electrical wiring plan"</td></tr>
+  <tr><td><b>View</b></td><td>The <b>representation of a system</b> from the perspective of a related set of concerns. It is the actual output.</td><td>The <b>actual wiring plan</b> for <i>this</i> house</td></tr>
+</table>
+</div>
+<ul>
+  <li><b>Link to the other terms:</b> a view is built <i>according to</i> a viewpoint, and it addresses the <b>concerns</b> of certain <b>stakeholders</b>.</li>
+  <li><b>Memory hook:</b> the <b>viewpoint</b> is <i>where you look from</i>; the <b>view</b> is <i>what you see</i>.</li>
+  <li><b>Example:</b> a "Security viewpoint" defines how to show security controls for the CISO. The diagram showing <i>this</i> bank's customer-data protection controls is a <b>view</b>.</li>
+</ul>
+<div class="chain">
+  <div class="box"><b>Stakeholder</b><small>e.g. CISO</small></div>
+  <span class="arrow">↓ has</span>
+  <div class="box"><b>Concern</b><small>data security</small></div>
+  <span class="arrow">↓ framed by</span>
+  <div class="box"><b>Viewpoint</b><small>"Security" conventions</small></div>
+  <span class="arrow">↓ governs</span>
+  <div class="box"><b>View</b><small>this system's controls</small></div>
+</div>
+<p><b>Architecture Description</b> is a related term. It is the collection of artifacts that documents an architecture. An architecture description is made up of <b>views</b>.</p>
+
+<h2 id="dab">3. Deliverables, Artifacts and Building Blocks</h2>
+<p>These three terms form the backbone of TOGAF's Architecture Content Framework.</p>
+
+<h3>Deliverable</h3>
+<div class="card def">A work product that is <b>contractually specified</b>, then <b>formally reviewed, agreed and signed off</b> by stakeholders.</div>
+<ul>
+  <li>Examples: Statement of Architecture Work, Architecture Definition Document, Architecture Requirements Specification, Architecture Roadmap.</li>
+  <li>Deliverables are outputs of <i>projects</i>.</li>
+  <li>When a project ends, a deliverable is either <b>archived</b>, or <b>transitioned into the Architecture Repository</b> as a reference model, a standard, or a snapshot of the Architecture Landscape.</li>
+</ul>
+
+<h3>Artifact</h3>
+<p>A <b>more granular</b> work product that describes one aspect of the architecture. There are three types:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Type</th><th>What it shows</th><th>Example</th></tr>
+  <tr><td><b>Catalog</b></td><td>A <b>list</b> of building blocks of one type</td><td>Application Portfolio Catalog</td></tr>
+  <tr><td><b>Matrix</b></td><td><b>Relationships</b> between building blocks, in a grid</td><td>Application/Function Matrix</td></tr>
+  <tr><td><b>Diagram</b></td><td>A <b>picture</b> of building blocks and how they relate</td><td>Application Communication Diagram</td></tr>
+</table>
+</div>
+
+<h3>Building Block</h3>
+<div class="card def">A potentially <b>reusable</b> component of enterprise capability. It can be combined with other building blocks to deliver architectures and solutions.</div>
+<div class="table-wrap">
+<table>
+  <tr><th></th><th>Architecture Building Block (ABB)</th><th>Solution Building Block (SBB)</th></tr>
+  <tr><td><b>Nature</b></td><td>Describes the <i>required capability</i></td><td>Describes the <i>actual component</i> that implements it</td></tr>
+  <tr><td><b>Product/vendor</b></td><td><b>Product- and vendor-neutral</b></td><td><b>Product- or vendor-aware</b></td></tr>
+  <tr><td><b>Role</b></td><td>Captures requirements; directs and guides SBB development</td><td>Implements the capability defined by ABBs</td></tr>
+  <tr><td><b>Example</b></td><td>"Customer Relationship Management capability"</td><td>"Salesforce Sales Cloud, configured as…"</td></tr>
+</table>
+</div>
+<p><b>Features of a good building block:</b></p>
+<ul>
+  <li>It has a defined boundary and is recognisable as one thing.</li>
+  <li>It has published, well-defined <b>interfaces</b>.</li>
+  <li>It can be made from other building blocks, or be part of a larger one.</li>
+  <li>Ideally, it is <b>reusable and replaceable</b>.</li>
+  <li>It can be defined at different levels of detail.</li>
+  <li>It is <i>not</i> necessarily software. It can be a process, a role, a data entity or a platform.</li>
+</ul>
+
+<p><b>Key relationship</b> (a very likely exam question):</p>
+<div class="chain">
+  <div class="box"><b>Deliverables</b><small>formally signed off</small></div>
+  <span class="arrow">↓ contain</span>
+  <div class="box"><b>Artifacts</b><small>catalogs, matrices, diagrams</small></div>
+  <span class="arrow">↓ describe</span>
+  <div class="box"><b>Building Blocks</b><small>ABBs &amp; SBBs</small></div>
+</div>
+
+<h2 id="states">4. Architecture States: Baseline, Target, Transition, Gap</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Term</th><th>Meaning</th></tr>
+  <tr><td><b>Baseline Architecture</b></td><td>The existing, defined architecture before a change ("as-is")</td></tr>
+  <tr><td><b>Target Architecture</b></td><td>The description of a future state ("to-be")</td></tr>
+  <tr><td><b>Transition Architecture</b></td><td>A formal description of <b>one state</b> of the architecture at an architecturally significant point in time. It shows an <b>intermediate</b> step between Baseline and Target.</td></tr>
+  <tr><td><b>Gap</b></td><td>A statement of the <b>difference</b> between two states. Gap Analysis is used in Phases B, C and D.</td></tr>
+</table>
+</div>
+<p>Transition Architectures are mainly developed in <b>Phases E and F</b>. They let organizations deliver business value in steps instead of making one big change.</p>
+
+<h2 id="more">5. Two More Useful Terms</h2>
+<ul>
+  <li><b>Capability:</b> an ability that an organization, person or system possesses, such as "Online Payment Processing."</li>
+  <li><b>Architecture Repository:</b> where architecture outputs are stored. It is covered on Day 19.</li>
+</ul>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li><b>Stakeholders</b> have <b>concerns</b>.</li>
+    <li>A <b>viewpoint</b> defines the conventions for a <b>view</b>, and a view addresses those concerns.</li>
+    <li><b>Deliverables</b> are formally signed off. They <b>contain artifacts</b>: catalogs (lists), matrices (relationships) and diagrams (pictures). Artifacts <b>describe building blocks</b>.</li>
+    <li><b>ABBs</b> are vendor-neutral and define <i>what</i> is needed. <b>SBBs</b> are product-aware and define <i>how</i> it is implemented.</li>
+    <li>Architecture moves from <b>Baseline</b> to <b>Target</b> through <b>Transition Architectures</b>. The <b>Gap</b> is the difference between two states.</li>
+  </ul>
+</div>
