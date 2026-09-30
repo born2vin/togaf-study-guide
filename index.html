@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOGAF Study Guide</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --surface: #ffffff; --text: #1f2328; --muted: #5b6270;
+    --accent: #1d4e89; --accent-soft: #e6eef8; --border: #e2e0da;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171b; --surface: #1d2026; --text: #e6e7ea; --muted: #a0a6b1;
+      --accent: #7fb0f0; --accent-soft: #1f2d42; --border: #2e323a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { border-bottom: 3px solid var(--accent); padding-bottom: 16px; margin-bottom: 24px; }
+  .tag { color: var(--accent); font-weight: 700; letter-spacing: .08em; font-size: 13px; text-transform: uppercase; }
+  h1 { margin: 4px 0 6px; font-size: 32px; line-height: 1.2; }
+  h2 { margin-top: 32px; font-size: 20px; border-left: 4px solid var(--accent); padding-left: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .day { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; text-decoration: none; color: var(--text); }
+  a.day:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .day .n { color: var(--accent); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+  .day .t { font-weight: 600; margin-top: 2px; }
+  .day.soon { opacity: .55; }
+  .day.soon .n::after { content: " · coming soon"; color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+  footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="tag">TOGAF Standard, 10th Edition</div>
+  <h1>25-Day TOGAF Study Guide</h1>
+  <div style="color:var(--muted)">Each day: a lesson, then a 20-minute interactive mock test with scoring and detailed reasoning.</div>
+</header>
+
+<div id="days"></div>
+
+<footer>Unofficial study material. TOGAF is a registered trademark of The Open Group.</footer>
+</div>
+
+<script>
+// To publish a new day, add its file name to that day's entry.
+const DAYS = [
+  ["Foundation", [
+    [1, "Introduction to TOGAF", "TOGAF_Day1_Introduction.html"],
+    [2, "Core Terminology", "TOGAF_Day2_Core_Terminology.html"],
+    [3, "Preliminary Phase and Architecture Principles"],
+    [4, "Phase A: Architecture Vision"],
+    [5, "Phase B: Business Architecture"],
+    [6, "Phase C: Data Architecture"],
+    [7, "Phase C: Application Architecture"],
+    [8, "Phase D: Technology Architecture"],
+    [9, "Phase E: Opportunities & Solutions"],
+    [10, "Phase F: Migration Planning"],
+    [11, "Phase G: Implementation Governance"],
+    [12, "Phase H and Requirements Management"],
+    [13, "Checkpoint: full ADM review test"],
+    [14, "Applying the ADM"],
+    [15, "ADM Techniques I"],
+    [16, "ADM Techniques II"],
+    [17, "Architecture Content Framework and Metamodel"],
+    [18, "Deliverables, Artifacts, ABBs and SBBs in depth"],
+    [19, "Enterprise Continuum and Architecture Repository"],
+    [20, "Architecture Governance and Compliance"],
+    [21, "Architecture Capability Framework"],
+    [22, "Series Guides and Reference Models"]
+  ]],
+  ["Practitioner & Final Exam", [
+    [23, "Practitioner Scenarios I (Phases A–D)"],
+    [24, "Practitioner Scenarios II (Phases E–H)"],
+    [25, "Final Mock Exam"]
+  ]]
+];
+const root = document.getElementById("days");
+DAYS.forEach(([section, items]) => {
+  const h = document.createElement("h2"); h.textContent = section; root.appendChild(h);
+  const grid = document.createElement("div"); grid.className = "grid";
+  items.forEach(([n, title, file]) => {
+    const el = document.createElement(file ? "a" : "div");
+    el.className = "day" + (file ? "" : " soon");
+    if (file) el.href = file;
+    el.innerHTML = `<div class="n">Day ${n}</div><div class="t"></div>`;
+    el.querySelector(".t").textContent = title;
+    grid.appendChild(el);
+  });
+  root.appendChild(grid);
+});
+</script>
+</body>
+</html>
