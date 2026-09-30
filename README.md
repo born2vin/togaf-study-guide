@@ -18,7 +18,7 @@ A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation an
 | 10 | Phase F: Migration Planning | [Open](TOGAF_Day10_Migration_Planning.html) |
 | 11 | Phase G: Implementation Governance | [Open](TOGAF_Day11_Implementation_Governance.html) |
 | 12 | Phase H and Requirements Management | [Open](TOGAF_Day12_Change_and_Requirements_Management.html) |
-| 13 | Checkpoint: Full ADM Review Test | Coming soon |
+| 13 | Checkpoint: Full ADM Review Test | [Open](TOGAF_Day13_ADM_Checkpoint.html) |
 | 14 | Applying the ADM | Coming soon |
 | 15 | ADM Techniques I | Coming soon |
 | 16 | ADM Techniques II | Coming soon |
