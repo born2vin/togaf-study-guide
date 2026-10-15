@@ -23,6 +23,7 @@
   --mark: rgba(230, 0, 40, 0.16);   /* highlighter */
   --ok: #1f7a4a; --ok-soft: #e8f4ed;
   --bad: #c4001f; --bad-soft: #fde9ec;
+  --mid: #8a5a00; --mid-soft: #fff3d6;
   --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
 }
@@ -33,6 +34,7 @@
     --rule: #333333; --paper: #141414; --wash: #1d1d1d;
     --mark: rgba(255, 77, 94, 0.26);
     --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+    --mid: #f2c14e; --mid-soft: #332a12;
   }
 }
 :root[data-theme="dark"] {
@@ -41,6 +43,7 @@
   --rule: #333333; --paper: #141414; --wash: #1d1d1d;
   --mark: rgba(255, 77, 94, 0.26);
   --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+    --mid: #f2c14e; --mid-soft: #332a12;
 }
 
 * { box-sizing: border-box; }
@@ -177,6 +180,14 @@ button.secondary { background: transparent; color: var(--ink); }
 .q input:focus-visible + .lt { outline: 2px solid var(--red); outline-offset: 2px; }
 label.is-answer { background: var(--ok-soft) !important; border: 2px solid var(--ok) !important; padding: 10px 13px !important; }
 label.is-wrong { background: var(--bad-soft) !important; border: 2px solid var(--bad) !important; padding: 10px 13px !important; }
+label.is-partial { background: var(--mid-soft) !important; border: 2px solid var(--mid) !important; padding: 10px 13px !important; }
+.q .pts { margin-left: auto; padding-left: 10px; white-space: nowrap; font: 800 12px/1.6 var(--sans); color: var(--muted); }
+.q .is-answer .pts { color: var(--ok); }
+.q.partial .reason { border-left-color: var(--mid); }
+.q.partial .verdict { color: var(--mid); }
+.scenario { background: var(--wash); border-left: 4px solid var(--ink); padding: 14px 18px; margin: 10px 0 14px; font: 400 17px/1.6 var(--serif); }
+.scenario p { margin: 0 0 .8em; }
+.scenario > :last-child { margin-bottom: 0; }
 .reason { display: none; margin: 14px 0 6px; padding: 14px 16px; background: var(--wash); border-left: 4px solid var(--ink); font-size: 16px; line-height: 1.55; }
 .show .reason { display: block; }
 .q.correct .reason { border-left-color: var(--ok); }
@@ -336,6 +347,7 @@ a.tile:hover .t { color: var(--red); }
     </section>
     <div class="controls sticky">
       <button id="startBtn">Start 20-min timer</button>
+      <span id="answered"></span>
       <span id="timer">20:00</span>
     </div>
     <div id="questions"></div>
@@ -344,11 +356,13 @@ a.tile:hover .t { color: var(--red); }
       <button class="secondary" id="resetBtn">Reset</button>
       <span id="score"></span>
     </div>
+    <div id="breakdown" hidden></div>
     <nav class="pager"><a class="prev" href="TOGAF_Day9_Opportunities_Solutions.html"><small>← Day 9</small><span>Phase E: Opportunities &amp; Solutions</span></a><a class="next" href="TOGAF_Day11_Implementation_Governance.html"><small>Day 11 →</small><span>Phase G: Implementation Governance</span></a></nav>
   </article>
 </div>
 <script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
 <script>
+window.QUIZ_MINUTES = 20;
 const QUESTIONS = [
   { q: "What is the main purpose of Phase F?",
     o: ["To finalize the Architecture Roadmap and the supporting Implementation and Migration Plan","To identify stakeholders and concerns","To develop the Target Data Architecture","To manage changes to the architecture after implementation"],
@@ -404,7 +418,8 @@ const QUESTIONS = [
     r: "Phase F's first step is to <b>confirm management framework interactions</b>, so the plan fits existing portfolio and project management processes. Ignoring, replacing or waiting for the PMO all contradict TOGAF's guidance." }
 ];
 // Shared quiz engine. Expects a global QUESTIONS array:
-// { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML, t: optional topic }
+// { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML, t: optional topic,
+//   s: optional scenario HTML shown above the stem, p: optional points per option (Part 2 gradient scoring, e.g. [3,5,0,1]) }
 // Optional globals: QUIZ_MINUTES (default 20). If questions carry a topic (t),
 // a per-topic score breakdown is shown after grading.
 (function () {
@@ -416,13 +431,16 @@ const QUESTIONS = [
   QUESTIONS.forEach((item, i) => {
     const div = document.createElement("div");
     div.className = "q"; div.id = "q" + i;
-    let html = `<div class="qn">Question ${i + 1} of ${QUESTIONS.length}</div><p class="stem">${item.q}</p>`;
+    let html = `<div class="qn">${item.s ? "Scenario" : "Question"} ${i + 1} of ${QUESTIONS.length}</div>`;
+    if (item.s) html += `<div class="scenario">${item.s}</div>`;
+    html += `<p class="stem">${item.q}</p>`;
     item.o.forEach((opt, j) => {
       const lt = lettered(item) ? letters[j] : (j === 0 ? "T" : "F");
-      html += `<label><input type="radio" name="q${i}" value="${j}"><span class="lt">${lt}</span><span>${opt}</span></label>`;
+      html += `<label><input type="radio" name="q${i}" value="${j}"><span class="lt">${lt}</span><span>${opt}</span><span class="pts"></span></label>`;
     });
-    const ans = lettered(item) ? `${letters[item.a]}. ${item.o[item.a]}` : item.o[item.a];
-    html += `<div class="reason"><span class="verdict"></span>Correct answer: <b>${ans}</b><br>${item.r}</div>`;
+    const best = item.p ? item.p.indexOf(5) : item.a;
+    const ans = lettered(item) ? `${letters[best]}. ${item.o[best]}` : item.o[best];
+    html += `<div class="reason"><span class="verdict"></span>${item.p ? "Best answer" : "Correct answer"}: <b>${ans}</b><br>${item.r}</div>`;
     div.innerHTML = html;
     container.appendChild(div);
   });
@@ -455,15 +473,29 @@ const QUESTIONS = [
 
   function grade() {
     stop();
-    let score = 0;
+    let score = 0, max = 0;
+    const NAMES = { 5: "Best answer", 3: "Second-best answer", 1: "Third-best answer", 0: "Distractor" };
     QUESTIONS.forEach((item, i) => {
       const div = document.getElementById("q" + i);
       const chosen = div.querySelector("input:checked");
       const labels = div.querySelectorAll("label");
-      labels.forEach(l => l.classList.remove("is-answer", "is-wrong"));
-      labels[item.a].classList.add("is-answer");
+      labels.forEach(l => l.classList.remove("is-answer", "is-wrong", "is-partial"));
       const verdict = div.querySelector(".verdict");
-      div.classList.remove("correct", "wrong");
+      div.classList.remove("correct", "wrong", "partial");
+      if (item.p) {
+        const best = item.p.indexOf(5);
+        labels.forEach((l, j) => { l.querySelector(".pts").textContent = `${item.p[j]} pt${item.p[j] === 1 ? "" : "s"}`; });
+        labels[best].classList.add("is-answer");
+        const pts = chosen ? item.p[Number(chosen.value)] : 0;
+        score += pts; max += 5; item._pts = pts;
+        if (chosen && pts < 5) labels[Number(chosen.value)].classList.add(pts > 0 ? "is-partial" : "is-wrong");
+        div.classList.add(pts === 5 ? "correct" : pts > 0 ? "partial" : "wrong");
+        verdict.textContent = chosen ? `${NAMES[pts]} · ${pts} of 5 points` : "Not answered · 0 of 5 points";
+        div.classList.add("show");
+        return;
+      }
+      max += 1;
+      labels[item.a].classList.add("is-answer");
       if (chosen && Number(chosen.value) === item.a) {
         score++; div.classList.add("correct"); verdict.textContent = "Correct";
       } else {
@@ -473,14 +505,17 @@ const QUESTIONS = [
       }
       div.classList.add("show");
     });
-    const pct = Math.round(score / QUESTIONS.length * 100);
+    const pct = Math.round(score / max * 100);
     const el = document.getElementById("score");
-    el.textContent = `You scored ${score} / ${QUESTIONS.length} (${pct}%) — ${pct >= 60 ? "Pass" : "Below the 60% pass mark"}`;
+    const unit = QUESTIONS.some(q => q.p) ? " points" : "";
+    el.textContent = `You scored ${score} / ${max}${unit} (${pct}%) — ${pct >= 60 ? "Pass" : "Below the 60% pass mark"}`;
     const bd = document.getElementById("breakdown");
     if (bd && QUESTIONS.some(q => q.t)) {
       const topics = {};
       QUESTIONS.forEach((item, i) => {
-        const t = item.t || "Other"; topics[t] = topics[t] || [0, 0]; topics[t][1]++;
+        const t = item.t || "Other"; topics[t] = topics[t] || [0, 0];
+        if (item.p) { topics[t][0] += item._pts || 0; topics[t][1] += 5; return; }
+        topics[t][1]++;
         if (document.getElementById("q" + i).classList.contains("correct")) topics[t][0]++;
       });
       let rows = "";
@@ -498,8 +533,9 @@ const QUESTIONS = [
     stop(); seconds = MINUTES * 60; renderTime();
     document.querySelectorAll(".q input[type=radio]").forEach(r => r.checked = false);
     document.querySelectorAll(".q").forEach(d => {
-      d.classList.remove("show", "correct", "wrong");
-      d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong"));
+      d.classList.remove("show", "correct", "wrong", "partial");
+      d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong", "is-partial"));
+      d.querySelectorAll(".pts").forEach(x => x.textContent = "");
     });
     document.getElementById("score").textContent = "";
     const bd = document.getElementById("breakdown"); if (bd) { bd.hidden = true; bd.innerHTML = ""; }
@@ -509,6 +545,6 @@ const QUESTIONS = [
 })();
 
 </script>
-<footer class="site"><div class="in">Unofficial study material for the TOGAF Standard, 10th Edition. TOGAF is a registered trademark of The Open Group.</div></footer>
+<footer class="site"><div class="in"><i class="fa fa-heart" style="font-size:24px;color:red">&hearts;</i> Created by Vinay Somashekara | Unofficial study material for the TOGAF Standard, 10th Edition. TOGAF is a registered trademark of The Open Group.</div></footer>
 </body>
 </html>

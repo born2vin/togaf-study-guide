@@ -1,0 +1,103 @@
+<p>Days 3–13 walked through the ADM one phase at a time. In practice the ADM is never run as a single straight line. Today covers how TOGAF expects you to <b>apply</b> it: iterating, working at different levels of the enterprise, partitioning the work, and handling cross-cutting concerns such as security.</p>
+
+<h2 id="why">1. The ADM Is Applied, Not Just Followed</h2>
+<div class="card def">
+  The ADM is a <b>generic method</b>. To be useful it must be <b>adapted</b> to the enterprise: its scope, its maturity, the level of detail needed, and the other frameworks and methods already in use.
+</div>
+<p>Applying the ADM means answering a few practical questions for every engagement:</p>
+<ul>
+  <li><b>How many times</b> should we go round the cycle, and which phases need repeating?</li>
+  <li><b>At what level</b> are we working: the whole enterprise, a segment, or a single capability?</li>
+  <li><b>How do we divide</b> a large architecture into manageable pieces?</li>
+  <li><b>How do concerns that cut across every phase</b>, such as security and risk, get handled?</li>
+</ul>
+
+<h2 id="iteration">2. Iteration in the ADM</h2>
+<p>TOGAF supports iteration at three levels:</p>
+<ul>
+  <li><b>Cycling around the whole ADM</b>: one completed cycle leads directly into the next, often triggered by Phase H.</li>
+  <li><b>Iterating between phases</b>: for example, returning from Phase C to Phase B when a new business requirement appears.</li>
+  <li><b>Cycling around a single phase</b>: repeating a phase to add detail or resolve open issues.</li>
+</ul>
+<h3>The four iteration cycles</h3>
+<p>TOGAF groups the phases into four iteration cycles. Each can be repeated on its own before moving on:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Iteration cycle</th><th>Phases</th><th>Purpose</th></tr>
+  <tr><td><b>Architecture Capability</b></td><td>Preliminary and A</td><td>Establish or adjust the architecture approach, principles, scope, vision and governance</td></tr>
+  <tr><td><b>Architecture Development</b></td><td>B, C and D</td><td>Create the architecture content across the domains</td></tr>
+  <tr><td><b>Transition Planning</b></td><td>E and F</td><td>Plan the formal change initiatives and the roadmap</td></tr>
+  <tr><td><b>Architecture Governance</b></td><td>G and H</td><td>Govern implementation and manage change to the architecture</td></tr>
+</table>
+</div>
+<div class="card tip">When deciding how to iterate, consider the <b>formality</b> and <b>level of detail</b> needed, the <b>scope</b> of each iteration, and how stakeholders will review the results. Small, focused iterations get feedback earlier.</div>
+
+<h2 id="first">3. Baseline First or Target First</h2>
+<p>Inside the Architecture Development iteration, TOGAF describes two ways of sequencing the work:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Approach</th><th>How it works</th><th>When it fits</th></tr>
+  <tr><td><b>Baseline First</b></td><td>Describe the current state, find the problems, then design the target</td><td>The baseline is not well understood, or change will be incremental</td></tr>
+  <tr><td><b>Target First</b></td><td>Describe the target in detail, then describe only as much of the baseline as needed to identify the gaps</td><td>The target is substantially different from today, or the baseline is already well documented</td></tr>
+</table>
+</div>
+
+<h2 id="levels">4. Applying the ADM at Different Levels</h2>
+<p>An enterprise is too large to describe in one architecture. TOGAF organizes the <b>Architecture Landscape</b> into three levels of granularity:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Level</th><th>What it describes</th><th>Typical use</th></tr>
+  <tr><td><b>Strategic Architecture</b></td><td>A long-term, summary view of the whole enterprise</td><td>Setting direction; executive decisions</td></tr>
+  <tr><td><b>Segment Architecture</b></td><td>A more detailed operating model for an area of the enterprise, such as a business unit or portfolio</td><td>Programme and portfolio planning</td></tr>
+  <tr><td><b>Capability Architecture</b></td><td>A detailed view of how a particular capability or solution will be supported</td><td>Guiding projects and change increments</td></tr>
+</table>
+</div>
+<div class="chain">
+  <div class="box"><b>Strategic Architecture</b><small>sets direction</small></div>
+  <span class="arrow">↓ guides</span>
+  <div class="box"><b>Segment Architectures</b><small>programmes and portfolios</small></div>
+  <span class="arrow">↓ guide</span>
+  <div class="box"><b>Capability Architectures</b><small>projects and increments</small></div>
+</div>
+<p>A separate ADM cycle can be run at each level. A higher-level cycle often <b>spawns</b> lower-level cycles: for example, Phase E or F of a strategic cycle may identify segments that need their own, more detailed architecture work.</p>
+
+<h2 id="partition">5. Architecture Partitioning</h2>
+<p>Because the enterprise is so large and complex, TOGAF recommends <b>partitioning</b> it into smaller architectures that can be developed and governed separately. Common ways to partition include:</p>
+<ul>
+  <li><b>Subject matter (breadth)</b>: which part of the enterprise, such as a business unit or domain</li>
+  <li><b>Time</b>: the baseline, a transition state, or the target</li>
+  <li><b>Level of detail (depth)</b>: strategic, segment or capability</li>
+  <li><b>Viewpoint</b>: the stakeholder perspective being addressed</li>
+</ul>
+<p>Partitions must still fit together. Shared standards, the Architecture Repository and <b>architecture governance</b> keep them consistent and resolve conflicts between them.</p>
+
+<h2 id="security">6. Security and Other Cross-Cutting Concerns</h2>
+<p>Security is <b>not a separate domain or phase</b>. It is a concern addressed throughout the ADM:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Phase</th><th>Typical security activity</th></tr>
+  <tr><td><b>Preliminary</b></td><td>Agree security policies, principles and the security governance approach</td></tr>
+  <tr><td><b>A</b></td><td>Identify security stakeholders and concerns; assess business risk</td></tr>
+  <tr><td><b>B, C, D</b></td><td>Define security requirements and controls for business, data, applications and technology</td></tr>
+  <tr><td><b>E, F</b></td><td>Plan security work packages and assess implementation risk</td></tr>
+  <tr><td><b>G</b></td><td>Check that implementations meet security requirements</td></tr>
+  <tr><td><b>H</b></td><td>Respond to new threats and changes in regulation</td></tr>
+</table>
+</div>
+<p>In the 10th Edition, detailed guidance on security and risk is published as a <b>TOGAF Series Guide</b>.</p>
+
+<h2 id="styles">7. Architectural Styles and Agile</h2>
+<p>The ADM is <b>style-neutral</b>: it can be used for service-oriented, digital, cloud or microservice architectures alike. It also supports <b>agile delivery</b>. Typically, architecture at the strategic and segment levels sets direction and guardrails, while agile teams deliver capability increments in short iterations.</p>
+<div class="card tip trap">The ADM is <b>not</b> a waterfall method. Exam options claiming that each phase must be fully completed before the next, or that TOGAF cannot be used with agile, are wrong.</div>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>The ADM is <b>adapted</b> to each engagement and supports iteration around the cycle, between phases and within a phase.</li>
+    <li>Four iteration cycles: <b>Capability</b> (Prelim, A), <b>Development</b> (B–D), <b>Transition Planning</b> (E, F), <b>Governance</b> (G, H).</li>
+    <li><b>Baseline First</b> suits incremental change; <b>Target First</b> suits radical change.</li>
+    <li>Landscape levels: <b>Strategic</b>, <b>Segment</b>, <b>Capability</b>. Higher-level cycles can spawn lower-level ones.</li>
+    <li><b>Partition</b> large architectures by subject matter, time, level of detail or viewpoint, and keep them consistent through governance.</li>
+    <li><b>Security</b> is cross-cutting, and the ADM works with any style, including <b>agile</b>.</li>
+  </ul>
+</div>

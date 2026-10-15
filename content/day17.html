@@ -1,0 +1,90 @@
+<p>The ADM tells you <b>how and when</b> to develop an architecture. The <b>Architecture Content Framework</b> tells you <b>what</b> to produce. Today covers that framework and the <b>content metamodel</b> beneath it.</p>
+
+<h2 id="purpose">1. Purpose of the Architecture Content Framework</h2>
+<div class="card def">
+  The Architecture Content Framework provides a <b>structural model for architectural content</b>, so that the major work products can be consistently <b>defined, structured and presented</b>.
+</div>
+<ul>
+  <li>It gives a detailed model of the outputs, so architects in different teams produce compatible work.</li>
+  <li>It shows the <b>relationships</b> between content, so the architecture can be traced from drivers to implementation.</li>
+  <li>It can be used with the ADM or with other frameworks; it is <b>not</b> tied to one notation or tool.</li>
+</ul>
+
+<h2 id="categories">2. The Three Categories of Content</h2>
+<div class="chain">
+  <div class="box"><b>Deliverables</b><small>contractually specified, formally reviewed and signed off</small></div>
+  <span class="arrow">↓ contain</span>
+  <div class="box"><b>Artifacts</b><small>catalogs, matrices and diagrams</small></div>
+  <span class="arrow">↓ describe</span>
+  <div class="box"><b>Building blocks</b><small>ABBs and SBBs</small></div>
+</div>
+<p>Day 18 looks at deliverables and building blocks in depth. Today focuses on the <b>metamodel</b> that connects them.</p>
+
+<h2 id="metamodel">3. The Content Metamodel</h2>
+<div class="card def">
+  The <b>content metamodel</b> defines a formal structure for the terms used in architecture, the <b>entities</b> and the <b>relationships</b> between them, to ensure <b>consistency, completeness and traceability</b>.
+</div>
+<p>It answers questions such as "What is a business service?", "How does an application component relate to a data entity?" and "Which requirement led to this work package?".</p>
+<h3>Core and extensions</h3>
+<ul>
+  <li>The <b>core</b> metamodel is the minimum set of entities and relationships needed for most architecture work.</li>
+  <li>Optional <b>extensions</b> add entities for specific needs, such as governance, process modelling or motivation, when the organization needs that extra detail.</li>
+  <li>Choosing which content to use is part of <b>tailoring</b> in the Preliminary Phase.</li>
+</ul>
+
+<h2 id="entities">4. The Main Entity Groups</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Area</th><th>Example entities</th></tr>
+  <tr><td><b>Motivation, principles, vision and requirements</b></td><td>Driver, Goal, Objective, Measure, Principle, Requirement, Constraint, Assumption, Gap</td></tr>
+  <tr><td><b>Business Architecture</b></td><td>Actor, Role, Organization Unit, Function, Business Service, Process, Event, Product, Contract, Location, Capability, Value Stream, Course of Action</td></tr>
+  <tr><td><b>Data Architecture</b></td><td>Data Entity, Logical Data Component, Physical Data Component</td></tr>
+  <tr><td><b>Application Architecture</b></td><td>Information System Service, Logical Application Component, Physical Application Component</td></tr>
+  <tr><td><b>Technology Architecture</b></td><td>Technology Service, Logical Technology Component, Physical Technology Component</td></tr>
+  <tr><td><b>Architecture realization</b></td><td>Work Package, Architecture Contract, Standard</td></tr>
+</table>
+</div>
+
+<h2 id="logical">5. Logical vs Physical Components</h2>
+<div class="table-wrap">
+<table>
+  <tr><th></th><th>Logical component</th><th>Physical component</th></tr>
+  <tr><td><b>What it is</b></td><td>An implementation-independent grouping of capability</td><td>A specific implementation, product or deployment</td></tr>
+  <tr><td><b>Vendor</b></td><td>Vendor- and product-neutral</td><td>Product-aware</td></tr>
+  <tr><td><b>Closest to</b></td><td>Architecture Building Blocks</td><td>Solution Building Blocks</td></tr>
+  <tr><td><b>Example</b></td><td>"Customer relationship management application"</td><td>"CRM package X, version Y, deployed in region Z"</td></tr>
+</table>
+</div>
+
+<h2 id="services">6. Functions, Services and Processes</h2>
+<p>Exam questions often test the difference between these business entities:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Entity</th><th>Meaning</th></tr>
+  <tr><td><b>Function</b></td><td>Delivers business capabilities, closely aligned to an organization but not necessarily explicitly governed by it</td></tr>
+  <tr><td><b>Business service</b></td><td>Supports business capabilities through an <b>explicitly defined interface</b> and is <b>explicitly governed</b> by an organization</td></tr>
+  <tr><td><b>Process</b></td><td>A flow of interactions between functions and services; shows <i>how</i> work is done in sequence</td></tr>
+</table>
+</div>
+<p>The same pattern repeats in each domain: <b>business services</b> are supported by <b>information system services</b>, which are supported by <b>technology services</b>.</p>
+
+<h2 id="artifacts">7. From Metamodel to Artifacts</h2>
+<p>Artifacts are views over the metamodel:</p>
+<ul>
+  <li>A <b>catalog</b> lists instances of <b>one entity</b> type (e.g. all Physical Application Components).</li>
+  <li>A <b>matrix</b> shows the <b>relationships</b> between two entity types (e.g. Application Component × Function).</li>
+  <li>A <b>diagram</b> presents entities and relationships <b>graphically</b> for a particular stakeholder concern.</li>
+</ul>
+<p>Because every artifact draws on the same metamodel, a repository tool can keep catalogs, matrices and diagrams consistent with each other.</p>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>The Content Framework gives a <b>structural model</b> for architecture content: the ADM is the <i>how</i>, the Content Framework is the <i>what</i>.</li>
+    <li>Content categories: <b>deliverables</b> contain <b>artifacts</b>, which describe <b>building blocks</b>.</li>
+    <li>The <b>content metamodel</b> defines entities and relationships for <b>consistency, completeness and traceability</b>, with a core and optional extensions.</li>
+    <li><b>Logical</b> components are vendor-neutral (like ABBs); <b>physical</b> components are product-aware (like SBBs).</li>
+    <li><b>Function</b> vs <b>business service</b> (explicit interface, explicitly governed) vs <b>process</b> (sequence of work).</li>
+    <li>Catalogs list one entity type; matrices relate two; diagrams show them graphically.</li>
+  </ul>
+</div>

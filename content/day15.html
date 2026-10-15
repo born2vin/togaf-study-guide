@@ -1,0 +1,96 @@
+<p>The <b>ADM Techniques</b> document is the toolkit architects use inside the ADM phases. Today covers the techniques used mainly to work with <b>people and options</b>: stakeholder management, architecture patterns, business scenarios, and architecture alternatives and trade-offs. Tomorrow covers the analytical and planning techniques.</p>
+
+<h2 id="toolkit">1. The ADM Techniques Toolkit</h2>
+<p>In the 10th Edition, the ADM Techniques document contains these techniques:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Technique</th><th>Main use</th><th>Covered</th></tr>
+  <tr><td><b>Architecture Principles</b></td><td>Rules that guide architecture decisions</td><td>Day 3</td></tr>
+  <tr><td><b>Stakeholder Management</b></td><td>Identifying and engaging the people affected</td><td>Today</td></tr>
+  <tr><td><b>Architecture Patterns</b></td><td>Reusing proven solutions to recurring problems</td><td>Today</td></tr>
+  <tr><td><b>Gap Analysis</b></td><td>Finding differences between Baseline and Target</td><td>Days 5, 16</td></tr>
+  <tr><td><b>Migration Planning Techniques</b></td><td>Planning and prioritizing the move to the Target</td><td>Day 16</td></tr>
+  <tr><td><b>Interoperability Requirements</b></td><td>Defining how systems and organizations share information and services</td><td>Day 16</td></tr>
+  <tr><td><b>Business Transformation Readiness Assessment</b></td><td>Judging whether the organization is ready to change</td><td>Day 16</td></tr>
+  <tr><td><b>Risk Management</b></td><td>Identifying and mitigating risk</td><td>Day 16</td></tr>
+  <tr><td><b>Architecture Alternatives and Trade-Offs</b></td><td>Choosing between candidate architectures</td><td>Today</td></tr>
+</table>
+</div>
+<div class="card tip">In the 10th Edition, <b>Business Scenarios</b> and <b>Capability-Based Planning</b> are no longer chapters of the ADM Techniques document; they are covered in the <b>TOGAF Series Guides</b>. They are still widely used and still come up in study material, so both are covered here.</div>
+
+<h2 id="stakeholders">2. Stakeholder Management</h2>
+<p>Stakeholder management is used mainly in the <b>Preliminary Phase</b> and <b>Phase A</b>, and is refined throughout the ADM. Its benefits include identifying the most powerful stakeholders early, gaining their support, anticipating reactions, and planning communication.</p>
+<h3>The four steps</h3>
+<ol>
+  <li><b>Identify stakeholders</b></li>
+  <li><b>Classify stakeholder positions</b> (their influence, interest and attitude)</li>
+  <li><b>Determine the stakeholder management approach</b></li>
+  <li><b>Tailor engagement deliverables</b>: decide which views, artifacts and communications each stakeholder needs</li>
+</ol>
+<p>Typical stakeholder groups include <b>corporate functions</b> (e.g. executives, finance, HR), the <b>end-user organization</b>, the <b>project organization</b>, <b>system operations</b>, and <b>external</b> parties such as suppliers and regulators.</p>
+<h3>The power/interest grid</h3>
+<div class="table-wrap">
+<table>
+  <tr><th></th><th>Low interest</th><th>High interest</th></tr>
+  <tr><td><b>High power</b></td><td><b>Keep Satisfied</b></td><td><b>Key Players</b>: fully engage</td></tr>
+  <tr><td><b>Low power</b></td><td><b>Minimal Effort</b>: monitor</td><td><b>Keep Informed</b></td></tr>
+</table>
+</div>
+<p>The results are recorded in the <b>Stakeholder Map</b> (the Stakeholder Map Matrix artifact), which lists each stakeholder, their involvement, class, concerns, and the views and artifacts relevant to them.</p>
+
+<h2 id="patterns">3. Architecture Patterns</h2>
+<div class="card def">
+  A <b>pattern</b> is an idea that has been useful in one practical context and will probably be useful in others. In architecture, a pattern describes a proven solution to a recurring problem, within a particular context.
+</div>
+<p>A pattern is usually documented with elements such as:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Element</th><th>Content</th></tr>
+  <tr><td><b>Name</b></td><td>A short, meaningful label</td></tr>
+  <tr><td><b>Problem</b></td><td>The problem the pattern solves</td></tr>
+  <tr><td><b>Context</b></td><td>The preconditions under which the problem and solution apply</td></tr>
+  <tr><td><b>Forces</b></td><td>The constraints and trade-offs that must be balanced</td></tr>
+  <tr><td><b>Solution</b></td><td>How to solve the problem</td></tr>
+  <tr><td><b>Resulting context</b></td><td>The state of the system after the pattern is applied</td></tr>
+  <tr><td><b>Examples, rationale, related patterns, known uses</b></td><td>Evidence and links that help others reuse the pattern</td></tr>
+</table>
+</div>
+<div class="card tip"><b>Patterns vs building blocks:</b> building blocks are the <i>what</i>, the components you combine. Patterns explain <i>how, when and why</i> to combine them, and what trade-offs that involves.</div>
+
+<h2 id="scenarios">4. Business Scenarios</h2>
+<div class="card def">
+  A <b>business scenario</b> describes a business process, application or set of applications, the business and technology environment, the people and computing components (actors) involved, and the desired outcome of proper execution.
+</div>
+<p>Business scenarios are used mainly in <b>Phase A</b> to discover and document the business requirements behind the Architecture Vision. They can be revisited in Phase B and in Requirements Management.</p>
+<h3>Developing a business scenario</h3>
+<ol>
+  <li>Identify, document and rank the <b>problem</b> driving the scenario</li>
+  <li>Identify the <b>business and technical environment</b> and document it in scenario models</li>
+  <li>Identify and document the desired <b>objectives</b></li>
+  <li>Identify the <b>human actors</b> and their place in the business model</li>
+  <li>Identify the <b>computer actors</b> and their place in the technology model</li>
+  <li>Document <b>roles, responsibilities and measures of success</b> for each actor</li>
+  <li>Check <b>fitness for purpose</b> and refine only if necessary</li>
+</ol>
+<p>Objectives should be <b>SMART</b>: <b>S</b>pecific, <b>M</b>easurable, <b>A</b>ctionable, <b>R</b>ealistic and <b>T</b>ime-bound.</p>
+
+<h2 id="tradeoffs">5. Architecture Alternatives and Trade-Offs</h2>
+<p>There is rarely one obvious architecture. During Phases A to D, architects often develop <b>several candidate architectures</b> and help stakeholders choose between them:</p>
+<ol>
+  <li><b>Identify alternatives</b> that could meet the requirements</li>
+  <li><b>Evaluate</b> each against agreed criteria, such as cost, risk, time, fit with principles and stakeholder concerns</li>
+  <li><b>Present the trade-offs</b> openly to stakeholders</li>
+  <li><b>Select</b> an alternative with stakeholder agreement and <b>record the rationale</b>, for example in the Architecture Definition Document</li>
+</ol>
+<div class="card tip trap">The architect does not quietly pick the "best" option alone. Trade-offs are made <b>visible</b> and the choice is agreed with stakeholders.</div>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Stakeholder management has four steps: <b>identify, classify, determine approach, tailor deliverables</b>.</li>
+    <li>Power/interest grid: <b>Key Players</b>, <b>Keep Satisfied</b>, <b>Keep Informed</b>, <b>Minimal Effort</b>.</li>
+    <li>A <b>pattern</b> is a proven solution to a recurring problem in a context; patterns say how to combine building blocks.</li>
+    <li><b>Business scenarios</b> discover requirements, mainly in Phase A, with <b>SMART</b> objectives.</li>
+    <li><b>Alternatives and trade-offs</b> are evaluated against criteria and chosen <b>with</b> stakeholders.</li>
+  </ul>
+</div>

@@ -1,6 +1,6 @@
 # TOGAF Explained: 25-Day Study Guide
 
-A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation and Practitioner). Each day has an explainer-style lesson and a 20-minute interactive mock test with scoring and detailed reasoning for every option.
+A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation and Practitioner). Each day has an explainer-style lesson and an interactive timed test with scoring and detailed reasoning for every option. Days 23–25 use Part 2 (Practitioner) scenario questions with 5/3/1/0 gradient scoring.
 
 **Live site:** https://born2vin.github.io/togaf-study-guide/
 
@@ -19,18 +19,18 @@ A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation an
 | 11 | Phase G: Implementation Governance | [Open](TOGAF_Day11_Implementation_Governance.html) |
 | 12 | Phase H and Requirements Management | [Open](TOGAF_Day12_Change_and_Requirements_Management.html) |
 | 13 | Checkpoint: Full ADM Review Test | [Open](TOGAF_Day13_ADM_Checkpoint.html) |
-| 14 | Applying the ADM | Coming soon |
-| 15 | ADM Techniques I | Coming soon |
-| 16 | ADM Techniques II | Coming soon |
-| 17 | Architecture Content Framework and Metamodel | Coming soon |
-| 18 | Deliverables, Artifacts, ABBs and SBBs in Depth | Coming soon |
-| 19 | Enterprise Continuum and Architecture Repository | Coming soon |
-| 20 | Architecture Governance and Compliance | Coming soon |
-| 21 | Architecture Capability Framework | Coming soon |
-| 22 | Series Guides and Reference Models | Coming soon |
-| 23 | Practitioner Scenarios I (Phases A–D) | Coming soon |
-| 24 | Practitioner Scenarios II (Phases E–H) | Coming soon |
-| 25 | Final Mock Exam | Coming soon |
+| 14 | Applying the ADM | [Open](TOGAF_Day14_Applying_the_ADM.html) |
+| 15 | ADM Techniques I | [Open](TOGAF_Day15_ADM_Techniques_I.html) |
+| 16 | ADM Techniques II | [Open](TOGAF_Day16_ADM_Techniques_II.html) |
+| 17 | Architecture Content Framework and Metamodel | [Open](TOGAF_Day17_Content_Framework_Metamodel.html) |
+| 18 | Deliverables, Artifacts, ABBs and SBBs in Depth | [Open](TOGAF_Day18_Deliverables_and_Building_Blocks.html) |
+| 19 | Enterprise Continuum and Architecture Repository | [Open](TOGAF_Day19_Enterprise_Continuum_Repository.html) |
+| 20 | Architecture Governance and Compliance | [Open](TOGAF_Day20_Governance_and_Compliance.html) |
+| 21 | Architecture Capability Framework | [Open](TOGAF_Day21_Architecture_Capability.html) |
+| 22 | Series Guides and Reference Models | [Open](TOGAF_Day22_Series_Guides_Reference_Models.html) |
+| 23 | Practitioner Scenarios I (Phases A–D) | [Open](TOGAF_Day23_Practitioner_Scenarios_A_to_D.html) |
+| 24 | Practitioner Scenarios II (Phases E–H) | [Open](TOGAF_Day24_Practitioner_Scenarios_E_to_H.html) |
+| 25 | Final Mock Exam | [Open](TOGAF_Day25_Final_Mock_Exam.html) |
 
 ## Part 1 (Foundation) mock exams
 

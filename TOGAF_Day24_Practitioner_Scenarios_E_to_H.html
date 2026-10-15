@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 24: Practitioner Scenarios II (Phases E–H) · TOGAF Explained</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   TOGAF Explained — shared template
+   Vox-style explainer layout · Société Générale-inspired palette (red/black)
+   Edit this file to change the look of every day at once, then run build.py.
+   ========================================================================== */
+:root {
+  --red: #e60028;          /* primary accent */
+  --red-dark: #b8001f;
+  --ink: #111111;          /* headlines, masthead */
+  --text: #222222;
+  --muted: #666666;
+  --rule: #e3e3e3;
+  --paper: #ffffff;
+  --wash: #f6f6f4;         /* soft panels */
+  --mark: rgba(230, 0, 40, 0.16);   /* highlighter */
+  --ok: #1f7a4a; --ok-soft: #e8f4ed;
+  --bad: #c4001f; --bad-soft: #fde9ec;
+  --mid: #8a5a00; --mid-soft: #fff3d6;
+  --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --red: #ff4d5e; --red-dark: #ff7a86;
+    --ink: #f3f3f3; --text: #e2e2e2; --muted: #a3a3a3;
+    --rule: #333333; --paper: #141414; --wash: #1d1d1d;
+    --mark: rgba(255, 77, 94, 0.26);
+    --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+    --mid: #f2c14e; --mid-soft: #332a12;
+  }
+}
+:root[data-theme="dark"] {
+  --red: #ff4d5e; --red-dark: #ff7a86;
+  --ink: #f3f3f3; --text: #e2e2e2; --muted: #a3a3a3;
+  --rule: #333333; --paper: #141414; --wash: #1d1d1d;
+  --mark: rgba(255, 77, 94, 0.26);
+  --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+    --mid: #f2c14e; --mid-soft: #332a12;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--text);
+  font: 19px/1.65 var(--serif); }
+a { color: inherit; }
+
+/* ---------- Masthead ---------- */
+.masthead { background: #000; color: #fff; border-top: 6px solid var(--red); }
+.masthead .in { max-width: 1080px; margin: 0 auto; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font: 900 20px/1 var(--sans); letter-spacing: -.02em; text-decoration: none; color: #fff; }
+.brand span { color: var(--red); }
+.masthead .sect { font: 700 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #bbb; text-decoration: none; }
+.masthead .sect:hover { color: #fff; }
+
+/* ---------- Article header ---------- */
+.hero { max-width: 1080px; margin: 0 auto; padding: 40px 16px 8px; }
+.kicker { font: 800 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.hero h1 { font: 900 clamp(34px, 6vw, 60px)/1.02 var(--sans); letter-spacing: -.035em;
+  color: var(--ink); margin: 14px 0 16px; max-width: 900px; }
+.dek { font: 400 clamp(19px, 2.4vw, 23px)/1.45 var(--serif); color: var(--muted); max-width: 760px; margin: 0; }
+.byline { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--rule);
+  font: 500 13px/1.4 var(--sans); color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.byline b { color: var(--ink); }
+.progress { height: 4px; background: var(--rule); margin-top: 14px; max-width: 760px; }
+.progress i { display: block; height: 100%; background: var(--red); }
+
+/* ---------- Layout ---------- */
+.layout { max-width: 1080px; margin: 0 auto; padding: 24px 16px 64px;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+@media (min-width: 980px) { .layout { grid-template-columns: 240px minmax(0, 680px); } }
+article { min-width: 0; }
+
+/* Table of contents — "In this explainer" */
+.toc { font-family: var(--sans); }
+.toc h4 { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  margin: 0 0 12px; color: var(--ink); border-top: 4px solid var(--ink); padding-top: 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+.toc li { counter-increment: t; border-bottom: 1px solid var(--rule); }
+.toc a { display: flex; gap: 10px; padding: 9px 0; text-decoration: none; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--text); }
+.toc a::before { content: counter(t, decimal-leading-zero); color: var(--red); font-weight: 800; }
+.toc a:hover { color: var(--red); }
+@media (min-width: 980px) { .toc { position: sticky; top: 16px; align-self: start; } }
+@media (max-width: 979px) {
+  .toc details { border-top: 4px solid var(--ink); border-bottom: 1px solid var(--rule); }
+  .toc h4 { border: 0; padding: 12px 0; margin: 0; cursor: pointer; }
+}
+
+/* ---------- Body typography ---------- */
+article > p, article li { color: var(--text); }
+article p { margin: 0 0 1.1em; }
+article b, article strong { font-weight: 700; color: var(--ink); }
+ul, ol { padding-left: 1.3em; }
+li { margin: .3em 0; }
+li::marker { color: var(--red); font-weight: 700; }
+
+article h2 { font: 900 clamp(26px, 3.6vw, 34px)/1.12 var(--sans); letter-spacing: -.025em;
+  color: var(--ink); margin: 56px 0 18px; scroll-margin-top: 16px; }
+article h2 .num { display: block; font: 800 14px/1 var(--sans); letter-spacing: .14em; color: var(--red); margin-bottom: 10px; }
+article h3 { font: 800 21px/1.25 var(--sans); letter-spacing: -.01em; color: var(--ink); margin: 34px 0 12px; }
+
+/* Highlighter: key phrases in definitions */
+.def b, mark { background: linear-gradient(transparent 58%, var(--mark) 58%); padding: 0 .08em; color: var(--ink); }
+
+/* ---------- Explainer cards ---------- */
+.card { background: var(--wash); padding: 20px 22px; margin: 22px 0; border-radius: 0; }
+.card > :last-child { margin-bottom: 0; }
+.card.def { background: transparent; border-left: 6px solid var(--red); padding: 4px 0 4px 20px;
+  font: 400 21px/1.55 var(--serif); color: var(--ink); }
+.card.tip { background: var(--paper); border: 2px solid var(--ink); position: relative; padding-top: 30px; font-size: 17px; }
+.card.tip::before { content: "Tip"; position: absolute; top: -12px; left: 16px; background: var(--ink); color: var(--paper);
+  font: 800 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 6px 10px; }
+.card.tip.trap { border-color: var(--red); }
+.card.tip.trap::before { content: "Exam trap"; background: var(--red); color: #fff; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; margin: 22px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font: 15px/1.5 var(--sans); }
+th { background: var(--ink); color: var(--paper); text-align: left; font-weight: 700; padding: 10px 12px; font-size: 13px; letter-spacing: .03em; }
+td { border-bottom: 1px solid var(--rule); padding: 11px 12px; vertical-align: top; }
+td b { color: var(--ink); }
+tr:nth-child(even) td { background: var(--wash); }
+td ul { margin: 0; padding-left: 1.1em; }
+
+/* ---------- Flow chains (vertical explainer flow) ---------- */
+.chain { display: flex; flex-direction: column; align-items: stretch; gap: 0; margin: 26px 0; font-family: var(--sans); max-width: 460px; }
+.chain .box { background: var(--paper); border: 2px solid var(--ink); padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.chain .box b { font-size: 16px; line-height: 1.25; color: var(--ink); }
+.chain .box small { color: var(--muted); font-size: 14px; }
+.chain .arrow { align-self: flex-start; margin-left: 22px; padding: 6px 0 6px 14px; border-left: 2px solid var(--red);
+  font: 800 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+
+/* ---------- ADM grid (Day 1) ---------- */
+.adm { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 2px; background: var(--rule);
+  border: 2px solid var(--ink); margin: 22px 0; font: 14px/1.45 var(--sans); }
+.adm div { background: var(--paper); padding: 12px; }
+.adm b { display: block; color: var(--ink); font-size: 15px; margin-bottom: 4px; }
+.adm .center { background: var(--red); color: #fff; }
+.adm .center b { color: #fff; }
+
+/* ---------- Takeaway ---------- */
+#summary { border-top: 6px solid var(--red); padding-top: 18px; }
+#summary + .card { background: var(--ink); color: var(--paper); padding: 24px 26px; }
+#summary + .card b, #summary + .card li, #summary + .card p { color: var(--paper); }
+#summary + .card li::marker { color: var(--red); }
+
+/* ---------- Quiz ---------- */
+.quiz-head { margin-top: 64px; background: var(--red); color: #fff; padding: 26px 24px; font-family: var(--sans); }
+.quiz-head .kicker { color: #fff; opacity: .85; }
+.quiz-head h2 { color: #fff; margin: 10px 0 6px; }
+.quiz-head p { margin: 0; font: 400 17px/1.5 var(--serif); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0; font-family: var(--sans); }
+.controls.sticky { position: sticky; top: 0; z-index: 5; background: var(--paper); padding: 10px 0; border-bottom: 1px solid var(--rule); margin: 0 0 8px; }
+button { font: 700 15px/1 var(--sans); padding: 13px 20px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; border-radius: 0; }
+button:hover { background: var(--red); border-color: var(--red); color: #fff; }
+button.secondary { background: transparent; color: var(--ink); }
+#timer { font: 800 22px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--ink); margin-left: auto; }
+#timer.low { color: var(--red); }
+#score { font: 800 20px/1.3 var(--sans); color: var(--ink); width: 100%; }
+
+.q { border-top: 2px solid var(--ink); padding: 18px 0 8px; margin: 26px 0 0; }
+.q .qn { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.q p.stem { font: 700 19px/1.4 var(--sans); color: var(--ink); margin: 8px 0 14px; }
+.q p.stem i { font-weight: 700; }
+.q label { display: flex; gap: 12px; align-items: flex-start; padding: 11px 14px; margin: 6px 0; border: 1px solid var(--rule);
+  cursor: pointer; font: 400 16px/1.45 var(--sans); background: var(--paper); }
+.q label:hover { border-color: var(--ink); }
+.q label .lt { font-weight: 800; color: var(--muted); min-width: 1.2em; }
+.q input { position: absolute; opacity: 0; pointer-events: none; }
+.q label:has(input:checked) { border: 2px solid var(--ink); padding: 10px 13px; }
+.q label:has(input:checked) .lt { color: var(--red); }
+.q input:focus-visible + .lt { outline: 2px solid var(--red); outline-offset: 2px; }
+label.is-answer { background: var(--ok-soft) !important; border: 2px solid var(--ok) !important; padding: 10px 13px !important; }
+label.is-wrong { background: var(--bad-soft) !important; border: 2px solid var(--bad) !important; padding: 10px 13px !important; }
+label.is-partial { background: var(--mid-soft) !important; border: 2px solid var(--mid) !important; padding: 10px 13px !important; }
+.q .pts { margin-left: auto; padding-left: 10px; white-space: nowrap; font: 800 12px/1.6 var(--sans); color: var(--muted); }
+.q .is-answer .pts { color: var(--ok); }
+.q.partial .reason { border-left-color: var(--mid); }
+.q.partial .verdict { color: var(--mid); }
+.scenario { background: var(--wash); border-left: 4px solid var(--ink); padding: 14px 18px; margin: 10px 0 14px; font: 400 17px/1.6 var(--serif); }
+.scenario p { margin: 0 0 .8em; }
+.scenario > :last-child { margin-bottom: 0; }
+.reason { display: none; margin: 14px 0 6px; padding: 14px 16px; background: var(--wash); border-left: 4px solid var(--ink); font-size: 16px; line-height: 1.55; }
+.show .reason { display: block; }
+.q.correct .reason { border-left-color: var(--ok); }
+.q.wrong .reason { border-left-color: var(--bad); }
+.verdict { font: 800 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+.q.correct .verdict { color: var(--ok); } .q.wrong .verdict { color: var(--bad); }
+
+#answered { font: 600 14px/1 var(--sans); color: var(--muted); }
+#breakdown { margin: 8px 0 24px; }
+#breakdown h3 { margin-top: 12px; }
+#breakdown .bar { display: block; height: 8px; background: var(--rule); min-width: 80px; }
+#breakdown .bar i { display: block; height: 100%; background: var(--ink); }
+#breakdown td.ok { color: var(--ok); font-weight: 700; }
+#breakdown td.weak { color: var(--bad); font-weight: 700; }
+
+/* ---------- Exam facts strip ---------- */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 2px; background: var(--ink); border: 2px solid var(--ink); margin: 22px 0; font-family: var(--sans); }
+.facts div { background: var(--paper); padding: 14px; }
+.facts b { display: block; font: 900 28px/1 var(--sans); color: var(--red); letter-spacing: -.02em; }
+.facts span { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.level { display: inline-block; font: 800 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 6px 10px; background: var(--ink); color: var(--paper); margin-top: 10px; }
+.tile .lvl { font: 800 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+
+/* ---------- Prev / next ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; font-family: var(--sans); }
+.pager a { display: block; border-top: 4px solid var(--ink); padding: 12px 0; text-decoration: none; }
+.pager a:hover { border-color: var(--red); }
+.pager small { display: block; font: 800 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+.pager span { font-weight: 800; color: var(--ink); line-height: 1.25; }
+.pager .next { text-align: right; grid-column: 2; }
+
+footer.site { background: #000; color: #aaa; font: 13px/1.5 var(--sans); }
+footer.site .in { max-width: 1080px; margin: 0 auto; padding: 22px 16px; }
+
+/* ---------- Index page ---------- */
+.series { max-width: 1080px; margin: 0 auto; padding: 8px 16px 64px; }
+.series h2 { font: 900 24px/1.1 var(--sans); letter-spacing: -.02em; color: var(--ink); border-top: 4px solid var(--ink); padding-top: 12px; margin: 40px 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px 24px; }
+.tile { display: block; text-decoration: none; border-top: 2px solid var(--rule); padding-top: 12px; font-family: var(--sans); }
+a.tile { border-top-color: var(--ink); }
+a.tile:hover { border-top-color: var(--red); }
+a.tile:hover .t { color: var(--red); }
+.tile .n { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.tile .t { font: 800 19px/1.2 var(--sans); color: var(--ink); margin-top: 8px; letter-spacing: -.01em; }
+.tile .d { font: 400 15px/1.45 var(--serif); color: var(--muted); margin-top: 6px; }
+.tile.soon .n { color: var(--muted); }
+.tile.soon .t { color: var(--muted); }
+.tile.soon .n::after { content: " · Coming soon"; font-weight: 600; }
+
+@media print {
+  .masthead, .toc, .controls, .pager, footer.site { display: none; }
+  .reason { display: block; }
+  .layout { display: block; }
+  body { font-size: 12pt; }
+}
+
+</style>
+</head>
+<body>
+<div class="masthead"><div class="in">
+  <a class="brand" href="index.html">TOGAF<span>.</span>Explained</a>
+  <a class="sect" href="index.html">All 25 days</a>
+</div></div>
+
+<header class="hero">
+  <div class="kicker">Day 24 of 25 · Practitioner &amp; Mock Exams</div>
+  <h1>Practitioner Scenarios II (Phases E–H)</h1>
+  <p class="dek">What strong answers look like for Phases E to H and governance, and four gradient-scored scenarios</p>
+  <div class="byline"><span><b>TOGAF Explained</b></span><span>About 3 min read</span><span>4 scenario questions</span><span>TOGAF Standard, 10th Edition</span></div>
+  <div class="progress" aria-label="Course progress"><i style="width:96%"></i></div>
+</header>
+<div class="layout">
+  <aside class="toc">
+    <details open><summary style="list-style:none"><h4>In this explainer</h4></summary>
+    <ol><li><a href="#phases">What Strong Answers Contain, Phases E–H</a></li><li><a href="#patterns">Common Answer Patterns in Governance Questions</a></li><li><a href="#change">Deciding How to Handle Change</a></li><li><a href="#practice">Practice: Four Scenarios</a></li><li><a href="#summary">The takeaway</a></li><li><a href="#quiz">Mock test</a></li></ol></details>
+  </aside>
+  <article>
+<p>Yesterday's scenarios covered developing the architecture. Today's cover <b>delivering and governing</b> it: Phases E to H, governance and Requirements Management. These are areas where Part 2 answers often hinge on following the governance process rather than taking a shortcut.</p>
+
+<h2 id="phases"><span class="num">01</span>What Strong Answers Contain, Phases E–H</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Phase</th><th>A strong answer usually mentions</th></tr>
+  <tr><td><b>E</b></td><td>Corporate change attributes and business constraints · consolidating gaps, requirements and interoperability · dependencies · readiness and risk · the implementation and migration strategy · work packages · Transition Architectures that deliver value · the initial roadmap and plan</td></tr>
+  <tr><td><b>F</b></td><td>Fitting the plan to existing management frameworks (business planning, portfolio/project, operations) · business value of each work package · resource estimates · prioritization by cost/benefit and risk · finalizing the roadmap and plan · Implementation Governance Model · lessons learned</td></tr>
+  <tr><td><b>G</b></td><td>Architecture Contracts · compliance reviews with tailored checklists · the correct compliance level · Architecture Board involvement · time-bound dispensations with conditions · Change Requests · records in the Governance Repository</td></tr>
+  <tr><td><b>H</b></td><td>Monitoring change drivers · analyzing the change's impact · classifying it (simplification, incremental, re-architecting) · the stakeholder rules of thumb · Requirements Impact Assessment · a new Request for Architecture Work where needed</td></tr>
+  <tr><td><b>Req. Mgmt</b></td><td>Recording the requirement in the repository · Requirements Impact Assessment on current and earlier phases · iterating back where needed · updating the ARS and, if scope changes, the Statement of Architecture Work</td></tr>
+</table>
+</div>
+
+<h2 id="patterns"><span class="num">02</span>Common Answer Patterns in Governance Questions</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Pattern</th><th>Typical score</th></tr>
+  <tr><td>Follows the governance process: review, assess, escalate to the Architecture Board, decide, record</td><td>Usually the <b>best answer</b></td></tr>
+  <tr><td>Right idea, but too rigid (e.g. forces immediate rework regardless of business impact) or skips a step such as recording the decision</td><td>Often <b>second best</b></td></tr>
+  <tr><td>Informal handling: notes the issue but takes no governance action</td><td>Often <b>third best</b></td></tr>
+  <tr><td>Changes the architecture or standard to match the deviation, or ignores it</td><td>Usually the <b>distractor</b></td></tr>
+</table>
+</div>
+<div class="card tip trap">A <b>dispensation</b> is a legitimate tool, but only when granted by the <b>Architecture Board</b>, time-bound, and usually with conditions. "Just let the project continue" is not a dispensation.</div>
+
+<h2 id="change"><span class="num">03</span>Deciding How to Handle Change</h2>
+<div class="chain">
+  <div class="box"><b>A change driver arrives</b><small>new regulation, technology, strategy, lessons learned</small></div>
+  <span class="arrow">↓ analyze impact</span>
+  <div class="box"><b>Affects one stakeholder, or covered by a dispensation?</b><small>likely change management</small></div>
+  <span class="arrow">↓ otherwise</span>
+  <div class="box"><b>Affects two or more stakeholders or several domains?</b><small>likely re-architecting: new Request for Architecture Work</small></div>
+</div>
+
+<h2 id="practice"><span class="num">04</span>Practice: Four Scenarios</h2>
+<p>The test below has four scenarios covering Phases E, F, G and H. Allow about <b>11 minutes each</b>. After submitting, read the reasoning for every answer.</p>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li><b>Phase E</b> answers consolidate, group into work packages and use <b>Transition Architectures</b> that deliver value.</li>
+    <li><b>Phase F</b> answers fit the plan to existing <b>management frameworks</b> and prioritize by <b>value, cost and risk</b>.</li>
+    <li><b>Phase G</b> answers follow the <b>governance process</b>: compliance review, the Architecture Board, a time-bound dispensation if justified, and a record of the decision.</li>
+    <li><b>Phase H</b> answers analyze impact, classify the change and use the <b>stakeholder rules of thumb</b> to decide whether a new cycle is needed.</li>
+  </ul>
+</div>
+
+    <section class="quiz-head" id="quiz">
+      <div class="kicker">Test yourself</div>
+      <h2>Day 24 scenario test</h2>
+      <p>4 scenario questions in 45 minutes, scored like the real Part 2 exam: 5 points for the best answer, 3 for the second best, 1 for the third best and 0 for the distractor. Start the timer, choose one answer per scenario, then submit to see your points and the reasoning for every option.</p>
+    </section>
+    <div class="controls sticky">
+      <button id="startBtn">Start 45-min timer</button>
+      <span id="answered"></span>
+      <span id="timer">45:00</span>
+    </div>
+    <div id="questions"></div>
+    <div class="controls">
+      <button id="submitBtn">Submit &amp; show reasoning</button>
+      <button class="secondary" id="resetBtn">Reset</button>
+      <span id="score"></span>
+    </div>
+    <div id="breakdown" hidden></div>
+    <nav class="pager"><a class="prev" href="TOGAF_Day23_Practitioner_Scenarios_A_to_D.html"><small>← Day 23</small><span>Practitioner Scenarios I (Phases A–D)</span></a><a class="next" href="TOGAF_Day25_Final_Mock_Exam.html"><small>Day 25 →</small><span>Final Mock Exam</span></a></nav>
+  </article>
+</div>
+<script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
+<script>
+window.QUIZ_MINUTES = 45;
+const QUESTIONS = [
+  { t: "Phase E", a: 1, p: [3, 5, 1, 0],
+    s: "<p><b>Northgate Insurance</b> has completed Phases B to D for a programme to modernize its claims handling. The gap analyses identified 42 gaps across business processes, data, applications and technology. Several are linked: for example, the new claims portal cannot go live until a customer identity service exists.</p><p>The executive team has a limited annual budget, wants visible benefits within nine months, and has made clear that the business cannot absorb a single large cutover. A readiness assessment in Phase A found low readiness in two regional claims centres.</p>",
+    q: "You are starting Phase E. Which approach best describes what you should do?",
+    o: ["Group the gaps into projects by department, and plan a single coordinated cutover to the Target Architecture at the end of the programme, to minimize the time spent running old and new systems in parallel.",
+        "Consolidate the gap analysis results from Phases B–D, for example in a Consolidated Gaps, Solutions and Dependencies matrix; review consolidated requirements and reconcile interoperability requirements; refine dependencies such as the identity service; confirm readiness and risk, including the two regional centres; formulate an evolutionary implementation and migration strategy; group gaps into work packages; define Transition Architectures that each deliver business value; and create the initial Architecture Roadmap and Implementation and Migration Plan.",
+        "Ask each department to propose and fund its own projects to close the gaps that affect it, and combine the proposals into a roadmap.",
+        "Move straight to Phase G and start implementing the most visible gaps, such as the claims portal, so that the executive team sees benefits quickly."],
+    r: "<b>B (5 points)</b> follows the Phase E steps and fits the constraints: it handles dependencies, considers readiness and risk, and chooses an evolutionary strategy with Transition Architectures to deliver value early without a big cutover. <b>A (3 points)</b> consolidates gaps into projects, but a single cutover is a revolutionary strategy the business has said it cannot absorb, and it ignores dependencies and readiness. <b>C (1 point)</b> produces projects, but fragments the programme by department and misses enterprise-wide consolidation, dependencies and interoperability. <b>D (0 points)</b> skips Phases E and F altogether, and the portal cannot go live without the identity service anyway." },
+
+  { t: "Phase F", a: 3, p: [0, 3, 1, 5],
+    s: "<p>Northgate's Phase E produced a roadmap with three Transition Architectures and 11 work packages. The company already runs a quarterly <b>portfolio management</b> process, led by the PMO, which approves funding for all projects. The operations department has a change freeze every December.</p><p>Two senior sponsors are each pressing for their own work packages to go first. The Finance Director wants to see the value and risk of each package before committing funds.</p>",
+    q: "You are in Phase F. What is the most appropriate way to finalize the plan?",
+    o: ["Treat all 11 work packages as equally important and start them all at once, so that no sponsor feels their work has been delayed.",
+        "Assign a business value to each work package and prioritize by value and cost, but run the prioritization within the architecture team only, to avoid the delays of the PMO's quarterly cycle.",
+        "Prioritize the work packages of whichever sponsor is most senior, and fit the remaining packages around them.",
+        "Confirm how the plan interacts with the existing management frameworks, including the PMO's portfolio process and operations' change freeze; assign a business value to each work package, for example with a Business Value Assessment of value against risk; estimate resources and timings; prioritize through cost/benefit assessment and risk validation; confirm the roadmap; finalize the Implementation and Migration Plan and the Implementation Governance Model; and document lessons learned."],
+    r: "<b>D (5 points)</b> follows the Phase F steps: it fits the plan to the PMO process and the change freeze, gives the Finance Director value and risk, and resolves the sponsor conflict objectively. <b>B (3 points)</b> assigns value and prioritizes properly, but bypasses the PMO, contradicting Phase F's requirement to coordinate with existing management frameworks. <b>C (1 point)</b> does produce a priority order, but on seniority rather than value, cost and risk. <b>A (0 points)</b> ignores prioritization, dependencies and funding constraints entirely." },
+
+  { t: "Phase G", a: 0, p: [5, 0, 3, 1],
+    s: "<p>A Northgate project is building the new claims portal under a signed Architecture Contract. The Target Architecture requires all customer authentication to use the enterprise identity service. During a scheduled compliance review, the architect finds that the project has built its own login component instead.</p><p>The project manager explains that the identity service was delivered late, and that a regulatory deadline for the portal is six weeks away. Rebuilding authentication now would miss the deadline.</p>",
+    q: "What is the most appropriate response?",
+    o: ["Complete the compliance review using the tailored checklists and record the compliance level; refer the deviation to the Architecture Board under the Architecture Contract; if the Board agrees the deadline justifies it, grant a time-bound dispensation with conditions, such as a committed plan to move to the enterprise identity service after the deadline; and record the decision in the Governance Repository.",
+        "Update the Target Architecture to allow projects to build their own authentication components, so that the portal becomes compliant.",
+        "Refer the deviation to the Architecture Board and require the project to switch to the enterprise identity service before go-live, regardless of the regulatory deadline.",
+        "Note the deviation informally in the review notes and let the project continue, since the reason is understandable."],
+    r: "<b>A (5 points)</b> follows the governance process: a compliance review, escalation under the contract, a <b>time-bound dispensation with conditions</b> granted by the Board, and a recorded decision. <b>C (3 points)</b> correctly involves the Board and protects the architecture, but ignores a legitimate regulatory constraint; TOGAF provides dispensations for exactly this case. <b>D (1 point)</b> at least records the issue, but takes no governance action and sets no plan to return to compliance. <b>B (0 points)</b> weakens the architecture to match one project's deviation, undermining reuse, security and governance across the enterprise." },
+
+  { t: "Phase H", a: 2, p: [1, 3, 5, 0],
+    s: "<p>Six months after Northgate's first Transition Architecture went live, the government introduces a new regulation. Insurers must let customers see, correct and export all of their personal data online within 30 days of a request, with an audit trail.</p><p>The regulation affects customer-facing processes, the claims and policy data held in several systems, the customer portal, and the reporting to the regulator. The compliance, customer service, IT and legal teams are all affected.</p>",
+    q: "How should this change be handled in Phase H?",
+    o: ["Grant the affected projects a dispensation from the new regulation until the next planned architecture review.",
+        "Treat it as an incremental change: raise change requests for each affected application and let the application teams implement them through normal change management.",
+        "Analyze the change and its impact on the architecture, stakeholders and requirements, including a Requirements Impact Assessment. Because it affects several stakeholders and several domains, classify it as a re-architecting change, and raise a new Request for Architecture Work to start a new ADM cycle. Meanwhile, keep the Governance Repository and compliance assessments up to date.",
+        "Ignore the regulation until the next annual planning cycle, since the current architecture was only recently approved."],
+    r: "<b>C (5 points)</b> applies Phase H properly: impact analysis, a Requirements Impact Assessment, and TOGAF's rule of thumb that changes affecting <b>two or more stakeholders</b> and several domains usually need <b>re-architecting</b> through a new ADM cycle. <b>B (3 points)</b> does act on the change, but piecemeal change management across many systems risks an inconsistent solution and misses the cross-domain design work. <b>A (1 point)</b> misuses dispensations: they are exceptions to the architecture, not to legal obligations, and they don't solve the problem. <b>D (0 points)</b> ignores a legal requirement with a fixed deadline." }
+];
+// Shared quiz engine. Expects a global QUESTIONS array:
+// { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML, t: optional topic,
+//   s: optional scenario HTML shown above the stem, p: optional points per option (Part 2 gradient scoring, e.g. [3,5,0,1]) }
+// Optional globals: QUIZ_MINUTES (default 20). If questions carry a topic (t),
+// a per-topic score breakdown is shown after grading.
+(function () {
+  const MINUTES = window.QUIZ_MINUTES || 20;
+  const container = document.getElementById("questions");
+  const letters = "ABCDEF";
+  const lettered = item => item.o.length > 2;
+
+  QUESTIONS.forEach((item, i) => {
+    const div = document.createElement("div");
+    div.className = "q"; div.id = "q" + i;
+    let html = `<div class="qn">${item.s ? "Scenario" : "Question"} ${i + 1} of ${QUESTIONS.length}</div>`;
+    if (item.s) html += `<div class="scenario">${item.s}</div>`;
+    html += `<p class="stem">${item.q}</p>`;
+    item.o.forEach((opt, j) => {
+      const lt = lettered(item) ? letters[j] : (j === 0 ? "T" : "F");
+      html += `<label><input type="radio" name="q${i}" value="${j}"><span class="lt">${lt}</span><span>${opt}</span><span class="pts"></span></label>`;
+    });
+    const best = item.p ? item.p.indexOf(5) : item.a;
+    const ans = lettered(item) ? `${letters[best]}. ${item.o[best]}` : item.o[best];
+    html += `<div class="reason"><span class="verdict"></span>${item.p ? "Best answer" : "Correct answer"}: <b>${ans}</b><br>${item.r}</div>`;
+    div.innerHTML = html;
+    container.appendChild(div);
+  });
+
+  const answeredEl = document.getElementById("answered");
+  function countAnswered() {
+    if (answeredEl) answeredEl.textContent = `${document.querySelectorAll(".q input:checked").length} / ${QUESTIONS.length} answered`;
+  }
+  container.addEventListener("change", countAnswered);
+  countAnswered();
+
+  let seconds = MINUTES * 60, timerId = null;
+  const timerEl = document.getElementById("timer");
+  const startBtn = document.getElementById("startBtn");
+  function renderTime() {
+    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    timerEl.textContent = `${m}:${s}`;
+    timerEl.classList.toggle("low", seconds <= 120);
+  }
+  function stop() { if (timerId) { clearInterval(timerId); timerId = null; } startBtn.textContent = `Start ${MINUTES}-min timer`; }
+  startBtn.onclick = () => {
+    if (timerId) return;
+    startBtn.textContent = "Timer running…";
+    timerId = setInterval(() => {
+      seconds--; renderTime();
+      if (seconds <= 0) { stop(); timerEl.textContent = "Time's up"; grade(); }
+    }, 1000);
+  };
+
+  function grade() {
+    stop();
+    let score = 0, max = 0;
+    const NAMES = { 5: "Best answer", 3: "Second-best answer", 1: "Third-best answer", 0: "Distractor" };
+    QUESTIONS.forEach((item, i) => {
+      const div = document.getElementById("q" + i);
+      const chosen = div.querySelector("input:checked");
+      const labels = div.querySelectorAll("label");
+      labels.forEach(l => l.classList.remove("is-answer", "is-wrong", "is-partial"));
+      const verdict = div.querySelector(".verdict");
+      div.classList.remove("correct", "wrong", "partial");
+      if (item.p) {
+        const best = item.p.indexOf(5);
+        labels.forEach((l, j) => { l.querySelector(".pts").textContent = `${item.p[j]} pt${item.p[j] === 1 ? "" : "s"}`; });
+        labels[best].classList.add("is-answer");
+        const pts = chosen ? item.p[Number(chosen.value)] : 0;
+        score += pts; max += 5; item._pts = pts;
+        if (chosen && pts < 5) labels[Number(chosen.value)].classList.add(pts > 0 ? "is-partial" : "is-wrong");
+        div.classList.add(pts === 5 ? "correct" : pts > 0 ? "partial" : "wrong");
+        verdict.textContent = chosen ? `${NAMES[pts]} · ${pts} of 5 points` : "Not answered · 0 of 5 points";
+        div.classList.add("show");
+        return;
+      }
+      max += 1;
+      labels[item.a].classList.add("is-answer");
+      if (chosen && Number(chosen.value) === item.a) {
+        score++; div.classList.add("correct"); verdict.textContent = "Correct";
+      } else {
+        div.classList.add("wrong");
+        if (chosen) labels[Number(chosen.value)].classList.add("is-wrong");
+        verdict.textContent = chosen ? "Not quite" : "Not answered";
+      }
+      div.classList.add("show");
+    });
+    const pct = Math.round(score / max * 100);
+    const el = document.getElementById("score");
+    const unit = QUESTIONS.some(q => q.p) ? " points" : "";
+    el.textContent = `You scored ${score} / ${max}${unit} (${pct}%) — ${pct >= 60 ? "Pass" : "Below the 60% pass mark"}`;
+    const bd = document.getElementById("breakdown");
+    if (bd && QUESTIONS.some(q => q.t)) {
+      const topics = {};
+      QUESTIONS.forEach((item, i) => {
+        const t = item.t || "Other"; topics[t] = topics[t] || [0, 0];
+        if (item.p) { topics[t][0] += item._pts || 0; topics[t][1] += 5; return; }
+        topics[t][1]++;
+        if (document.getElementById("q" + i).classList.contains("correct")) topics[t][0]++;
+      });
+      let rows = "";
+      Object.entries(topics).forEach(([t, [c, n]]) => {
+        const p = Math.round(c / n * 100);
+        rows += `<tr><td>${t}</td><td>${c} / ${n}</td><td><span class="bar"><i style="width:${p}%"></i></span></td><td class="${p >= 60 ? "ok" : "weak"}">${p >= 60 ? "OK" : "Revise"}</td></tr>`;
+      });
+      bd.innerHTML = `<h3>Your score by topic</h3><div class="table-wrap"><table><tr><th>Topic</th><th>Score</th><th></th><th></th></tr>${rows}</table></div>`;
+      bd.hidden = false;
+    }
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  document.getElementById("submitBtn").onclick = grade;
+  document.getElementById("resetBtn").onclick = () => {
+    stop(); seconds = MINUTES * 60; renderTime();
+    document.querySelectorAll(".q input[type=radio]").forEach(r => r.checked = false);
+    document.querySelectorAll(".q").forEach(d => {
+      d.classList.remove("show", "correct", "wrong", "partial");
+      d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong", "is-partial"));
+      d.querySelectorAll(".pts").forEach(x => x.textContent = "");
+    });
+    document.getElementById("score").textContent = "";
+    const bd = document.getElementById("breakdown"); if (bd) { bd.hidden = true; bd.innerHTML = ""; }
+    countAnswered();
+    document.getElementById("quiz").scrollIntoView({ behavior: "smooth" });
+  };
+})();
+
+</script>
+<footer class="site"><div class="in"><i class="fa fa-heart" style="font-size:24px;color:red">&hearts;</i> Created by Vinay Somashekara | Unofficial study material for the TOGAF Standard, 10th Edition. TOGAF is a registered trademark of The Open Group.</div></footer>
+</body>
+</html>

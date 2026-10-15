@@ -1,0 +1,102 @@
+<p>Day 11 introduced governance through Phase G. Today looks at <b>architecture governance</b> as a permanent capability: where it sits in the enterprise, the Architecture Board, Architecture Contracts and the Architecture Compliance review process.</p>
+
+<h2 id="what">1. What Architecture Governance Is</h2>
+<div class="card def">
+  <b>Architecture governance</b> is the practice and orientation by which enterprise architectures and other architectures are <b>managed and controlled</b> at an enterprise-wide level.
+</div>
+<p>It includes implementing a system of controls over the creation and monitoring of architecture components, ensuring compliance with internal and external standards and regulatory obligations, and establishing processes for <b>accountability</b>.</p>
+<h3>Levels of governance</h3>
+<div class="chain">
+  <div class="box"><b>Corporate governance</b><small>the whole enterprise</small></div>
+  <span class="arrow">↓ includes</span>
+  <div class="box"><b>Technology governance</b><small>use of technology</small></div>
+  <span class="arrow">↓ includes</span>
+  <div class="box"><b>IT governance</b><small>IT resources and services</small></div>
+  <span class="arrow">↓ includes</span>
+  <div class="box"><b>Architecture governance</b><small>architectures and their compliance</small></div>
+</div>
+
+<h2 id="characteristics">2. Characteristics of Good Governance</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Characteristic</th><th>Meaning</th></tr>
+  <tr><td><b>Discipline</b></td><td>All parties commit to the procedures, processes and authority structures</td></tr>
+  <tr><td><b>Transparency</b></td><td>Actions and decision support are open to inspection</td></tr>
+  <tr><td><b>Independence</b></td><td>Processes and decisions minimize conflicts of interest</td></tr>
+  <tr><td><b>Accountability</b></td><td>Groups that take actions or make decisions are authorized and answerable for them</td></tr>
+  <tr><td><b>Responsibility</b></td><td>Each party acts responsibly towards the organization and its stakeholders</td></tr>
+  <tr><td><b>Fairness</b></td><td>No party gains an unfair advantage from decisions or actions</td></tr>
+</table>
+</div>
+<div class="card tip">Memory hook: <b>"DTI-ARF"</b>: Discipline, Transparency, Independence, Accountability, Responsibility, Fairness.</div>
+
+<h2 id="framework">3. The Architecture Governance Framework</h2>
+<p>TOGAF describes governance through <b>process</b>, <b>content</b> and <b>context</b>: the processes that do the work, the content they manage (held in the Governance Repository), and the organizational context they operate in. The key governance processes are:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Process</th><th>Purpose</th></tr>
+  <tr><td><b>Policy management and take-on</b></td><td>Bring new or changed architecture policies, standards and contracts into the governance framework</td></tr>
+  <tr><td><b>Compliance</b></td><td>Assess projects against the architecture through compliance reviews</td></tr>
+  <tr><td><b>Dispensation</b></td><td>Handle cases where a project cannot comply, granting time-bound exceptions</td></tr>
+  <tr><td><b>Monitoring and reporting</b></td><td>Track the performance of governance and report on it</td></tr>
+  <tr><td><b>Business control</b></td><td>Ensure business processes and policies are followed</td></tr>
+  <tr><td><b>Environment management</b></td><td>Keep the governance environment and repository running effectively</td></tr>
+</table>
+</div>
+
+<h2 id="board">4. The Architecture Board</h2>
+<p>The <b>Architecture Board</b> is a cross-organizational body that oversees the implementation of architecture governance. Its responsibilities include:</p>
+<ul>
+  <li><b>Consistency</b> between sub-architectures</li>
+  <li>Identifying <b>reusable</b> components</li>
+  <li><b>Flexibility</b> of the EA, so it can meet changing business needs</li>
+  <li><b>Enforcing compliance</b> and granting <b>dispensations</b></li>
+  <li>Improving the <b>maturity</b> of the architecture discipline</li>
+  <li>Ensuring a <b>discipline-based</b> approach to architecture</li>
+  <li><b>Decision-making and conflict resolution</b>, with escalation where needed</li>
+</ul>
+<div class="card tip">TOGAF suggests a board of around <b>four or five permanent members</b>, and no more than ten, so it can make decisions effectively. Members should represent the key stakeholders and be senior enough to make binding decisions.</div>
+
+<h2 id="contracts">5. Architecture Contracts</h2>
+<p>An <b>Architecture Contract</b> is a joint agreement between development partners and sponsors on the <b>deliverables, quality and fitness-for-purpose</b> of an architecture. Contracts are used:</p>
+<ul>
+  <li>between the <b>architecture function and the sponsor</b>: the Statement of Architecture Work works as this kind of agreement;</li>
+  <li>between the <b>architecture function and development partners</b>: to make sure implementation conforms to the architecture;</li>
+  <li>between the <b>architecture function and business users</b>: to agree on the architecture as it affects them.</li>
+</ul>
+<p>Contracts are prepared in <b>Phase F</b>, signed in <b>Phase G</b> and kept in the Governance Repository.</p>
+
+<h2 id="compliance">6. Architecture Compliance Reviews</h2>
+<h3>Purpose</h3>
+<ul>
+  <li>Catch errors in a project <b>early</b>, when they are cheaper to fix</li>
+  <li>Ensure best practice is applied to architecture work</li>
+  <li>Identify where enterprise standards may need to change</li>
+  <li>Identify application-specific services that could become shared infrastructure</li>
+  <li>Give management a view of the technical readiness of projects</li>
+</ul>
+<h3>Roles</h3>
+<p>Architecture Board · Project Leader · Customer · Lead Enterprise Architect · Architect · Project Principals</p>
+<h3>Process (simplified)</h3>
+<ol>
+  <li>Request the review</li>
+  <li>Identify the responsible parts of the organization</li>
+  <li>Identify the Lead Enterprise Architect and determine the <b>scope</b> of the review</li>
+  <li><b>Tailor the checklists</b> to the project</li>
+  <li>Schedule the review meeting and <b>interview</b> the project principals</li>
+  <li>Analyze the completed checklists and <b>prepare the report</b></li>
+  <li>Present the report, then <b>accept and sign off</b> the review</li>
+  <li>Send the assessment report to the <b>Architecture Board</b></li>
+</ol>
+<div class="card tip trap">Compliance reviews are not only held at the end of a project. They can be scheduled at key points: project initiation, initial design, major design changes, or whenever the Board requests one.</div>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Governance hierarchy: <b>corporate → technology → IT → architecture</b>.</li>
+    <li>Six characteristics: <b>Discipline, Transparency, Independence, Accountability, Responsibility, Fairness</b>.</li>
+    <li>Governance processes: policy management, <b>compliance</b>, <b>dispensation</b>, monitoring and reporting, business control, environment management.</li>
+    <li>The <b>Architecture Board</b> ensures consistency, reuse and compliance, grants dispensations and resolves conflicts.</li>
+    <li><b>Architecture Contracts</b> agree deliverables, quality and fitness-for-purpose; <b>compliance reviews</b> check projects at key points.</li>
+  </ul>
+</div>

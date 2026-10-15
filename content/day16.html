@@ -1,0 +1,110 @@
+<p>Today covers the <b>analytical and planning</b> techniques: the ones that turn architecture descriptions into a realistic, prioritized plan. They are used mostly from Phase B onwards, and especially in Phases E and F.</p>
+
+<h2 id="gap">1. Gap Analysis in More Depth</h2>
+<p>Day 5 introduced the gap analysis matrix: Baseline building blocks as rows, Target building blocks as columns, with a <b>"New"</b> row and an <b>"Eliminated"</b> column. When you look for gaps, check every domain:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Domain</th><th>Typical gaps to look for</th></tr>
+  <tr><td><b>Business</b></td><td>People (skills, staffing), process, tools, information, measurement, financial, facilities</td></tr>
+  <tr><td><b>Data</b></td><td>Data not current, not where it's needed, not available, not created, or not consumed; missing relationships</td></tr>
+  <tr><td><b>Application</b></td><td>Applications impacted, eliminated or newly created</td></tr>
+  <tr><td><b>Technology</b></td><td>Technology impacted, eliminated or newly created</td></tr>
+</table>
+</div>
+<div class="card tip">Gap analysis is also a <b>quality check</b>: it reveals services or functions that were accidentally left out of the Target, and highlights opportunities for reuse.</div>
+
+<h2 id="migration">2. Migration Planning Techniques</h2>
+<p>These techniques are used mainly in <b>Phases E and F</b>:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Technique</th><th>Purpose</th></tr>
+  <tr><td><b>Implementation Factor Assessment and Deduction matrix</b></td><td>Records the factors that affect implementation (risks, issues, assumptions, dependencies), in three columns: <b>factor</b>, <b>description</b> and <b>deduction</b> (what it means for the plan)</td></tr>
+  <tr><td><b>Consolidated Gaps, Solutions and Dependencies matrix</b></td><td>Lists every gap from Phases B–D with potential solutions and their dependencies, as the basis for work packages</td></tr>
+  <tr><td><b>Architecture Definition Increments table</b></td><td>Shows which projects deliver which increments of the architecture across Transition Architectures</td></tr>
+  <tr><td><b>Transition Architecture State Evolution table</b></td><td>Shows the state of each building block in each Transition Architecture</td></tr>
+  <tr><td><b>Business Value Assessment</b></td><td>Plots each work package on a <b>value vs risk</b> matrix to support prioritization</td></tr>
+</table>
+</div>
+
+<h2 id="interop">3. Interoperability Requirements</h2>
+<div class="card def">
+  <b>Interoperability</b> is the ability to <b>share information and services</b>. TOGAF asks architects to define, as early as possible, the degree to which information and services must be shared.
+</div>
+<h3>Three categories</h3>
+<ul>
+  <li><b>Operational or business interoperability</b>: how business processes are shared</li>
+  <li><b>Information interoperability</b>: how information is shared</li>
+  <li><b>Technical interoperability</b>: how technical services are shared, or at least connect to one another</li>
+</ul>
+<h3>Four degrees of information interoperability</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Degree</th><th>Name</th><th>Meaning</th></tr>
+  <tr><td><b>1</b></td><td>Unstructured data exchange</td><td>Exchange of human-readable, unstructured data, such as free text</td></tr>
+  <tr><td><b>2</b></td><td>Structured data exchange</td><td>Exchange of structured data that still needs manual and/or automated handling</td></tr>
+  <tr><td><b>3</b></td><td>Seamless sharing of data</td><td>Automated sharing of data among systems based on a common exchange model</td></tr>
+  <tr><td><b>4</b></td><td>Seamless sharing of information</td><td>Universal interpretation of information, through cooperating applications</td></tr>
+</table>
+</div>
+<p>Interoperability is identified in Phase A, refined in Phases B to D, and <b>consolidated and reconciled in Phase E</b>.</p>
+
+<h2 id="readiness">4. Business Transformation Readiness Assessment</h2>
+<p>Used mainly in <b>Phase A</b> and revisited in Phases E and F, this technique evaluates how ready the organization is to change. TOGAF's readiness factors include:</p>
+<div class="table-wrap">
+<table>
+  <tr><td>Vision</td><td>Desire, willingness and resolve</td><td>Need</td></tr>
+  <tr><td>Business case</td><td>Funding</td><td>Sponsorship and leadership</td></tr>
+  <tr><td>Governance</td><td>Accountability</td><td>Workable approach and execution model</td></tr>
+  <tr><td>IT capacity to execute</td><td>Departmental capacity to execute</td><td>Ability to implement and operate</td></tr>
+</table>
+</div>
+<h3>The steps</h3>
+<ol>
+  <li><b>Determine</b> the readiness factors</li>
+  <li><b>Present</b> them, for example using maturity models</li>
+  <li><b>Assess</b> each factor, rating its <b>urgency</b>, <b>readiness status</b> and <b>degree of difficulty</b> to fix</li>
+  <li><b>Assess the risks</b> for each factor and identify improvement actions</li>
+  <li><b>Work those actions</b> into the Implementation and Migration Plan (Phases E and F)</li>
+</ol>
+
+<h2 id="risk">5. Risk Management</h2>
+<p>Risk is identified in Phase A and managed throughout the ADM. TOGAF's process:</p>
+<ol>
+  <li><b>Risk classification</b></li>
+  <li><b>Risk identification</b> (the readiness factors are a good starting list)</li>
+  <li><b>Initial risk assessment</b>: classify each risk by <b>effect</b> and <b>frequency</b></li>
+  <li><b>Risk mitigation and residual risk assessment</b></li>
+  <li><b>Risk monitoring</b>, notably during implementation governance</li>
+</ol>
+<div class="table-wrap">
+<table>
+  <tr><th>Scale</th><th>Values</th></tr>
+  <tr><td><b>Effect</b></td><td>Catastrophic · Critical · Marginal · Negligible</td></tr>
+  <tr><td><b>Frequency</b></td><td>Frequent · Likely · Occasional · Seldom · Unlikely</td></tr>
+  <tr><td><b>Resulting impact</b></td><td>Extremely high · High · Moderate · Low</td></tr>
+</table>
+</div>
+<div class="card tip trap"><b>Initial</b> risk is the level <i>before</i> mitigation; <b>residual</b> risk is what remains <i>after</i> mitigation. Exam questions often swap the two.</div>
+
+<h2 id="cbp">6. Capability-Based Planning</h2>
+<div class="card def">
+  <b>Capability-Based Planning</b> is a business-planning technique that focuses on the <b>planning, engineering and delivery of strategic business capabilities</b> to the enterprise.
+</div>
+<ul>
+  <li>Capabilities are <b>business-driven</b> and often <b>cut across organizational boundaries</b>, so planning by capability helps avoid silos.</li>
+  <li>Capabilities are delivered in <b>capability increments</b>, each giving a visible, measurable business outcome.</li>
+  <li>Increments line up naturally with <b>Transition Architectures</b>: each transition delivers one or more increments.</li>
+  <li>In the 10th Edition this topic is covered in Series Guide material rather than the ADM Techniques document.</li>
+</ul>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Gap analysis checks people, process, data, application and technology gaps, and doubles as a quality check.</li>
+    <li>Migration planning techniques include the <b>Implementation Factor Assessment and Deduction matrix</b>, the <b>Consolidated Gaps, Solutions and Dependencies matrix</b> and the <b>Business Value Assessment</b>.</li>
+    <li>Interoperability: <b>business, information, technical</b> categories and <b>four degrees</b>, consolidated in Phase E.</li>
+    <li>Readiness assessment rates factors by <b>urgency, readiness status and difficulty</b>, and feeds actions into the migration plan.</li>
+    <li>Risk: <b>effect × frequency</b> gives impact; know <b>initial</b> vs <b>residual</b>.</li>
+    <li><b>Capability-Based Planning</b> delivers business capabilities in increments that align with Transition Architectures.</li>
+  </ul>
+</div>

@@ -45,21 +45,36 @@ DAYS = [
      "Managing change after implementation, the three classes of change, and Requirements Management at the centre of the ADM"),
     (13, "Foundation", "Checkpoint: Full ADM Review Test", "TOGAF_Day13_ADM_Checkpoint.html",
      "The whole ADM on one page, where every deliverable is created and finalized, the top exam traps, and a 20-question checkpoint test"),
-    (14, "Foundation", "Applying the ADM", None, None),
-    (15, "Foundation", "ADM Techniques I", None, None),
-    (16, "Foundation", "ADM Techniques II", None, None),
-    (17, "Foundation", "Architecture Content Framework and Metamodel", None, None),
-    (18, "Foundation", "Deliverables, Artifacts, ABBs and SBBs in Depth", None, None),
-    (19, "Foundation", "Enterprise Continuum and Architecture Repository", None, None),
-    (20, "Foundation", "Architecture Governance and Compliance", None, None),
-    (21, "Foundation", "Architecture Capability Framework", None, None),
-    (22, "Foundation", "Series Guides and Reference Models", None, None),
-    (23, "Practitioner & Mock Exams", "Practitioner Scenarios I (Phases A–D)", None, None),
-    (24, "Practitioner & Mock Exams", "Practitioner Scenarios II (Phases E–H)", None, None),
-    (25, "Practitioner & Mock Exams", "Final Mock Exam", None, None),
+    (14, "Foundation", "Applying the ADM", "TOGAF_Day14_Applying_the_ADM.html",
+     "Iteration cycles, Baseline-first vs Target-first, architecture landscape levels, partitioning, security and agile"),
+    (15, "Foundation", "ADM Techniques I", "TOGAF_Day15_ADM_Techniques_I.html",
+     "Stakeholder management, architecture patterns, business scenarios, and architecture alternatives and trade-offs"),
+    (16, "Foundation", "ADM Techniques II", "TOGAF_Day16_ADM_Techniques_II.html",
+     "Gap analysis, migration planning techniques, interoperability, readiness assessment, risk management and capability-based planning"),
+    (17, "Foundation", "Architecture Content Framework and Metamodel", "TOGAF_Day17_Content_Framework_Metamodel.html",
+     "The structural model for architecture content, the content metamodel, logical vs physical components, and how artifacts are derived"),
+    (18, "Foundation", "Deliverables, Artifacts, ABBs and SBBs in Depth", "TOGAF_Day18_Deliverables_and_Building_Blocks.html",
+     "The key deliverables and their phases, ADD vs ARS, building block specifications and how building blocks evolve through the ADM"),
+    (19, "Foundation", "Enterprise Continuum and Architecture Repository", "TOGAF_Day19_Enterprise_Continuum_Repository.html",
+     "Classifying assets from generic to specific, the Architecture and Solutions Continua, repository components and the Standards Library"),
+    (20, "Foundation", "Architecture Governance and Compliance", "TOGAF_Day20_Governance_and_Compliance.html",
+     "Governance levels and characteristics, governance processes, the Architecture Board, Architecture Contracts and compliance reviews"),
+    (21, "Foundation", "Architecture Capability Framework", "TOGAF_Day21_Architecture_Capability.html",
+     "Establishing the EA capability with the ADM, maturity models, and the Architecture Skills Framework"),
+    (22, "Foundation", "Series Guides and Reference Models", "TOGAF_Day22_Series_Guides_Reference_Models.html",
+     "The TOGAF Series Guides, the TRM, the III-RM, business capabilities and value streams"),
+    (23, "Practitioner & Mock Exams", "Practitioner Scenarios I (Phases A–D)", "TOGAF_Day23_Practitioner_Scenarios_A_to_D.html",
+     "How the Part 2 exam works, a method for scenario questions, and four gradient-scored scenarios on Phases A to D"),
+    (24, "Practitioner & Mock Exams", "Practitioner Scenarios II (Phases E–H)", "TOGAF_Day24_Practitioner_Scenarios_E_to_H.html",
+     "What strong answers look like for Phases E to H and governance, and four gradient-scored scenarios"),
+    (25, "Practitioner & Mock Exams", "Final Mock Exam", "TOGAF_Day25_Final_Mock_Exam.html",
+     "A readiness checklist, a final-week revision plan, exam-day tips, and a full 8-scenario, 90-minute Part 2 mock exam"),
 ]
 
-PRACTICE = "Practitioner & Mock Exams"   # index section the mock exams appear in
+PRACTICE = "Practitioner & Mock Exams"
+
+# Timer length for days whose test is not the standard 20 minutes (Part 2 style days)
+DAY_MINUTES = {23: 45, 24: 45, 25: 90}   # index section the mock exams appear in
 
 EXAMS = [
     # (number, level label, title, file, dek)
@@ -97,7 +112,7 @@ def shell(title, body):
   <a class="sect" href="index.html">All 25 days</a>
 </div></div>
 {body}
-<footer class="site"><div class="in">Unofficial study material for the TOGAF Standard, 10th Edition. TOGAF is a registered trademark of The Open Group.</div></footer>
+<footer class="site"><div class="in"><i class="fa fa-heart" style="font-size:24px;color:red">&hearts;</i> Created by Vinay Somashekara | Unofficial study material for the TOGAF Standard, 10th Edition. TOGAF is a registered trademark of The Open Group.</div></footer>
 </body>
 </html>
 """
@@ -126,7 +141,20 @@ def build_day(i, published):
     toc.append(("quiz", "Mock test"))
     words = len(re.sub("<.*?>", " ", body).split())
     mins = max(3, round(words / 230))
-    nq = questions.count("\n  { q:") or questions.count("{ q:")
+    nq = len(re.findall(r"\bq:\s*\"", questions))
+    gradient = bool(re.search(r"\bp:\s*\[", questions))
+    mins_test = DAY_MINUTES.get(n, 20)
+    if gradient:
+        test_label = f"{nq} scenario questions"
+        test_intro = (f"{nq} scenario questions in {mins_test} minutes, scored like the real Part 2 exam: "
+                      "5 points for the best answer, 3 for the second best, 1 for the third best and 0 for the distractor. "
+                      "Start the timer, choose one answer per scenario, then submit to see your points and the reasoning for every option.")
+        quiz_title = f"Day {n} scenario test"
+    else:
+        test_label = f"{nq}-question mock test"
+        test_intro = (f"{nq} questions in {mins_test} minutes. Start the timer, pick your answers, then submit "
+                      "to see your score and the reasoning for every option.")
+        quiz_title = f"Day {n} mock test"
 
     toc_items = "".join(f'<li><a href="#{h}">{html.escape(t)}</a></li>' for h, t in toc)
     prev_link = next_link = ""
@@ -142,7 +170,7 @@ def build_day(i, published):
   <div class="kicker">Day {n} of {TOTAL} · {html.escape(section)}</div>
   <h1>{html.escape(title)}</h1>
   <p class="dek">{dek}</p>
-  <div class="byline"><span><b>{SITE}</b></span><span>About {mins} min read</span><span>{nq}-question mock test</span><span>TOGAF Standard, 10th Edition</span></div>
+  <div class="byline"><span><b>{SITE}</b></span><span>About {mins} min read</span><span>{test_label}</span><span>TOGAF Standard, 10th Edition</span></div>
   <div class="progress" aria-label="Course progress"><i style="width:{n / TOTAL * 100:.0f}%"></i></div>
 </header>
 <div class="layout">
@@ -154,12 +182,13 @@ def build_day(i, published):
 {body}
     <section class="quiz-head" id="quiz">
       <div class="kicker">Test yourself</div>
-      <h2>Day {n} mock test</h2>
-      <p>{nq} questions in 20 minutes. Start the timer, pick your answers, then submit to see your score and the reasoning for every option.</p>
+      <h2>{quiz_title}</h2>
+      <p>{test_intro}</p>
     </section>
     <div class="controls sticky">
-      <button id="startBtn">Start 20-min timer</button>
-      <span id="timer">20:00</span>
+      <button id="startBtn">Start {mins_test}-min timer</button>
+      <span id="answered"></span>
+      <span id="timer">{mins_test}:00</span>
     </div>
     <div id="questions"></div>
     <div class="controls">
@@ -167,11 +196,13 @@ def build_day(i, published):
       <button class="secondary" id="resetBtn">Reset</button>
       <span id="score"></span>
     </div>
+    <div id="breakdown" hidden></div>
     <nav class="pager">{prev_link}{next_link}</nav>
   </article>
 </div>
 <script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
 <script>
+window.QUIZ_MINUTES = {mins_test};
 const QUESTIONS = {questions};
 {QUIZ_JS}
 </script>"""
@@ -285,7 +316,7 @@ def build_readme():
                           if (ROOT / file).exists())
     (ROOT / "README.md").write_text(f"""# TOGAF Explained: 25-Day Study Guide
 
-A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation and Practitioner). Each day has an explainer-style lesson and a 20-minute interactive mock test with scoring and detailed reasoning for every option.
+A 25-day study programme for the **TOGAF Standard, 10th Edition** (Foundation and Practitioner). Each day has an explainer-style lesson and an interactive timed test with scoring and detailed reasoning for every option. Days 23–25 use Part 2 (Practitioner) scenario questions with 5/3/1/0 gradient scoring.
 
 **Live site:** https://born2vin.github.io/togaf-study-guide/
 

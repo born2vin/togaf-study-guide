@@ -1,0 +1,104 @@
+<p>Deliverables and building blocks are among the most tested topics in Part 1. Today goes beyond the definitions from Day 2: what the main deliverables contain, how the Architecture Definition Document differs from the Architecture Requirements Specification, and how building blocks evolve through the ADM.</p>
+
+<h2 id="recap">1. Quick Recap</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Term</th><th>One-line definition</th></tr>
+  <tr><td><b>Deliverable</b></td><td>A work product that is contractually specified, then formally reviewed, agreed and signed off</td></tr>
+  <tr><td><b>Artifact</b></td><td>A more granular work product describing one aspect of the architecture: a catalog, matrix or diagram</td></tr>
+  <tr><td><b>Building block</b></td><td>A (potentially reusable) component of enterprise capability that can be combined with others</td></tr>
+</table>
+</div>
+
+<h2 id="deliverables">2. The Key Deliverables</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Deliverable</th><th>Purpose</th><th>Main phase(s)</th></tr>
+  <tr><td><b>Organizational Model for EA</b></td><td>Scope, roles, budget and governance of the EA function</td><td>Preliminary</td></tr>
+  <tr><td><b>Tailored Architecture Framework</b></td><td>The tailored method and content, including principles and tools</td><td>Preliminary, A</td></tr>
+  <tr><td><b>Architecture Principles</b></td><td>The rules that guide architecture decisions</td><td>Preliminary, A</td></tr>
+  <tr><td><b>Request for Architecture Work</b></td><td>The sponsor's request that triggers an ADM cycle</td><td>Input to A</td></tr>
+  <tr><td><b>Statement of Architecture Work</b></td><td>Scope and approach; the agreement against which success is measured</td><td>A</td></tr>
+  <tr><td><b>Architecture Vision</b></td><td>High-level, aspirational view of the target and its value</td><td>A</td></tr>
+  <tr><td><b>Communications Plan</b></td><td>How, when and in what format stakeholders are informed</td><td>A</td></tr>
+  <tr><td><b>Capability Assessment</b></td><td>Baseline and target capability levels of the enterprise</td><td>A, E</td></tr>
+  <tr><td><b>Architecture Definition Document</b></td><td>The qualitative description of the architecture</td><td>A–F</td></tr>
+  <tr><td><b>Architecture Requirements Specification</b></td><td>The quantitative statements that implementations must meet</td><td>B–F</td></tr>
+  <tr><td><b>Architecture Roadmap</b></td><td>Work packages and timeline from Baseline to Target</td><td>B–F</td></tr>
+  <tr><td><b>Transition Architecture</b></td><td>An intermediate state of the architecture</td><td>E, F</td></tr>
+  <tr><td><b>Implementation and Migration Plan</b></td><td>The schedule and approach for implementation</td><td>E, F</td></tr>
+  <tr><td><b>Implementation Governance Model</b></td><td>How implementation will be governed</td><td>F</td></tr>
+  <tr><td><b>Architecture Contract</b></td><td>Agreement on deliverables, quality and fitness-for-purpose</td><td>F, G</td></tr>
+  <tr><td><b>Compliance Assessment</b></td><td>The result of checking a project against the architecture</td><td>G</td></tr>
+  <tr><td><b>Change Request</b></td><td>A request to change the architecture or a project</td><td>G, H</td></tr>
+  <tr><td><b>Requirements Impact Assessment</b></td><td>The impact of a changed requirement on the architecture</td><td>Requirements Management</td></tr>
+</table>
+</div>
+
+<h2 id="addars">3. Architecture Definition Document vs Architecture Requirements Specification</h2>
+<p>These two are easy to confuse. They are developed side by side and finalized together in Phase F.</p>
+<div class="table-wrap">
+<table>
+  <tr><th></th><th>Architecture Definition Document (ADD)</th><th>Architecture Requirements Specification (ARS)</th></tr>
+  <tr><td><b>Nature</b></td><td><b>Qualitative</b>: describes the architecture</td><td><b>Quantitative</b>: states measurable criteria</td></tr>
+  <tr><td><b>Audience</b></td><td>Stakeholders who need to understand the solution</td><td>Implementation projects that must comply</td></tr>
+  <tr><td><b>Typical contents</b></td><td>Scope; goals, objectives and constraints; principles; Baseline and Target for each domain; rationale; gap analysis; impact assessment</td><td>Success measures; architecture requirements; business and application service contracts; implementation guidelines and specifications; standards; interoperability requirements; constraints; assumptions</td></tr>
+</table>
+</div>
+<div class="card tip">Memory hook: the ADD says <b>what the architecture looks like</b>; the ARS says <b>what an implementation must achieve</b>.</div>
+
+<h2 id="bb">4. Building Blocks in Depth</h2>
+<h3>What goes into the specifications</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>ABB specification includes</th><th>SBB specification includes</th></tr>
+  <tr><td>
+    <ul>
+      <li>Fundamental functionality and attributes, including security and manageability</li>
+      <li>Interfaces: chosen set, supplied</li>
+      <li>Interoperability and relationships with other building blocks</li>
+      <li>Dependent building blocks and the functionality they require</li>
+      <li>Map to business and organizational entities and policies</li>
+    </ul>
+  </td><td>
+    <ul>
+      <li>Specific functionality and attributes</li>
+      <li>Interfaces: the implemented set</li>
+      <li>Required SBBs, with their functionality and names of their interfaces</li>
+      <li>Mapping to the IT topology and operational policies</li>
+      <li>Shared attributes such as security, manageability and scalability</li>
+      <li>Performance and configurability; design drivers and constraints</li>
+      <li>Relationships between the SBBs and the ABBs they implement</li>
+    </ul>
+  </td></tr>
+</table>
+</div>
+<h3>How building blocks evolve through the ADM</h3>
+<div class="chain">
+  <div class="box"><b>Phase A</b><small>building blocks identified at a high level in the vision</small></div>
+  <span class="arrow">↓ refined</span>
+  <div class="box"><b>Phases B, C, D</b><small>ABBs defined for each domain</small></div>
+  <span class="arrow">↓ realized</span>
+  <div class="box"><b>Phases E, F</b><small>SBBs identified: build, buy or reuse</small></div>
+  <span class="arrow">↓ delivered</span>
+  <div class="box"><b>Phase G</b><small>SBBs implemented and governed</small></div>
+</div>
+<p>ABBs relate to the <b>Architecture Continuum</b>, and SBBs relate to the <b>Solutions Continuum</b> (Day 19).</p>
+
+<h3>Good building block design</h3>
+<ul>
+  <li>Choose a sensible <b>granularity</b>: too fine creates complexity, too coarse limits reuse.</li>
+  <li>Group functionality that <b>naturally belongs together</b> and that can be delivered and replaced as a unit.</li>
+  <li>Define clear, published <b>interfaces</b> so blocks can be swapped and combined.</li>
+  <li>Look for <b>existing</b> building blocks in the Architecture Repository before creating new ones.</li>
+</ul>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Know which phase creates each key deliverable: Statement of Architecture Work in <b>A</b>, Implementation Governance Model in <b>F</b>, Compliance Assessment in <b>G</b>.</li>
+    <li>The <b>ADD is qualitative</b> (describes the architecture); the <b>ARS is quantitative</b> (criteria implementations must meet).</li>
+    <li>ABB specs describe <b>required</b> functionality and interfaces; SBB specs describe the <b>implemented</b> functionality, interfaces, topology and performance.</li>
+    <li>Building blocks go from high level in A, to <b>ABBs</b> in B–D, to <b>SBBs</b> in E–F, to implementation in G.</li>
+  </ul>
+</div>

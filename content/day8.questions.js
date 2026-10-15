@@ -47,8 +47,8 @@
     o: ["Implementation and Migration Plan (finalized)","Architecture Contract (signed)","Request for Architecture Work","Technology Architecture components of an Architecture Roadmap"],
     a: 3,
     r: "Like Phases B and C, Phase D produces <b>roadmap components</b> for its domain, plus the draft ADD and ARS. The Implementation and Migration Plan is finalized in Phase F, the Architecture Contract is signed in Phase G, and the Request for Architecture Work triggers Phase A." },
-  { q: "What is the Standards Information Base?",
+  { q: "What is the Standards Library in the TOGAF Architecture Repository?",
     o: ["A part of the Architecture Repository that holds the standards with which new architectures must comply","A catalog of business actors","A list of project risks","A Phase E work package"],
     a: 0,
-    r: "The <b>Standards Information Base</b> is part of the Architecture Repository. It holds industry, organizational and legal standards that architectures and solutions must follow. The other options are unrelated artifacts." }
+    r: "The <b>Standards Library</b> (the Standards Information Base in earlier editions) is part of the Architecture Repository. It holds industry, organizational and legal standards that architectures and solutions must follow. The other options are unrelated artifacts." }
 ]

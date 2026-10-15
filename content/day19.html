@@ -1,0 +1,91 @@
+<p>An architecture practice produces a lot of material, and much of it can be reused. Today covers the two ideas TOGAF uses to organize it: the <b>Enterprise Continuum</b>, a way of classifying assets, and the <b>Architecture Repository</b>, where they are stored. Both are part of the Architecture Content document in the 10th Edition.</p>
+
+<h2 id="continuum">1. The Enterprise Continuum</h2>
+<div class="card def">
+  The <b>Enterprise Continuum</b> is a view of the Architecture Repository that provides methods for <b>classifying architecture and solution artifacts</b>, both internal and external, as they evolve from <b>generic</b> Foundation Architectures to <b>Organization-Specific</b> Architectures.
+</div>
+<p>It helps architects communicate clearly about what kind of asset they are discussing, and it encourages <b>reuse</b>: start from the most generic suitable asset and specialize it, rather than building from scratch. It contains two complementary continua.</p>
+
+<h2 id="ac">2. The Architecture Continuum</h2>
+<div class="table-wrap">
+<table>
+  <tr><th>Level (generic → specific)</th><th>What it contains</th><th>Example</th></tr>
+  <tr><td><b>Foundation Architecture</b></td><td>Generic components, principles and guidelines that all other architectures are built on</td><td>The TOGAF Technical Reference Model (TRM)</td></tr>
+  <tr><td><b>Common Systems Architectures</b></td><td>Foundation services selected and integrated into reusable architectures for a problem domain</td><td>Security, management or networking architectures; the III-RM</td></tr>
+  <tr><td><b>Industry Architectures</b></td><td>Common systems components combined with industry-specific components for a vertical sector</td><td>Industry reference models for retail, energy or banking</td></tr>
+  <tr><td><b>Organization-Specific Architectures</b></td><td>Architectures that guide the final deployment of solutions for one enterprise</td><td>Your bank's Target Architecture</td></tr>
+</table>
+</div>
+
+<h2 id="sc">3. The Solutions Continuum</h2>
+<p>The <b>Solutions Continuum</b> holds the <b>implementations</b> that correspond to each level of the Architecture Continuum:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Level</th><th>What it contains</th></tr>
+  <tr><td><b>Foundation Solutions</b></td><td>Highly generic concepts, tools, products, services and components, such as programming languages and operating systems</td></tr>
+  <tr><td><b>Common Systems Solutions</b></td><td>Implementations of Common Systems Architectures, often branded products and services</td></tr>
+  <tr><td><b>Industry Solutions</b></td><td>Implementations of Industry Architectures, packaged for a sector and ready to tailor</td></tr>
+  <tr><td><b>Organization-Specific Solutions</b></td><td>Implementations of Organization-Specific Architectures, with the most unique content</td></tr>
+</table>
+</div>
+<div class="chain">
+  <div class="box"><b>Architecture Continuum</b><small>ABBs; what is needed</small></div>
+  <span class="arrow">↓ guides and supports, at each level</span>
+  <div class="box"><b>Solutions Continuum</b><small>SBBs; how it is implemented</small></div>
+</div>
+<div class="card tip"><b>Reading direction:</b> the left is <b>generic</b>, the right is <b>specific</b>. Architects look to the left for reusable assets and move right as they specialize them for the enterprise. Moving left is <b>generalization</b>: extracting reusable assets from specific work.</div>
+
+<h2 id="repo">4. The Architecture Repository</h2>
+<p>The Architecture Repository stores the different classes of architectural output. In the 10th Edition it has these components:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Component</th><th>What it holds</th></tr>
+  <tr><td><b>Architecture Metamodel</b></td><td>The organization's tailored use of the framework, including the method and content metamodel</td></tr>
+  <tr><td><b>Architecture Capability</b></td><td>The parameters, structures and processes that support governance of the repository</td></tr>
+  <tr><td><b>Architecture Landscape</b></td><td>Views of the building blocks in use, or planned, at particular points in time</td></tr>
+  <tr><td><b>Standards Library</b></td><td>The standards new architectures must comply with: industry standards, selected products, shared services</td></tr>
+  <tr><td><b>Reference Library</b></td><td>Guidelines, templates, patterns and reference material that speed up architecture work</td></tr>
+  <tr><td><b>Governance Repository</b></td><td>A record of governance activity across the enterprise</td></tr>
+  <tr><td><b>Architecture Requirements Repository</b></td><td>All authorized architecture requirements agreed with the Architecture Board</td></tr>
+  <tr><td><b>Solutions Landscape</b></td><td>The planned or deployed SBBs that support the Architecture Landscape</td></tr>
+</table>
+</div>
+<div class="card tip trap">Earlier editions used different names: <b>Standards Information Base</b> (now Standards Library) and <b>Governance Log</b> (now Governance Repository). Recognize both, but use the 10th Edition names.</div>
+
+<h2 id="landscape">5. The Architecture Landscape</h2>
+<p>The landscape is held at three levels of granularity:</p>
+<ul>
+  <li><b>Strategic Architectures</b>: long-term, enterprise-wide summary views</li>
+  <li><b>Segment Architectures</b>: more detailed operating models for areas of the enterprise</li>
+  <li><b>Capability Architectures</b>: detailed views of how a unit of capability is supported</li>
+</ul>
+
+<h2 id="standards">6. The Standards Library</h2>
+<h3>Classes of standard</h3>
+<ul>
+  <li><b>Legal and regulatory obligations</b></li>
+  <li><b>Industry standards</b></li>
+  <li><b>Organizational standards</b></li>
+</ul>
+<h3>Lifecycle of a standard</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Stage</th><th>Also known as</th><th>Meaning</th></tr>
+  <tr><td><b>Proposed Standard</b></td><td></td><td>Identified, but not yet evaluated for adoption</td></tr>
+  <tr><td><b>Provisional Standard</b></td><td>Trial Standard</td><td>May be adopted only under pilot conditions</td></tr>
+  <tr><td><b>Standard</b></td><td>Active Standard</td><td>The mainstream approach of choice</td></tr>
+  <tr><td><b>Phasing-Out Standard</b></td><td>Deprecated Standard</td><td>Nearing end of life; reuse allowed, new deployments discouraged</td></tr>
+  <tr><td><b>Retired Standard</b></td><td>Obsolete Standard</td><td>No longer valid; changes only as part of decommissioning</td></tr>
+</table>
+</div>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>The <b>Enterprise Continuum</b> is a view of the repository for <b>classifying</b> assets from generic to specific.</li>
+    <li>Architecture Continuum: <b>Foundation → Common Systems → Industry → Organization-Specific</b>. The Solutions Continuum mirrors it with implementations.</li>
+    <li>The Architecture Continuum <b>guides</b> the Solutions Continuum at each level; ABBs ↔ Architecture, SBBs ↔ Solutions.</li>
+    <li>Repository components: Metamodel, Capability, Landscape, <b>Standards Library</b>, Reference Library, <b>Governance Repository</b>, Requirements Repository, Solutions Landscape.</li>
+    <li>Standards move from <b>Proposed → Provisional → Standard → Phasing-Out → Retired</b>.</li>
+  </ul>
+</div>

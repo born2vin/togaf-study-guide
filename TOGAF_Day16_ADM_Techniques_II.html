@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 16: ADM Techniques II · TOGAF Explained</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   TOGAF Explained — shared template
+   Vox-style explainer layout · Société Générale-inspired palette (red/black)
+   Edit this file to change the look of every day at once, then run build.py.
+   ========================================================================== */
+:root {
+  --red: #e60028;          /* primary accent */
+  --red-dark: #b8001f;
+  --ink: #111111;          /* headlines, masthead */
+  --text: #222222;
+  --muted: #666666;
+  --rule: #e3e3e3;
+  --paper: #ffffff;
+  --wash: #f6f6f4;         /* soft panels */
+  --mark: rgba(230, 0, 40, 0.16);   /* highlighter */
+  --ok: #1f7a4a; --ok-soft: #e8f4ed;
+  --bad: #c4001f; --bad-soft: #fde9ec;
+  --mid: #8a5a00; --mid-soft: #fff3d6;
+  --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --red: #ff4d5e; --red-dark: #ff7a86;
+    --ink: #f3f3f3; --text: #e2e2e2; --muted: #a3a3a3;
+    --rule: #333333; --paper: #141414; --wash: #1d1d1d;
+    --mark: rgba(255, 77, 94, 0.26);
+    --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+    --mid: #f2c14e; --mid-soft: #332a12;
+  }
+}
+:root[data-theme="dark"] {
+  --red: #ff4d5e; --red-dark: #ff7a86;
+  --ink: #f3f3f3; --text: #e2e2e2; --muted: #a3a3a3;
+  --rule: #333333; --paper: #141414; --wash: #1d1d1d;
+  --mark: rgba(255, 77, 94, 0.26);
+  --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+    --mid: #f2c14e; --mid-soft: #332a12;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--text);
+  font: 19px/1.65 var(--serif); }
+a { color: inherit; }
+
+/* ---------- Masthead ---------- */
+.masthead { background: #000; color: #fff; border-top: 6px solid var(--red); }
+.masthead .in { max-width: 1080px; margin: 0 auto; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font: 900 20px/1 var(--sans); letter-spacing: -.02em; text-decoration: none; color: #fff; }
+.brand span { color: var(--red); }
+.masthead .sect { font: 700 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #bbb; text-decoration: none; }
+.masthead .sect:hover { color: #fff; }
+
+/* ---------- Article header ---------- */
+.hero { max-width: 1080px; margin: 0 auto; padding: 40px 16px 8px; }
+.kicker { font: 800 13px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.hero h1 { font: 900 clamp(34px, 6vw, 60px)/1.02 var(--sans); letter-spacing: -.035em;
+  color: var(--ink); margin: 14px 0 16px; max-width: 900px; }
+.dek { font: 400 clamp(19px, 2.4vw, 23px)/1.45 var(--serif); color: var(--muted); max-width: 760px; margin: 0; }
+.byline { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--rule);
+  font: 500 13px/1.4 var(--sans); color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.byline b { color: var(--ink); }
+.progress { height: 4px; background: var(--rule); margin-top: 14px; max-width: 760px; }
+.progress i { display: block; height: 100%; background: var(--red); }
+
+/* ---------- Layout ---------- */
+.layout { max-width: 1080px; margin: 0 auto; padding: 24px 16px 64px;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+@media (min-width: 980px) { .layout { grid-template-columns: 240px minmax(0, 680px); } }
+article { min-width: 0; }
+
+/* Table of contents — "In this explainer" */
+.toc { font-family: var(--sans); }
+.toc h4 { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+  margin: 0 0 12px; color: var(--ink); border-top: 4px solid var(--ink); padding-top: 10px; }
+.toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+.toc li { counter-increment: t; border-bottom: 1px solid var(--rule); }
+.toc a { display: flex; gap: 10px; padding: 9px 0; text-decoration: none; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--text); }
+.toc a::before { content: counter(t, decimal-leading-zero); color: var(--red); font-weight: 800; }
+.toc a:hover { color: var(--red); }
+@media (min-width: 980px) { .toc { position: sticky; top: 16px; align-self: start; } }
+@media (max-width: 979px) {
+  .toc details { border-top: 4px solid var(--ink); border-bottom: 1px solid var(--rule); }
+  .toc h4 { border: 0; padding: 12px 0; margin: 0; cursor: pointer; }
+}
+
+/* ---------- Body typography ---------- */
+article > p, article li { color: var(--text); }
+article p { margin: 0 0 1.1em; }
+article b, article strong { font-weight: 700; color: var(--ink); }
+ul, ol { padding-left: 1.3em; }
+li { margin: .3em 0; }
+li::marker { color: var(--red); font-weight: 700; }
+
+article h2 { font: 900 clamp(26px, 3.6vw, 34px)/1.12 var(--sans); letter-spacing: -.025em;
+  color: var(--ink); margin: 56px 0 18px; scroll-margin-top: 16px; }
+article h2 .num { display: block; font: 800 14px/1 var(--sans); letter-spacing: .14em; color: var(--red); margin-bottom: 10px; }
+article h3 { font: 800 21px/1.25 var(--sans); letter-spacing: -.01em; color: var(--ink); margin: 34px 0 12px; }
+
+/* Highlighter: key phrases in definitions */
+.def b, mark { background: linear-gradient(transparent 58%, var(--mark) 58%); padding: 0 .08em; color: var(--ink); }
+
+/* ---------- Explainer cards ---------- */
+.card { background: var(--wash); padding: 20px 22px; margin: 22px 0; border-radius: 0; }
+.card > :last-child { margin-bottom: 0; }
+.card.def { background: transparent; border-left: 6px solid var(--red); padding: 4px 0 4px 20px;
+  font: 400 21px/1.55 var(--serif); color: var(--ink); }
+.card.tip { background: var(--paper); border: 2px solid var(--ink); position: relative; padding-top: 30px; font-size: 17px; }
+.card.tip::before { content: "Tip"; position: absolute; top: -12px; left: 16px; background: var(--ink); color: var(--paper);
+  font: 800 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; padding: 6px 10px; }
+.card.tip.trap { border-color: var(--red); }
+.card.tip.trap::before { content: "Exam trap"; background: var(--red); color: #fff; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; margin: 22px 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font: 15px/1.5 var(--sans); }
+th { background: var(--ink); color: var(--paper); text-align: left; font-weight: 700; padding: 10px 12px; font-size: 13px; letter-spacing: .03em; }
+td { border-bottom: 1px solid var(--rule); padding: 11px 12px; vertical-align: top; }
+td b { color: var(--ink); }
+tr:nth-child(even) td { background: var(--wash); }
+td ul { margin: 0; padding-left: 1.1em; }
+
+/* ---------- Flow chains (vertical explainer flow) ---------- */
+.chain { display: flex; flex-direction: column; align-items: stretch; gap: 0; margin: 26px 0; font-family: var(--sans); max-width: 460px; }
+.chain .box { background: var(--paper); border: 2px solid var(--ink); padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.chain .box b { font-size: 16px; line-height: 1.25; color: var(--ink); }
+.chain .box small { color: var(--muted); font-size: 14px; }
+.chain .arrow { align-self: flex-start; margin-left: 22px; padding: 6px 0 6px 14px; border-left: 2px solid var(--red);
+  font: 800 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+
+/* ---------- ADM grid (Day 1) ---------- */
+.adm { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 2px; background: var(--rule);
+  border: 2px solid var(--ink); margin: 22px 0; font: 14px/1.45 var(--sans); }
+.adm div { background: var(--paper); padding: 12px; }
+.adm b { display: block; color: var(--ink); font-size: 15px; margin-bottom: 4px; }
+.adm .center { background: var(--red); color: #fff; }
+.adm .center b { color: #fff; }
+
+/* ---------- Takeaway ---------- */
+#summary { border-top: 6px solid var(--red); padding-top: 18px; }
+#summary + .card { background: var(--ink); color: var(--paper); padding: 24px 26px; }
+#summary + .card b, #summary + .card li, #summary + .card p { color: var(--paper); }
+#summary + .card li::marker { color: var(--red); }
+
+/* ---------- Quiz ---------- */
+.quiz-head { margin-top: 64px; background: var(--red); color: #fff; padding: 26px 24px; font-family: var(--sans); }
+.quiz-head .kicker { color: #fff; opacity: .85; }
+.quiz-head h2 { color: #fff; margin: 10px 0 6px; }
+.quiz-head p { margin: 0; font: 400 17px/1.5 var(--serif); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0; font-family: var(--sans); }
+.controls.sticky { position: sticky; top: 0; z-index: 5; background: var(--paper); padding: 10px 0; border-bottom: 1px solid var(--rule); margin: 0 0 8px; }
+button { font: 700 15px/1 var(--sans); padding: 13px 20px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; border-radius: 0; }
+button:hover { background: var(--red); border-color: var(--red); color: #fff; }
+button.secondary { background: transparent; color: var(--ink); }
+#timer { font: 800 22px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--ink); margin-left: auto; }
+#timer.low { color: var(--red); }
+#score { font: 800 20px/1.3 var(--sans); color: var(--ink); width: 100%; }
+
+.q { border-top: 2px solid var(--ink); padding: 18px 0 8px; margin: 26px 0 0; }
+.q .qn { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.q p.stem { font: 700 19px/1.4 var(--sans); color: var(--ink); margin: 8px 0 14px; }
+.q p.stem i { font-weight: 700; }
+.q label { display: flex; gap: 12px; align-items: flex-start; padding: 11px 14px; margin: 6px 0; border: 1px solid var(--rule);
+  cursor: pointer; font: 400 16px/1.45 var(--sans); background: var(--paper); }
+.q label:hover { border-color: var(--ink); }
+.q label .lt { font-weight: 800; color: var(--muted); min-width: 1.2em; }
+.q input { position: absolute; opacity: 0; pointer-events: none; }
+.q label:has(input:checked) { border: 2px solid var(--ink); padding: 10px 13px; }
+.q label:has(input:checked) .lt { color: var(--red); }
+.q input:focus-visible + .lt { outline: 2px solid var(--red); outline-offset: 2px; }
+label.is-answer { background: var(--ok-soft) !important; border: 2px solid var(--ok) !important; padding: 10px 13px !important; }
+label.is-wrong { background: var(--bad-soft) !important; border: 2px solid var(--bad) !important; padding: 10px 13px !important; }
+label.is-partial { background: var(--mid-soft) !important; border: 2px solid var(--mid) !important; padding: 10px 13px !important; }
+.q .pts { margin-left: auto; padding-left: 10px; white-space: nowrap; font: 800 12px/1.6 var(--sans); color: var(--muted); }
+.q .is-answer .pts { color: var(--ok); }
+.q.partial .reason { border-left-color: var(--mid); }
+.q.partial .verdict { color: var(--mid); }
+.scenario { background: var(--wash); border-left: 4px solid var(--ink); padding: 14px 18px; margin: 10px 0 14px; font: 400 17px/1.6 var(--serif); }
+.scenario p { margin: 0 0 .8em; }
+.scenario > :last-child { margin-bottom: 0; }
+.reason { display: none; margin: 14px 0 6px; padding: 14px 16px; background: var(--wash); border-left: 4px solid var(--ink); font-size: 16px; line-height: 1.55; }
+.show .reason { display: block; }
+.q.correct .reason { border-left-color: var(--ok); }
+.q.wrong .reason { border-left-color: var(--bad); }
+.verdict { font: 800 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+.q.correct .verdict { color: var(--ok); } .q.wrong .verdict { color: var(--bad); }
+
+#answered { font: 600 14px/1 var(--sans); color: var(--muted); }
+#breakdown { margin: 8px 0 24px; }
+#breakdown h3 { margin-top: 12px; }
+#breakdown .bar { display: block; height: 8px; background: var(--rule); min-width: 80px; }
+#breakdown .bar i { display: block; height: 100%; background: var(--ink); }
+#breakdown td.ok { color: var(--ok); font-weight: 700; }
+#breakdown td.weak { color: var(--bad); font-weight: 700; }
+
+/* ---------- Exam facts strip ---------- */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 2px; background: var(--ink); border: 2px solid var(--ink); margin: 22px 0; font-family: var(--sans); }
+.facts div { background: var(--paper); padding: 14px; }
+.facts b { display: block; font: 900 28px/1 var(--sans); color: var(--red); letter-spacing: -.02em; }
+.facts span { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.level { display: inline-block; font: 800 12px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 6px 10px; background: var(--ink); color: var(--paper); margin-top: 10px; }
+.tile .lvl { font: 800 11px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+
+/* ---------- Prev / next ---------- */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 56px; font-family: var(--sans); }
+.pager a { display: block; border-top: 4px solid var(--ink); padding: 12px 0; text-decoration: none; }
+.pager a:hover { border-color: var(--red); }
+.pager small { display: block; font: 800 11px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+.pager span { font-weight: 800; color: var(--ink); line-height: 1.25; }
+.pager .next { text-align: right; grid-column: 2; }
+
+footer.site { background: #000; color: #aaa; font: 13px/1.5 var(--sans); }
+footer.site .in { max-width: 1080px; margin: 0 auto; padding: 22px 16px; }
+
+/* ---------- Index page ---------- */
+.series { max-width: 1080px; margin: 0 auto; padding: 8px 16px 64px; }
+.series h2 { font: 900 24px/1.1 var(--sans); letter-spacing: -.02em; color: var(--ink); border-top: 4px solid var(--ink); padding-top: 12px; margin: 40px 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px 24px; }
+.tile { display: block; text-decoration: none; border-top: 2px solid var(--rule); padding-top: 12px; font-family: var(--sans); }
+a.tile { border-top-color: var(--ink); }
+a.tile:hover { border-top-color: var(--red); }
+a.tile:hover .t { color: var(--red); }
+.tile .n { font: 800 12px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.tile .t { font: 800 19px/1.2 var(--sans); color: var(--ink); margin-top: 8px; letter-spacing: -.01em; }
+.tile .d { font: 400 15px/1.45 var(--serif); color: var(--muted); margin-top: 6px; }
+.tile.soon .n { color: var(--muted); }
+.tile.soon .t { color: var(--muted); }
+.tile.soon .n::after { content: " · Coming soon"; font-weight: 600; }
+
+@media print {
+  .masthead, .toc, .controls, .pager, footer.site { display: none; }
+  .reason { display: block; }
+  .layout { display: block; }
+  body { font-size: 12pt; }
+}
+
+</style>
+</head>
+<body>
+<div class="masthead"><div class="in">
+  <a class="brand" href="index.html">TOGAF<span>.</span>Explained</a>
+  <a class="sect" href="index.html">All 25 days</a>
+</div></div>
+
+<header class="hero">
+  <div class="kicker">Day 16 of 25 · Foundation</div>
+  <h1>ADM Techniques II</h1>
+  <p class="dek">Gap analysis, migration planning techniques, interoperability, readiness assessment, risk management and capability-based planning</p>
+  <div class="byline"><span><b>TOGAF Explained</b></span><span>About 4 min read</span><span>13-question mock test</span><span>TOGAF Standard, 10th Edition</span></div>
+  <div class="progress" aria-label="Course progress"><i style="width:64%"></i></div>
+</header>
+<div class="layout">
+  <aside class="toc">
+    <details open><summary style="list-style:none"><h4>In this explainer</h4></summary>
+    <ol><li><a href="#gap">Gap Analysis in More Depth</a></li><li><a href="#migration">Migration Planning Techniques</a></li><li><a href="#interop">Interoperability Requirements</a></li><li><a href="#readiness">Business Transformation Readiness Assessment</a></li><li><a href="#risk">Risk Management</a></li><li><a href="#cbp">Capability-Based Planning</a></li><li><a href="#summary">The takeaway</a></li><li><a href="#quiz">Mock test</a></li></ol></details>
+  </aside>
+  <article>
+<p>Today covers the <b>analytical and planning</b> techniques: the ones that turn architecture descriptions into a realistic, prioritized plan. They are used mostly from Phase B onwards, and especially in Phases E and F.</p>
+
+<h2 id="gap"><span class="num">01</span>Gap Analysis in More Depth</h2>
+<p>Day 5 introduced the gap analysis matrix: Baseline building blocks as rows, Target building blocks as columns, with a <b>"New"</b> row and an <b>"Eliminated"</b> column. When you look for gaps, check every domain:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Domain</th><th>Typical gaps to look for</th></tr>
+  <tr><td><b>Business</b></td><td>People (skills, staffing), process, tools, information, measurement, financial, facilities</td></tr>
+  <tr><td><b>Data</b></td><td>Data not current, not where it's needed, not available, not created, or not consumed; missing relationships</td></tr>
+  <tr><td><b>Application</b></td><td>Applications impacted, eliminated or newly created</td></tr>
+  <tr><td><b>Technology</b></td><td>Technology impacted, eliminated or newly created</td></tr>
+</table>
+</div>
+<div class="card tip">Gap analysis is also a <b>quality check</b>: it reveals services or functions that were accidentally left out of the Target, and highlights opportunities for reuse.</div>
+
+<h2 id="migration"><span class="num">02</span>Migration Planning Techniques</h2>
+<p>These techniques are used mainly in <b>Phases E and F</b>:</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Technique</th><th>Purpose</th></tr>
+  <tr><td><b>Implementation Factor Assessment and Deduction matrix</b></td><td>Records the factors that affect implementation (risks, issues, assumptions, dependencies), in three columns: <b>factor</b>, <b>description</b> and <b>deduction</b> (what it means for the plan)</td></tr>
+  <tr><td><b>Consolidated Gaps, Solutions and Dependencies matrix</b></td><td>Lists every gap from Phases B–D with potential solutions and their dependencies, as the basis for work packages</td></tr>
+  <tr><td><b>Architecture Definition Increments table</b></td><td>Shows which projects deliver which increments of the architecture across Transition Architectures</td></tr>
+  <tr><td><b>Transition Architecture State Evolution table</b></td><td>Shows the state of each building block in each Transition Architecture</td></tr>
+  <tr><td><b>Business Value Assessment</b></td><td>Plots each work package on a <b>value vs risk</b> matrix to support prioritization</td></tr>
+</table>
+</div>
+
+<h2 id="interop"><span class="num">03</span>Interoperability Requirements</h2>
+<div class="card def">
+  <b>Interoperability</b> is the ability to <b>share information and services</b>. TOGAF asks architects to define, as early as possible, the degree to which information and services must be shared.
+</div>
+<h3>Three categories</h3>
+<ul>
+  <li><b>Operational or business interoperability</b>: how business processes are shared</li>
+  <li><b>Information interoperability</b>: how information is shared</li>
+  <li><b>Technical interoperability</b>: how technical services are shared, or at least connect to one another</li>
+</ul>
+<h3>Four degrees of information interoperability</h3>
+<div class="table-wrap">
+<table>
+  <tr><th>Degree</th><th>Name</th><th>Meaning</th></tr>
+  <tr><td><b>1</b></td><td>Unstructured data exchange</td><td>Exchange of human-readable, unstructured data, such as free text</td></tr>
+  <tr><td><b>2</b></td><td>Structured data exchange</td><td>Exchange of structured data that still needs manual and/or automated handling</td></tr>
+  <tr><td><b>3</b></td><td>Seamless sharing of data</td><td>Automated sharing of data among systems based on a common exchange model</td></tr>
+  <tr><td><b>4</b></td><td>Seamless sharing of information</td><td>Universal interpretation of information, through cooperating applications</td></tr>
+</table>
+</div>
+<p>Interoperability is identified in Phase A, refined in Phases B to D, and <b>consolidated and reconciled in Phase E</b>.</p>
+
+<h2 id="readiness"><span class="num">04</span>Business Transformation Readiness Assessment</h2>
+<p>Used mainly in <b>Phase A</b> and revisited in Phases E and F, this technique evaluates how ready the organization is to change. TOGAF's readiness factors include:</p>
+<div class="table-wrap">
+<table>
+  <tr><td>Vision</td><td>Desire, willingness and resolve</td><td>Need</td></tr>
+  <tr><td>Business case</td><td>Funding</td><td>Sponsorship and leadership</td></tr>
+  <tr><td>Governance</td><td>Accountability</td><td>Workable approach and execution model</td></tr>
+  <tr><td>IT capacity to execute</td><td>Departmental capacity to execute</td><td>Ability to implement and operate</td></tr>
+</table>
+</div>
+<h3>The steps</h3>
+<ol>
+  <li><b>Determine</b> the readiness factors</li>
+  <li><b>Present</b> them, for example using maturity models</li>
+  <li><b>Assess</b> each factor, rating its <b>urgency</b>, <b>readiness status</b> and <b>degree of difficulty</b> to fix</li>
+  <li><b>Assess the risks</b> for each factor and identify improvement actions</li>
+  <li><b>Work those actions</b> into the Implementation and Migration Plan (Phases E and F)</li>
+</ol>
+
+<h2 id="risk"><span class="num">05</span>Risk Management</h2>
+<p>Risk is identified in Phase A and managed throughout the ADM. TOGAF's process:</p>
+<ol>
+  <li><b>Risk classification</b></li>
+  <li><b>Risk identification</b> (the readiness factors are a good starting list)</li>
+  <li><b>Initial risk assessment</b>: classify each risk by <b>effect</b> and <b>frequency</b></li>
+  <li><b>Risk mitigation and residual risk assessment</b></li>
+  <li><b>Risk monitoring</b>, notably during implementation governance</li>
+</ol>
+<div class="table-wrap">
+<table>
+  <tr><th>Scale</th><th>Values</th></tr>
+  <tr><td><b>Effect</b></td><td>Catastrophic · Critical · Marginal · Negligible</td></tr>
+  <tr><td><b>Frequency</b></td><td>Frequent · Likely · Occasional · Seldom · Unlikely</td></tr>
+  <tr><td><b>Resulting impact</b></td><td>Extremely high · High · Moderate · Low</td></tr>
+</table>
+</div>
+<div class="card tip trap"><b>Initial</b> risk is the level <i>before</i> mitigation; <b>residual</b> risk is what remains <i>after</i> mitigation. Exam questions often swap the two.</div>
+
+<h2 id="cbp"><span class="num">06</span>Capability-Based Planning</h2>
+<div class="card def">
+  <b>Capability-Based Planning</b> is a business-planning technique that focuses on the <b>planning, engineering and delivery of strategic business capabilities</b> to the enterprise.
+</div>
+<ul>
+  <li>Capabilities are <b>business-driven</b> and often <b>cut across organizational boundaries</b>, so planning by capability helps avoid silos.</li>
+  <li>Capabilities are delivered in <b>capability increments</b>, each giving a visible, measurable business outcome.</li>
+  <li>Increments line up naturally with <b>Transition Architectures</b>: each transition delivers one or more increments.</li>
+  <li>In the 10th Edition this topic is covered in Series Guide material rather than the ADM Techniques document.</li>
+</ul>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li>Gap analysis checks people, process, data, application and technology gaps, and doubles as a quality check.</li>
+    <li>Migration planning techniques include the <b>Implementation Factor Assessment and Deduction matrix</b>, the <b>Consolidated Gaps, Solutions and Dependencies matrix</b> and the <b>Business Value Assessment</b>.</li>
+    <li>Interoperability: <b>business, information, technical</b> categories and <b>four degrees</b>, consolidated in Phase E.</li>
+    <li>Readiness assessment rates factors by <b>urgency, readiness status and difficulty</b>, and feeds actions into the migration plan.</li>
+    <li>Risk: <b>effect × frequency</b> gives impact; know <b>initial</b> vs <b>residual</b>.</li>
+    <li><b>Capability-Based Planning</b> delivers business capabilities in increments that align with Transition Architectures.</li>
+  </ul>
+</div>
+
+    <section class="quiz-head" id="quiz">
+      <div class="kicker">Test yourself</div>
+      <h2>Day 16 mock test</h2>
+      <p>13 questions in 20 minutes. Start the timer, pick your answers, then submit to see your score and the reasoning for every option.</p>
+    </section>
+    <div class="controls sticky">
+      <button id="startBtn">Start 20-min timer</button>
+      <span id="answered"></span>
+      <span id="timer">20:00</span>
+    </div>
+    <div id="questions"></div>
+    <div class="controls">
+      <button id="submitBtn">Submit &amp; show reasoning</button>
+      <button class="secondary" id="resetBtn">Reset</button>
+      <span id="score"></span>
+    </div>
+    <div id="breakdown" hidden></div>
+    <nav class="pager"><a class="prev" href="TOGAF_Day15_ADM_Techniques_I.html"><small>← Day 15</small><span>ADM Techniques I</span></a><a class="next" href="TOGAF_Day17_Content_Framework_Metamodel.html"><small>Day 17 →</small><span>Architecture Content Framework and Metamodel</span></a></nav>
+  </article>
+</div>
+<script>if (window.innerWidth < 980) document.querySelector(".toc details").removeAttribute("open");</script>
+<script>
+window.QUIZ_MINUTES = 20;
+const QUESTIONS = [
+  { q: "Which three columns make up the Implementation Factor Assessment and Deduction matrix?",
+    o: ["Gap, solution, dependency","Factor, description, deduction","Risk, owner, due date","Value, risk, cost"],
+    a: 1,
+    r: "The matrix has <b>factor</b>, <b>description</b> and <b>deduction</b> columns: what the factor is, and what it means for the plan. A describes the Consolidated Gaps, Solutions and Dependencies matrix." },
+  { q: "Which technique plots work packages on a matrix of value against risk?",
+    o: ["Transition Architecture State Evolution table","Architecture Definition Increments table","Business Value Assessment","Gap analysis matrix"],
+    a: 2,
+    r: "The <b>Business Value Assessment</b> plots <b>value vs risk</b> to prioritize work packages. The tables in A and B describe how the architecture evolves across transitions." },
+  { q: "Which table shows the state of each architecture building block in each Transition Architecture?",
+    o: ["Transition Architecture State Evolution table","Consolidated Gaps, Solutions and Dependencies matrix","Stakeholder Map Matrix","Implementation Factor Assessment and Deduction matrix"],
+    a: 0,
+    r: "The <b>Transition Architecture State Evolution table</b> tracks each building block's state across the transitions." },
+  { q: "Which are TOGAF's three categories of interoperability?",
+    o: ["Physical, logical and conceptual","Internal, external and partner","Data, application and network","Operational or business, information, and technical"],
+    a: 3,
+    r: "TOGAF distinguishes <b>operational or business</b>, <b>information</b> and <b>technical</b> interoperability." },
+  { q: "Two systems automatically share data based on a common exchange model, but they do not share a common interpretation of what the information means. Which degree of interoperability is this?",
+    o: ["Degree 1: unstructured data exchange","Degree 3: seamless sharing of data","Degree 2: structured data exchange","Degree 4: seamless sharing of information"],
+    a: 1,
+    r: "Automated sharing based on a common exchange model is <b>Degree 3</b>. Degree 4 adds a <b>universal interpretation of information</b> through cooperating applications." },
+  { q: "In which phase are interoperability requirements consolidated and reconciled?",
+    o: ["Phase A","Phase B","Phase G","Phase E"],
+    a: 3,
+    r: "Interoperability is identified in Phase A, refined in B–D, and <b>consolidated and reconciled in Phase E</b>." },
+  { q: "Which of the following is NOT one of TOGAF's business transformation readiness factors?",
+    o: ["Funding","Market share","Sponsorship and leadership","IT capacity to execute"],
+    a: 1,
+    r: "<b>Market share</b> is not a readiness factor. The factors include vision, desire, need, business case, funding, sponsorship and leadership, governance, accountability, workable approach, IT and departmental capacity, and ability to implement and operate." },
+  { q: "When assessing each readiness factor, which three ratings does TOGAF suggest?",
+    o: ["Urgency, readiness status and degree of difficulty to fix","Cost, time and quality","Effect, frequency and impact","Power, interest and attitude"],
+    a: 0,
+    r: "Each factor is rated by <b>urgency</b>, <b>readiness status</b> and <b>degree of difficulty</b> to fix. C is the risk scale, and D relates to stakeholders." },
+  { q: "In TOGAF's initial risk assessment, which two dimensions combine to give a risk's impact?",
+    o: ["Cost and schedule","Owner and status","Effect and frequency","Value and risk"],
+    a: 2,
+    r: "<b>Effect</b> (catastrophic to negligible) and <b>frequency</b> (frequent to unlikely) combine to give an impact level (extremely high to low)." },
+  { q: "Which of the following is a valid value on TOGAF's risk effect scale?",
+    o: ["Occasional","Seldom","Likely","Marginal"],
+    a: 3,
+    r: "Effect values are <b>catastrophic, critical, marginal and negligible</b>. Occasional, seldom and likely are values on the <b>frequency</b> scale." },
+  { q: "Which step follows risk identification in TOGAF's risk management process?",
+    o: ["Initial risk assessment","Risk monitoring","Risk classification","Residual risk assessment"],
+    a: 0,
+    r: "The order is classification, identification, <b>initial risk assessment</b>, mitigation and residual assessment, then monitoring." },
+  { q: "What does Capability-Based Planning focus on?",
+    o: ["Buying the cheapest technology","The planning, engineering and delivery of strategic business capabilities","Minimizing the number of stakeholders","Documenting only the Baseline Architecture"],
+    a: 1,
+    r: "<b>Capability-Based Planning</b> focuses on delivering <b>strategic business capabilities</b>, which often cut across organizational boundaries." },
+  { q: "<i>Scenario:</i> Gap analysis finds that the Target needs customer data in the contact centre in real time, but today it is only available in a nightly batch report. What type of gap is this?",
+    o: ["An application gap: an application must be eliminated","A people gap: staff need training","A data gap: data is not available where and when it is needed","A technology gap: hardware must be retired"],
+    a: 2,
+    r: "Data that is not current or not located where it is needed is a classic <b>data gap</b>. Solving it may also involve application or technology changes, but the gap itself is in the data." }
+];
+// Shared quiz engine. Expects a global QUESTIONS array:
+// { q: stem HTML, o: [option HTML...], a: index of correct option, r: reasoning HTML, t: optional topic,
+//   s: optional scenario HTML shown above the stem, p: optional points per option (Part 2 gradient scoring, e.g. [3,5,0,1]) }
+// Optional globals: QUIZ_MINUTES (default 20). If questions carry a topic (t),
+// a per-topic score breakdown is shown after grading.
+(function () {
+  const MINUTES = window.QUIZ_MINUTES || 20;
+  const container = document.getElementById("questions");
+  const letters = "ABCDEF";
+  const lettered = item => item.o.length > 2;
+
+  QUESTIONS.forEach((item, i) => {
+    const div = document.createElement("div");
+    div.className = "q"; div.id = "q" + i;
+    let html = `<div class="qn">${item.s ? "Scenario" : "Question"} ${i + 1} of ${QUESTIONS.length}</div>`;
+    if (item.s) html += `<div class="scenario">${item.s}</div>`;
+    html += `<p class="stem">${item.q}</p>`;
+    item.o.forEach((opt, j) => {
+      const lt = lettered(item) ? letters[j] : (j === 0 ? "T" : "F");
+      html += `<label><input type="radio" name="q${i}" value="${j}"><span class="lt">${lt}</span><span>${opt}</span><span class="pts"></span></label>`;
+    });
+    const best = item.p ? item.p.indexOf(5) : item.a;
+    const ans = lettered(item) ? `${letters[best]}. ${item.o[best]}` : item.o[best];
+    html += `<div class="reason"><span class="verdict"></span>${item.p ? "Best answer" : "Correct answer"}: <b>${ans}</b><br>${item.r}</div>`;
+    div.innerHTML = html;
+    container.appendChild(div);
+  });
+
+  const answeredEl = document.getElementById("answered");
+  function countAnswered() {
+    if (answeredEl) answeredEl.textContent = `${document.querySelectorAll(".q input:checked").length} / ${QUESTIONS.length} answered`;
+  }
+  container.addEventListener("change", countAnswered);
+  countAnswered();
+
+  let seconds = MINUTES * 60, timerId = null;
+  const timerEl = document.getElementById("timer");
+  const startBtn = document.getElementById("startBtn");
+  function renderTime() {
+    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    timerEl.textContent = `${m}:${s}`;
+    timerEl.classList.toggle("low", seconds <= 120);
+  }
+  function stop() { if (timerId) { clearInterval(timerId); timerId = null; } startBtn.textContent = `Start ${MINUTES}-min timer`; }
+  startBtn.onclick = () => {
+    if (timerId) return;
+    startBtn.textContent = "Timer running…";
+    timerId = setInterval(() => {
+      seconds--; renderTime();
+      if (seconds <= 0) { stop(); timerEl.textContent = "Time's up"; grade(); }
+    }, 1000);
+  };
+
+  function grade() {
+    stop();
+    let score = 0, max = 0;
+    const NAMES = { 5: "Best answer", 3: "Second-best answer", 1: "Third-best answer", 0: "Distractor" };
+    QUESTIONS.forEach((item, i) => {
+      const div = document.getElementById("q" + i);
+      const chosen = div.querySelector("input:checked");
+      const labels = div.querySelectorAll("label");
+      labels.forEach(l => l.classList.remove("is-answer", "is-wrong", "is-partial"));
+      const verdict = div.querySelector(".verdict");
+      div.classList.remove("correct", "wrong", "partial");
+      if (item.p) {
+        const best = item.p.indexOf(5);
+        labels.forEach((l, j) => { l.querySelector(".pts").textContent = `${item.p[j]} pt${item.p[j] === 1 ? "" : "s"}`; });
+        labels[best].classList.add("is-answer");
+        const pts = chosen ? item.p[Number(chosen.value)] : 0;
+        score += pts; max += 5; item._pts = pts;
+        if (chosen && pts < 5) labels[Number(chosen.value)].classList.add(pts > 0 ? "is-partial" : "is-wrong");
+        div.classList.add(pts === 5 ? "correct" : pts > 0 ? "partial" : "wrong");
+        verdict.textContent = chosen ? `${NAMES[pts]} · ${pts} of 5 points` : "Not answered · 0 of 5 points";
+        div.classList.add("show");
+        return;
+      }
+      max += 1;
+      labels[item.a].classList.add("is-answer");
+      if (chosen && Number(chosen.value) === item.a) {
+        score++; div.classList.add("correct"); verdict.textContent = "Correct";
+      } else {
+        div.classList.add("wrong");
+        if (chosen) labels[Number(chosen.value)].classList.add("is-wrong");
+        verdict.textContent = chosen ? "Not quite" : "Not answered";
+      }
+      div.classList.add("show");
+    });
+    const pct = Math.round(score / max * 100);
+    const el = document.getElementById("score");
+    const unit = QUESTIONS.some(q => q.p) ? " points" : "";
+    el.textContent = `You scored ${score} / ${max}${unit} (${pct}%) — ${pct >= 60 ? "Pass" : "Below the 60% pass mark"}`;
+    const bd = document.getElementById("breakdown");
+    if (bd && QUESTIONS.some(q => q.t)) {
+      const topics = {};
+      QUESTIONS.forEach((item, i) => {
+        const t = item.t || "Other"; topics[t] = topics[t] || [0, 0];
+        if (item.p) { topics[t][0] += item._pts || 0; topics[t][1] += 5; return; }
+        topics[t][1]++;
+        if (document.getElementById("q" + i).classList.contains("correct")) topics[t][0]++;
+      });
+      let rows = "";
+      Object.entries(topics).forEach(([t, [c, n]]) => {
+        const p = Math.round(c / n * 100);
+        rows += `<tr><td>${t}</td><td>${c} / ${n}</td><td><span class="bar"><i style="width:${p}%"></i></span></td><td class="${p >= 60 ? "ok" : "weak"}">${p >= 60 ? "OK" : "Revise"}</td></tr>`;
+      });
+      bd.innerHTML = `<h3>Your score by topic</h3><div class="table-wrap"><table><tr><th>Topic</th><th>Score</th><th></th><th></th></tr>${rows}</table></div>`;
+      bd.hidden = false;
+    }
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  document.getElementById("submitBtn").onclick = grade;
+  document.getElementById("resetBtn").onclick = () => {
+    stop(); seconds = MINUTES * 60; renderTime();
+    document.querySelectorAll(".q input[type=radio]").forEach(r => r.checked = false);
+    document.querySelectorAll(".q").forEach(d => {
+      d.classList.remove("show", "correct", "wrong", "partial");
+      d.querySelectorAll("label").forEach(l => l.classList.remove("is-answer", "is-wrong", "is-partial"));
+      d.querySelectorAll(".pts").forEach(x => x.textContent = "");
+    });
+    document.getElementById("score").textContent = "";
+    const bd = document.getElementById("breakdown"); if (bd) { bd.hidden = true; bd.innerHTML = ""; }
+    countAnswered();
+    document.getElementById("quiz").scrollIntoView({ behavior: "smooth" });
+  };
+})();
+
+</script>
+<footer class="site"><div class="in"><i class="fa fa-heart" style="font-size:24px;color:red">&hearts;</i> Created by Vinay Somashekara | Unofficial study material for the TOGAF Standard, 10th Edition. TOGAF is a registered trademark of The Open Group.</div></footer>
+</body>
+</html>

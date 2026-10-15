@@ -15,6 +15,7 @@
   --mark: rgba(230, 0, 40, 0.16);   /* highlighter */
   --ok: #1f7a4a; --ok-soft: #e8f4ed;
   --bad: #c4001f; --bad-soft: #fde9ec;
+  --mid: #8a5a00; --mid-soft: #fff3d6;
   --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
 }
@@ -25,6 +26,7 @@
     --rule: #333333; --paper: #141414; --wash: #1d1d1d;
     --mark: rgba(255, 77, 94, 0.26);
     --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+    --mid: #f2c14e; --mid-soft: #332a12;
   }
 }
 :root[data-theme="dark"] {
@@ -33,6 +35,7 @@
   --rule: #333333; --paper: #141414; --wash: #1d1d1d;
   --mark: rgba(255, 77, 94, 0.26);
   --ok: #5fcf8f; --ok-soft: #16301f; --bad: #ff7a86; --bad-soft: #3a1a1e;
+    --mid: #f2c14e; --mid-soft: #332a12;
 }
 
 * { box-sizing: border-box; }
@@ -169,6 +172,14 @@ button.secondary { background: transparent; color: var(--ink); }
 .q input:focus-visible + .lt { outline: 2px solid var(--red); outline-offset: 2px; }
 label.is-answer { background: var(--ok-soft) !important; border: 2px solid var(--ok) !important; padding: 10px 13px !important; }
 label.is-wrong { background: var(--bad-soft) !important; border: 2px solid var(--bad) !important; padding: 10px 13px !important; }
+label.is-partial { background: var(--mid-soft) !important; border: 2px solid var(--mid) !important; padding: 10px 13px !important; }
+.q .pts { margin-left: auto; padding-left: 10px; white-space: nowrap; font: 800 12px/1.6 var(--sans); color: var(--muted); }
+.q .is-answer .pts { color: var(--ok); }
+.q.partial .reason { border-left-color: var(--mid); }
+.q.partial .verdict { color: var(--mid); }
+.scenario { background: var(--wash); border-left: 4px solid var(--ink); padding: 14px 18px; margin: 10px 0 14px; font: 400 17px/1.6 var(--serif); }
+.scenario p { margin: 0 0 .8em; }
+.scenario > :last-child { margin-bottom: 0; }
 .reason { display: none; margin: 14px 0 6px; padding: 14px 16px; background: var(--wash); border-left: 4px solid var(--ink); font-size: 16px; line-height: 1.55; }
 .show .reason { display: block; }
 .q.correct .reason { border-left-color: var(--ok); }

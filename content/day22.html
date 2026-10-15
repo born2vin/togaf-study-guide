@@ -1,0 +1,79 @@
+<p>The final Foundation day covers the <b>TOGAF Series Guides</b> and the two classic TOGAF reference models: the <b>Technical Reference Model (TRM)</b> and the <b>Integrated Information Infrastructure Reference Model (III-RM)</b>. It also introduces business capabilities and value streams, two of the most widely used Series Guide topics.</p>
+
+<h2 id="guides">1. The TOGAF Series Guides</h2>
+<div class="card def">
+  The <b>Series Guides</b> give <b>context-specific</b> guidance on applying the TOGAF Standard. They sit alongside the stable Fundamental Content and can be updated more often.
+</div>
+<div class="table-wrap">
+<table>
+  <tr><th>Area</th><th>Example Series Guides</th></tr>
+  <tr><td><b>Business Architecture</b></td><td>Business Capabilities · Value Streams · Business Models · Business Scenarios · Information Mapping · Organization Mapping</td></tr>
+  <tr><td><b>Reference models</b></td><td>Technical Reference Model (TRM) · Integrated Information Infrastructure Reference Model (III-RM)</td></tr>
+  <tr><td><b>EA capability</b></td><td>Architecture Maturity Models · Architecture Skills Framework</td></tr>
+  <tr><td><b>Styles and concerns</b></td><td>Enabling Enterprise Agility · Integrating Risk and Security · Microservices Architecture · Service-Oriented Architecture</td></tr>
+</table>
+</div>
+<div class="card tip trap">The Part 1 exam is based on the <b>Fundamental Content</b> and its core concepts. You should know what the Series Guides are and recognize the main reference models, but you don't need every guide in detail.</div>
+
+<h2 id="trm">2. The Technical Reference Model (TRM)</h2>
+<p>The TRM is a <b>Foundation Architecture</b>: a generic model and taxonomy of platform services that any organization can use as a starting point for its Technology Architecture.</p>
+<div class="chain">
+  <div class="box"><b>Application Software</b><small>business applications and infrastructure applications</small></div>
+  <span class="arrow">↕ Application Platform Interface</span>
+  <div class="box"><b>Application Platform</b><small>the set of platform services applications rely on</small></div>
+  <span class="arrow">↕ Communications Infrastructure Interface</span>
+  <div class="box"><b>Communications Infrastructure</b><small>networks and communications services</small></div>
+</div>
+<ul>
+  <li><b>Platform services</b> are grouped into categories, such as data management, data interchange, user interface, security, transaction processing, operating system, network services, and system and network management.</li>
+  <li><b>Qualities</b> such as availability, security and manageability apply across the model.</li>
+  <li>Its value is a <b>common vocabulary</b> and a checklist: it helps architects make sure no important platform service is forgotten.</li>
+</ul>
+
+<h2 id="iiirm">3. The Integrated Information Infrastructure Reference Model (III-RM)</h2>
+<p>The III-RM is a <b>Common Systems Architecture</b> and a <b>subset of the TRM</b>. It expands the application software and application platform areas to support <b>Boundaryless Information Flow™</b>: getting the right information to the right people at the right time, securely.</p>
+<div class="table-wrap">
+<table>
+  <tr><th>Component</th><th>Role</th></tr>
+  <tr><td><b>Business applications</b></td><td>
+    <b>Brokering applications</b> manage requests from clients to multiple servers<br>
+    <b>Information provider applications</b> provide responses to client requests and rule-based access to data<br>
+    <b>Information consumer applications</b> deliver content to the user and act as clients</td></tr>
+  <tr><td><b>Infrastructure applications</b></td><td><b>Development tools</b> and <b>management utilities</b></td></tr>
+  <tr><td><b>Application platform</b></td><td>The services that the applications run on</td></tr>
+  <tr><td><b>Interfaces and qualities</b></td><td>Connect the components and apply attributes such as security and manageability</td></tr>
+</table>
+</div>
+
+<h2 id="capabilities">4. Business Capabilities</h2>
+<ul>
+  <li>A <b>business capability</b> is a particular ability that a business may possess or exchange to achieve a specific purpose.</li>
+  <li>A <b>capability map</b> is usually organized in levels: a few top-level capabilities, each broken down into more detailed ones.</li>
+  <li>Capabilities are <b>stable</b> and independent of the current organization structure, process or technology.</li>
+  <li><b>Heat mapping</b> a capability map, coloring capabilities by maturity, importance or investment need, is a powerful way to target change.</li>
+</ul>
+
+<h2 id="valuestreams">5. Value Streams</h2>
+<ul>
+  <li>A <b>value stream</b> is an end-to-end collection of value-adding activities that create an overall result for a customer, stakeholder or end user.</li>
+  <li>It is made up of <b>value stream stages</b>, each with entrance and exit criteria and the value it adds.</li>
+  <li>Value streams describe value from the <b>stakeholder's</b> point of view, not the internal process.</li>
+  <li><b>Cross-mapping</b> value stream stages to the capabilities that enable them shows which capabilities matter most for delivering value.</li>
+</ul>
+<div class="chain">
+  <div class="box"><b>Value stream</b><small>how value is delivered to a stakeholder</small></div>
+  <span class="arrow">↓ each stage is enabled by</span>
+  <div class="box"><b>Business capabilities</b><small>what the business must be able to do</small></div>
+  <span class="arrow">↓ realized through</span>
+  <div class="box"><b>Processes, people, information and technology</b><small>how it is actually done</small></div>
+</div>
+
+<h2 id="summary">The takeaway</h2>
+<div class="card">
+  <ul>
+    <li><b>Series Guides</b> give context-specific guidance and can evolve faster than the Fundamental Content.</li>
+    <li>The <b>TRM</b> is a <b>Foundation Architecture</b>: Application Software, Application Platform and Communications Infrastructure, joined by two interfaces.</li>
+    <li>The <b>III-RM</b> is a <b>Common Systems Architecture</b> and subset of the TRM, supporting <b>Boundaryless Information Flow</b>, with brokering, provider and consumer applications.</li>
+    <li><b>Capabilities</b> describe what the business does; <b>value streams</b> show how value reaches a stakeholder; cross-mapping links the two.</li>
+  </ul>
+</div>
